@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8fmwcegp1us"]
+
+[ext_resource type="Script" path="res://Scripts/SkeletonPathFollow3D.gd" id="1_gd1nb"]
+
+[node name="SkeletonPathFollow3D" type="PathFollow3D"]
+script = ExtResource("1_gd1nb")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

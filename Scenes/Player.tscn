@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgpjxoygnvyy4"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_1fhis"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_euj4i"]
+
+[node name="Player" type="CharacterBody3D"]
+disable_mode = 2
+floor_max_angle = 0.802851
+script = ExtResource("1_1fhis")
+
+[node name="body" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_euj4i")
+
+[node name="rotation_helper" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="rotation_helper"]
