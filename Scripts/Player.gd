@@ -111,3 +111,6 @@ func slow_move_back(pos:Vector3, delta:float, move_strength:float):
 	var current_position = self.get_global_position() # get the position 
 	self.position = self.position.lerp(pos, delta * move_strength)
 	
+
+
+# this is a test if you can commit 
