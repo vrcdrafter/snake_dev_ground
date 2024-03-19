@@ -40,10 +40,28 @@ gi_mode = 0
 mesh = ExtResource("1_s0lyc")
 
 [node name="Player" parent="." instance=ExtResource("3_8gvmm")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.35791, 1.30242, 27.1282)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -43.0381, 1.30242, -0.75403)
 
 [node name="Snake" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.58759, 0.0424972, 30.2918)
+target = NodePath("../Player")
+max_speed = 2.0
+acceleration = 0.5
+
+[node name="Snake2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6765, 0.0424972, 13.0036)
+target = NodePath("../Player")
+max_speed = 2.0
+acceleration = 0.5
+
+[node name="Snake3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6765, 0.0424972, -28.0632)
+target = NodePath("../Player")
+max_speed = 2.0
+acceleration = 0.5
+
+[node name="Snake4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5685, 0.0424972, 1.25185)
 target = NodePath("../Player")
 max_speed = 2.0
 acceleration = 0.5
@@ -73,6 +91,37 @@ script = ExtResource("4_g768y")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3497, 0.999507, 34.3061)
 mesh = SubResource("BoxMesh_txush")
 
+[node name="cube2" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3497, 0.999507, 6.15189)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube3" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.7545, 0.999507, -30.842)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube4" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.341, 0.999507, -30.842)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube5" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.2043, 0.999507, -22.3388)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube6" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.2043, 0.999507, -1.61328)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube7" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.8791, 0.999507, -1.61328)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube8" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.92887, 0.999507, -59.6916)
+mesh = SubResource("BoxMesh_txush")
+
 [connection signal="remove_mouse" from="Player" to="Button" method="_on_player_remove_mouse"]
 [connection signal="ensnared" from="Snake" to="Player" method="_on_snake_ensnared"]
+[connection signal="ensnared" from="Snake2" to="Player" method="_on_snake_ensnared"]
+[connection signal="ensnared" from="Snake3" to="Player" method="_on_snake_ensnared"]
+[connection signal="ensnared" from="Snake4" to="Player" method="_on_snake_ensnared"]
 [connection signal="button_down" from="Button" to="Player" method="_on_button_button_down"]

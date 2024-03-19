@@ -22,6 +22,7 @@ signal ensnared
 var snake_state:String = "player_seeking"
 # these are all of the object that I want the snakes to idly move to .
 var patrol_objects :Array = []
+var pick_new_object :bool = false
 
 #Class for easier storage and update of curve points
 class CurvePoint:
@@ -54,10 +55,14 @@ func _physics_process(delta : float):
 
 	if snake_state == "player_seeking":
 		target = get_node("../Player")
-		print("target is player ")
+		
 	if snake_state == "patrol":
-		# get a object to track every 10 seconds . 
-		target = patrol_objects[0]
+		# logic to pick new cub if close enough  .
+		if ((target.global_position - path_follow.global_position).length() < 2.0):
+			pick_new_object = true
+		if pick_new_object: 
+			target = patrol_objects.pick_random()
+			pick_new_object = false
 	#Vector3.RIGHT because that's way snake is facing
 	var targetVel : Vector3 = Vector3.RIGHT * max_speed
 	nav_agent.velocity = nav_agent.velocity.move_toward(targetVel, delta * acceleration)
@@ -66,7 +71,8 @@ func _physics_process(delta : float):
 	if(!_ensnared && movement_path.get_baked_length() - path_follow.progress < path_update_len):
 		_append_path()
 	if((target.global_position - path_follow.global_position).length() < path_update_len * 2 && !_ensnared):
-		
+		# if it reaches a cube go pick another one
+
 		_ensnare_target()
 		_ensnared = true
 		
@@ -74,16 +80,16 @@ func _physics_process(delta : float):
 	# check for snake if missed target and need to continue pursuit , IGNORE IF CUBE
 	if (_ensnared and ((target.global_position - path_follow.global_position).length() > 8.0) and ((target.global_position - path_follow.global_position).length() < 16.0)):
 		_ensnared = false
-	# condition to go into patrol mode 
-	if !_ensnared and (target.global_position - path_follow.global_position).length() > 16.0:
+	# condition to go into patrol mode if too far away from player
+	if !_ensnared and ((get_node("../Player").global_position - path_follow.global_position).length() > 16.0):
 		snake_state = "patrol"
-		print("patrol mode")
+		pick_new_object = true
+		
 		# condition to go into seek player mode 
-	print((get_node("../Player").global_position - path_follow.global_position).length())
 	if ((get_node("../Player").global_position - path_follow.global_position).length() < 8) :
 		snake_state = "player_seeking"
-		print("seeking mode")
 		
+		# condition to seek new patrol target
 	
 	
 
