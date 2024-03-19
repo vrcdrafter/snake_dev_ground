@@ -48,12 +48,6 @@ target = NodePath("../Player")
 max_speed = 2.0
 acceleration = 0.5
 
-[node name="Snake2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.929, 0.0424972, 20.6306)
-target = NodePath("../Player")
-max_speed = 2.0
-acceleration = 0.5
-
 [node name="SunLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.322514, 0.946565, 0, -0.946565, -0.322514, 0, 11.3461, 0)
 light_color = Color(0.952941, 0.94902, 0.803922, 1)
@@ -75,15 +69,10 @@ script = ExtResource("4_g768y")
 
 [node name="idle_objects" type="Node3D" parent="."]
 
-[node name="cube1" type="MeshInstance3D" parent="idle_objects"]
+[node name="cube1" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3497, 0.999507, 34.3061)
-mesh = SubResource("BoxMesh_txush")
-
-[node name="cube2" type="MeshInstance3D" parent="idle_objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0373, 0.999507, 12.7399)
 mesh = SubResource("BoxMesh_txush")
 
 [connection signal="remove_mouse" from="Player" to="Button" method="_on_player_remove_mouse"]
 [connection signal="ensnared" from="Snake" to="Player" method="_on_snake_ensnared"]
-[connection signal="ensnared" from="Snake2" to="Player" method="_on_snake_ensnared"]
 [connection signal="button_down" from="Button" to="Player" method="_on_button_button_down"]

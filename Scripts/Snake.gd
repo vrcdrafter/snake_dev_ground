@@ -17,11 +17,11 @@ extends Node3D
 @onready var nav_agent : NavigationAgent3D = $SnakePath/SkeletonPathFollow3D/steve/NavAgent
 
 var _nav_map : RID
-var _ensnared : bool = false
+@export var _ensnared : bool = false
 signal ensnared 
 var snake_state:String = "player_seeking"
 # these are all of the object that I want the snakes to idly move to .
-var patrol_objects = []
+var patrol_objects :Array = []
 
 #Class for easier storage and update of curve points
 class CurvePoint:
@@ -52,6 +52,12 @@ func _ready():
 
 func _physics_process(delta : float):
 
+	if snake_state == "player_seeking":
+		target = get_node("../Player")
+		print("target is player ")
+	if snake_state == "patrol":
+		# get a object to track every 10 seconds . 
+		target = patrol_objects[0]
 	#Vector3.RIGHT because that's way snake is facing
 	var targetVel : Vector3 = Vector3.RIGHT * max_speed
 	nav_agent.velocity = nav_agent.velocity.move_toward(targetVel, delta * acceleration)
@@ -62,14 +68,22 @@ func _physics_process(delta : float):
 	if((target.global_position - path_follow.global_position).length() < path_update_len * 2 && !_ensnared):
 		
 		_ensnare_target()
+		_ensnared = true
 		
 		emit_signal("ensnared")
-	# check for snake if missed target and need to continue pursuit
+	# check for snake if missed target and need to continue pursuit , IGNORE IF CUBE
 	if (_ensnared and ((target.global_position - path_follow.global_position).length() > 8.0) and ((target.global_position - path_follow.global_position).length() < 16.0)):
 		_ensnared = false
-	# track random object
+	# condition to go into patrol mode 
 	if !_ensnared and (target.global_position - path_follow.global_position).length() > 16.0:
-		target = patrol_objects[0]
+		snake_state = "patrol"
+		print("patrol mode")
+		# condition to go into seek player mode 
+	print((get_node("../Player").global_position - path_follow.global_position).length())
+	if ((get_node("../Player").global_position - path_follow.global_position).length() < 8) :
+		snake_state = "player_seeking"
+		print("seeking mode")
+		
 	
 	
 
@@ -125,7 +139,6 @@ func _ensnare_target():
 		cp.trans(targetTransform)
 		cp.loc(path_node)
 		movement_path.add_point(cp.point, cp.point_in, cp.point_out)
-	_ensnared = true
 
 #Avoidance is not working anyway...
 func _on_nav_agent_velocity_computed(safe_velocity : Vector3):
