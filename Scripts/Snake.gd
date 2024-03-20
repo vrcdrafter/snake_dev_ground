@@ -5,9 +5,9 @@ extends Node3D
 #How much (in meters) path is expanded each time when needed
 @export var path_update_len : float = 2.0
 #Max speed of snake
-@export var max_speed : float = 5.0
+@export var max_speed : float = 100
 #Acceleration of snake
-@export var acceleration : float = 1.0
+@export var acceleration : float = 9	
 #Higher values makes path corners more curved
 @export var path_smoothing : float = 0.2
 
@@ -45,7 +45,6 @@ class CurvePoint:
 func _ready():
 	_nav_map = get_world_3d().get_navigation_map()
 	nav_agent.max_speed = max_speed
-	
 	
 	for child in get_node("../idle_objects").get_children():
 		patrol_objects.append(child)
@@ -154,4 +153,5 @@ func _ensnare_target():
 
 #Avoidance is not working anyway...
 func _on_nav_agent_velocity_computed(safe_velocity : Vector3):
-	nav_agent.velocity = safe_velocity
+	#nav_agent.velocity = safe_velocity
+	pass
