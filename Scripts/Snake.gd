@@ -58,10 +58,17 @@ func _physics_process(delta : float):
 		
 	if snake_state == "patrol":
 		# logic to pick new cub if close enough  .
-		if ((target.global_position - path_follow.global_position).length() < 2.0):
+		if ((target.global_position - path_follow.global_position).length() < 3.0):
+			print("switch patrol object")
 			pick_new_object = true
 		if pick_new_object: 
-			target = patrol_objects.pick_random()
+			# to make sure the next target is different 
+			var next_target = patrol_objects.pick_random()
+			while next_target == target:
+				print("bad target pick new one")
+				next_target = patrol_objects.pick_random()
+			print("good target continue")
+			target = next_target
 			pick_new_object = false
 	#Vector3.RIGHT because that's way snake is facing
 	var targetVel : Vector3 = Vector3.RIGHT * max_speed
@@ -70,23 +77,22 @@ func _physics_process(delta : float):
 	path_follow.progress += nav_agent.velocity.length() * delta
 	if(!_ensnared && movement_path.get_baked_length() - path_follow.progress < path_update_len):
 		_append_path()
-	if((target.global_position - path_follow.global_position).length() < path_update_len * 2 && !_ensnared):
+	if((get_node("../Player").global_position - path_follow.global_position).length() < path_update_len * 2 && !_ensnared):
 		# if it reaches a cube go pick another one
-
 		_ensnare_target()
 		_ensnared = true
 		
 		emit_signal("ensnared")
 	# check for snake if missed target and need to continue pursuit , IGNORE IF CUBE
-	if (_ensnared and ((target.global_position - path_follow.global_position).length() > 8.0) and ((target.global_position - path_follow.global_position).length() < 16.0)):
+	if (_ensnared and ((target.global_position - path_follow.global_position).length() > 4.0) and ((target.global_position - path_follow.global_position).length() < 16.0)):
 		_ensnared = false
 	# condition to go into patrol mode if too far away from player
-	if !_ensnared and ((get_node("../Player").global_position - path_follow.global_position).length() > 16.0):
+	if !_ensnared and ((get_node("../Player").global_position - path_follow.global_position).length() > 16.0) and not (snake_state == "patrol"):
 		snake_state = "patrol"
+		print("try to go into patrol")
 		pick_new_object = true
-		
 		# condition to go into seek player mode 
-	if ((get_node("../Player").global_position - path_follow.global_position).length() < 8) :
+	if ((get_node("../Player").global_position - path_follow.global_position).length() < 14) :
 		snake_state = "player_seeking"
 		
 		# condition to seek new patrol target
