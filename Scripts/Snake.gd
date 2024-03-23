@@ -5,9 +5,9 @@ extends Node3D
 #How much (in meters) path is expanded each time when needed
 @export var path_update_len : float = 2.0
 #Max speed of snake
-@export var max_speed : float = 100
+@export var max_speed : float = 3.0
 #Acceleration of snake
-@export var acceleration : float = 9	
+@export var acceleration : float = .5
 #Higher values makes path corners more curved
 @export var path_smoothing : float = 0.2
 
@@ -48,7 +48,6 @@ func _ready():
 	
 	for child in get_node("../idle_objects").get_children():
 		patrol_objects.append(child)
-		print(child)
 
 func _physics_process(delta : float):
 
@@ -58,15 +57,12 @@ func _physics_process(delta : float):
 	if snake_state == "patrol":
 		# logic to pick new cub if close enough  .
 		if ((target.global_position - path_follow.global_position).length() < 3.0):
-			print("switch patrol object")
 			pick_new_object = true
 		if pick_new_object: 
 			# to make sure the next target is different 
 			var next_target = patrol_objects.pick_random()
 			while next_target == target:
-				print("bad target pick new one")
 				next_target = patrol_objects.pick_random()
-			print("good target continue")
 			target = next_target
 			pick_new_object = false
 	#Vector3.RIGHT because that's way snake is facing
@@ -76,8 +72,9 @@ func _physics_process(delta : float):
 	path_follow.progress += nav_agent.velocity.length() * delta
 	if(!_ensnared && movement_path.get_baked_length() - path_follow.progress < path_update_len):
 		_append_path()
-	if((get_node("../Player").global_position - path_follow.global_position).length() < path_update_len * 2 && !_ensnared):
+	if((get_node("../Player").global_position - path_follow.global_position).length() < path_update_len * 1 && !_ensnared):
 		# if it reaches a cube go pick another one
+		
 		_ensnare_target()
 		_ensnared = true
 		
@@ -88,7 +85,7 @@ func _physics_process(delta : float):
 	# condition to go into patrol mode if too far away from player
 	if !_ensnared and ((get_node("../Player").global_position - path_follow.global_position).length() > 16.0) and not (snake_state == "patrol"):
 		snake_state = "patrol"
-		print("try to go into patrol")
+		
 		pick_new_object = true
 		# condition to go into seek player mode 
 	if ((get_node("../Player").global_position - path_follow.global_position).length() < 14) :

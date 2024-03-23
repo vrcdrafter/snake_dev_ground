@@ -7,7 +7,8 @@ const SPEED = 5.0
 const SPRINT_MULT = 2
 const JUMP_VELOCITY = 4.5
 const MOUSE_SENSITIVITY = 0.06
-
+@onready var Game_over :Control = get_node("../Control")
+@onready var Game_over_timer :Timer = get_node("../Game_over_timer")
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -19,6 +20,10 @@ signal remove_mouse
 # esnanremente data
 var ensnared = false
 var ensnared_position:Vector3 
+var snakes_around_you :int = 0 
+# for seeding the sine wave for heavier ensarement snap back
+var time = 1.1
+var timer_oneshot :bool = true
 
 func _ready():
 	camera = $rotation_helper/Camera3D
@@ -59,7 +64,7 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and (snakes_around_you < 2):
 		velocity.y = JUMP_VELOCITY
 	
 	# This just controls acceleration. Don't touch it.
@@ -71,6 +76,10 @@ func _physics_process(delta):
 		accel = DEACCEL
 		moving = false
 
+	if snakes_around_you == 2:
+		if timer_oneshot:
+			Game_over_timer.start()
+			timer_oneshot = false
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with a custom keymap depending on your control scheme. These strings default to the arrow keys layout.
@@ -91,9 +100,11 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	if ensnared:
-		slow_move_back(ensnared_position,delta,4.0)
+		time+= delta
+		slow_move_back(ensnared_position,delta,wave(1,3,time,delta)+8)
 		
 		if ((ensnared_position-self.get_global_position()).length() > .58):
+			snakes_around_you = 0 
 			ensnared = false
 			
 
@@ -104,13 +115,33 @@ func _on_button_button_down():
 
 func _on_snake_ensnared():
 	ensnared = true
-	ensnared_position = self.get_global_position()
-
+	ensnared_position = self.get_global_position() # may want a different position , 
+	snakes_around_you += 1
 
 func slow_move_back(pos:Vector3, delta:float, move_strength:float):
 	var current_position = self.get_global_position() # get the position 
 	self.position = self.position.lerp(pos, delta * move_strength)
 	
+	
 
+func wave(amplitude:float, freq:int, time:float, delta):
+		
+		freq = 1
+		amplitude = .1
+		var variation 
+		variation = sin(time * freq) * amplitude
+		return variation
 
 # this is a test if you can commit 
+
+
+func _on_game_over_timer_timeout():
+	print("ten seconds up ")
+	Game_over.visible = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func _on_button_pressed():
+	get_tree().reload_current_scene()
+	
+	
