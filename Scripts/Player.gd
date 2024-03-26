@@ -101,7 +101,7 @@ func _physics_process(delta):
 	
 	if ensnared:
 		time+= delta
-		slow_move_back(ensnared_position,delta,wave(1,3,time,delta)+8)
+		slow_move_back(ensnared_position,delta,wave(1,3,time,delta)+8.0)
 		
 		if ((ensnared_position-self.get_global_position()).length() > .58):
 			snakes_around_you = 0 

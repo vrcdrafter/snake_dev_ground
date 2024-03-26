@@ -1,4 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://deeeqw02erxpd"]
 
 [resource]
-albedo_color = Color(0.168627, 0.0745098, 0.0235294, 1)
+diffuse_mode = 1
+albedo_color = Color(0.427451, 0.396078, 0.168627, 1)
+disable_receive_shadows = true

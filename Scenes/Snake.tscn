@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdcsvccg7p3hs"]
+[gd_scene load_steps=6 format=3 uid="uid://bdcsvccg7p3hs"]
 
 [ext_resource type="PackedScene" uid="uid://b8fmwcegp1us" path="res://Scenes/SkeletonPathFollow3D.tscn" id="1_ex0k2"]
 [ext_resource type="Script" path="res://Scripts/Snake.gd" id="1_soglc"]
 [ext_resource type="PackedScene" uid="uid://cpado5sjppwak" path="res://Imported/steve.glb" id="2_p4aj0"]
+[ext_resource type="Material" uid="uid://deeeqw02erxpd" path="res://Materials/GroundMaterial.tres" id="4_ix6co"]
 
 [sub_resource type="Curve3D" id="Curve3D_ip3j1"]
 resource_local_to_scene = true
@@ -26,8 +27,17 @@ loop = false
 
 [node name="steve" parent="SnakePath/SkeletonPathFollow3D" instance=ExtResource("2_p4aj0")]
 
+[node name="Skeleton3D" parent="SnakePath/SkeletonPathFollow3D/steve/Armature" index="0"]
+bones/0/rotation = Quaternion(-1.10986e-07, 2.66925e-08, 0.707107, 0.707107)
+bones/3/rotation = Quaternion(1.42109e-14, -2.38419e-07, 1.55294e-22, 1)
+
+[node name="Cube_001" parent="SnakePath/SkeletonPathFollow3D/steve/Armature/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("4_ix6co")
+
 [node name="NavAgent" type="NavigationAgent3D" parent="SnakePath/SkeletonPathFollow3D/steve"]
 radius = 2.0
 max_speed = 30.0
 
 [connection signal="velocity_computed" from="SnakePath/SkeletonPathFollow3D/steve/NavAgent" to="." method="_on_nav_agent_velocity_computed"]
+
+[editable path="SnakePath/SkeletonPathFollow3D/steve"]
