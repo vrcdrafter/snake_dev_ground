@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cttmnlxwbspd8"]
+
+[ext_resource type="Texture2D" uid="uid://5db3ibvc4wq2" path="res://textures/key.png" id="1_cto2i"]
+[ext_resource type="Script" path="res://Scenes/key.gd" id="2_rwkr0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_usnao"]
+size = Vector3(2.25684, 2.28931, 1.6084)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-0.754279, 0, -0.656909, 0, 1, 0, 0.656909, 0, -0.754279, 0, 0, 0)
+texture = ExtResource("1_cto2i")
+script = ExtResource("2_rwkr0")
+
+[node name="Area3D" type="Area3D" parent="Sprite3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Area3D"]
+shape = SubResource("BoxShape3D_usnao")
+
+[connection signal="body_entered" from="Sprite3D/Area3D" to="Sprite3D" method="_on_area_3d_body_entered"]

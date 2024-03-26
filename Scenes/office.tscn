@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://14eppnc7qeap"]
+
+[ext_resource type="PackedScene" uid="uid://btnatueauofad" path="res://level_data/office.glb" id="1_xo7rm"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="office" parent="." instance=ExtResource("1_xo7rm")]

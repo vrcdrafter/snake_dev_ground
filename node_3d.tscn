@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd0jm8t13sw32"]
+
+[ext_resource type="Script" path="res://Node3D.gd" id="1_jf3xx"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_jf3xx")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
