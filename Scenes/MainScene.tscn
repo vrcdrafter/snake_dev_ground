@@ -44,6 +44,7 @@ mesh = ExtResource("1_ax0kv")
 
 [node name="Player" parent="." instance=ExtResource("3_8gvmm")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.1473, 1.30242, -31.664)
+collision_layer = 3
 
 [node name="Snake" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.61313, 0.0424972, 30.2918)
@@ -211,7 +212,7 @@ spot_attenuation = 0.170755
 spot_angle = 42.2129
 
 [node name="SpotLight3D5" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -41.2577, 20.8869, -14.7478)
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -41.2577, 20.9349, -11.7136)
 light_energy = 11.633
 light_bake_mode = 1
 shadow_enabled = true
@@ -239,7 +240,7 @@ spot_attenuation = 0.170755
 spot_angle = 42.2129
 
 [node name="SpotLight3D7" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 3.68678, 23.7957, 28.4676)
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 3.42398, 23.7957, 28.4676)
 light_energy = 11.633
 light_bake_mode = 1
 shadow_enabled = true
@@ -281,11 +282,23 @@ spot_range = 44.426
 spot_attenuation = 0.170755
 spot_angle = 42.2129
 
-[node name="key" parent="." instance=ExtResource("5_2q7fl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7295, 1.8351, -29.5102)
+[node name="key_1" parent="." instance=ExtResource("5_2q7fl")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -44.1101, 1.8351, -11.2281)
 
-[node name="Sprite3D" parent="key" index="0"]
-transform = Transform3D(-0.110572, 0, 0.995058, 0, 1, 0, -0.995058, 0, -0.110572, 0, 0, 0)
+[node name="Sprite3D" parent="key_1" index="0"]
+transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
+
+[node name="key_2" parent="." instance=ExtResource("5_2q7fl")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 18.2305, 1.07402, 18.0838)
+
+[node name="Sprite3D" parent="key_2" index="0"]
+transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
+
+[node name="key_3" parent="." instance=ExtResource("5_2q7fl")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 14.0702, 1.8351, -30.3022)
+
+[node name="Sprite3D" parent="key_3" index="0"]
+transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
 
 [connection signal="remove_mouse" from="Player" to="Button" method="_on_player_remove_mouse"]
 [connection signal="ensnared" from="Snake" to="Player" method="_on_snake_ensnared"]
@@ -298,4 +311,6 @@ transform = Transform3D(-0.110572, 0, 0.995058, 0, 1, 0, -0.995058, 0, -0.110572
 [connection signal="pressed" from="Control/Button" to="Player" method="_on_button_pressed"]
 [connection signal="timeout" from="Game_over_timer" to="Player" method="_on_game_over_timer_timeout"]
 
-[editable path="key"]
+[editable path="key_1"]
+[editable path="key_2"]
+[editable path="key_3"]

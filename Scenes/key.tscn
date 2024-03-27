@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cttmnlxwbspd8"]
+[gd_scene load_steps=5 format=3 uid="uid://cttmnlxwbspd8"]
 
 [ext_resource type="Texture2D" uid="uid://5db3ibvc4wq2" path="res://textures/key.png" id="1_cto2i"]
 [ext_resource type="Script" path="res://Scenes/key.gd" id="2_rwkr0"]
+[ext_resource type="AudioStream" uid="uid://6h2ps37gv7wg" path="res://sounds/keys.wav" id="3_5rlj0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_usnao"]
 size = Vector3(2.25684, 2.28931, 1.6084)
@@ -9,13 +10,20 @@ size = Vector3(2.25684, 2.28931, 1.6084)
 [node name="Node3D" type="Node3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-0.754279, 0, -0.656909, 0, 1, 0, 0.656909, 0, -0.754279, 0, 0, 0)
+transform = Transform3D(-1.00049, 0, -0.0217371, 0, 1, 0, 0.0217371, 0, -1.00049, 0, 0, 0)
 texture = ExtResource("1_cto2i")
 script = ExtResource("2_rwkr0")
 
 [node name="Area3D" type="Area3D" parent="Sprite3D"]
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Area3D"]
 shape = SubResource("BoxShape3D_usnao")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Sprite3D"]
+transform = Transform3D(0.999275, 0, 0, 0, 1, 0, 0, 0, 0.999275, 0, -0.0747895, 0)
+stream = ExtResource("3_5rlj0")
+autoplay = true
+max_distance = 15.0
 
 [connection signal="body_entered" from="Sprite3D/Area3D" to="Sprite3D" method="_on_area_3d_body_entered"]
