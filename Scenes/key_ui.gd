@@ -2,6 +2,7 @@
 
 extends Sprite2D
 
+signal key_found
 
 func _ready():
 	modulate = Color(1,1,1,.1)
@@ -12,23 +13,29 @@ func _ready():
 	key1.connect("found_a_key", callable)
 	key2.connect("found_a_key", callable)
 	key3.connect("found_a_key", callable)
+	
+
 
 
 func dim_the_key(key_name):
-	print("dim the key ",key_name)
+	
 	
 	match  key_name:
 		"key_1":
 			if name == "key1":
 				modulate = Color(1,1,1,1)
+				key_found.emit()
 		"key_2":
 			if name == "key2":
 				modulate = Color(1,1,1,1)
+				key_found.emit()
 		"key_3":
 			if name == "key3":
 				modulate = Color(1,1,1,1)
+				key_found.emit()
 	
 	
+
 
 
 
