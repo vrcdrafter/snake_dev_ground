@@ -9,7 +9,7 @@ var locked_audio: Resource  = preload("res://sounds/zapsplat_household_door_hand
 var keys_found_num :int = 0
 
 func _process(delta):
-	print("number of keys found ", keys_found_num)
+
 	if keys_found_num == 3:
 		unlocked = true
 		

@@ -5,7 +5,7 @@ extends Node3D
 #How much (in meters) path is expanded each time when needed
 @export var path_update_len : float = 2.0
 #Max speed of snake
-@export var max_speed : float = 3.0
+@export var max_speed : float = 0.0
 #Acceleration of snake
 @export var acceleration : float = .5
 #Higher values makes path corners more curved
@@ -48,6 +48,11 @@ func _ready():
 	
 	for child in get_node("../idle_objects").get_children():
 		patrol_objects.append(child)
+
+	var start_button :Button = get_node("../Button")
+	var callable = Callable(self,"give_snake_speed")
+	start_button.connect("button_down",callable)
+
 
 func _physics_process(delta : float):
 
@@ -152,3 +157,10 @@ func _ensnare_target():
 func _on_nav_agent_velocity_computed(safe_velocity : Vector3):
 	#nav_agent.velocity = safe_velocity
 	pass
+	
+	
+func give_snake_speed():
+	print("snake has speed")
+	max_speed = 3
+
+
