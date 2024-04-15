@@ -13,7 +13,7 @@ func _process(delta):
 	if keys_found_num == 3:
 		unlocked = true
 		
-
+# weesle peesle
 
 
 func _on_area_3d_body_entered(body):
