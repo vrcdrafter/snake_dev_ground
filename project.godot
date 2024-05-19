@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Snake Redone"
-run/main_scene="res://Scenes/MainScene.tscn"
+run/main_scene="res://Scenes/level_2.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,16 @@ config/icon="res://icon.svg"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/proton_scatter/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://level_data/": "orange"
+}
 
 [input]
 

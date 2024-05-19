@@ -1,0 +1,70 @@
+[gd_scene load_steps=15 format=3 uid="uid://k0r86ow38pn5"]
+
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="1_32oam"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="2_2bhy1"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_grid.gd" id="3_udrry"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="4_60hlg"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_rotation.gd" id="5_qjchc"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="6_ramcx"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="7_o0kar"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="8_8uulm"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/common/physics_helper.gd" id="9_0xi06"]
+
+[sub_resource type="Resource" id="Resource_r330e"]
+script = ExtResource("3_udrry")
+spacing = Vector3(10, 10, 10)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_cyk8d"]
+script = ExtResource("4_60hlg")
+position = Vector3(3, 0, 13)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0, 0, 0)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_qvhgt"]
+script = ExtResource("5_qjchc")
+rotation = Vector3(0, 360, 0)
+snap_angle = Vector3(0, 0, 0)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_uowr5"]
+script = ExtResource("2_2bhy1")
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_r330e"), SubResource("Resource_cyk8d"), SubResource("Resource_qvhgt")])
+
+[sub_resource type="Resource" id="Resource_5dyof"]
+script = ExtResource("8_8uulm")
+radius = 78.7468
+
+[node name="ProtonScatter" type="Node3D"]
+script = ExtResource("1_32oam")
+modifier_stack = SubResource("Resource_uowr5")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+
+[node name="ScatterItem" type="Node3D" parent="."]
+script = ExtResource("6_ramcx")
+source = 0
+path = "../../Tree"
+
+[node name="ScatterShape" type="Node3D" parent="."]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+script = ExtResource("7_o0kar")
+shape = SubResource("Resource_5dyof")
+
+[node name="PhysicsHelper" type="Node" parent="."]
+script = ExtResource("9_0xi06")
+
+[node name="ScatterOutput" type="Marker3D" parent="."]
