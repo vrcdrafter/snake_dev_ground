@@ -15,8 +15,6 @@ func _ready():
 	key3.connect("found_a_key", callable)
 	
 
-
-
 func dim_the_key(key_name):
 	
 	
