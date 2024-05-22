@@ -17,6 +17,7 @@ var rotation_helper
 var dir = Vector3.ZERO
 var flashlight
 signal remove_mouse
+signal snakes_go
 # esnanremente data
 var ensnared = false
 var ensnared_position:Vector3 
@@ -31,7 +32,35 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+	# declare ensnarement connection
+	var snake_1_handle :Node3D = get_node("../Snake")
+	var snake_2_handle :Node3D = get_node("../Snake2")
+	var snake_3_handle :Node3D = get_node("../Snake3")
+	var snake_4_handle :Node3D = get_node("../Snake4")
+	var snake_5_handle :Node3D = get_node("../Snake5")
+	var snake_6_handle :Node3D = get_node("../Snake6")
+	
+	var timer_handle :Timer = get_node("../Game_over_timer")
+	var game_over_button_handle :Button = get_node("../Control/Button")
+	
+	var callable_ensnare = Callable(self, "_on_snake_ensnared")
+	var timer_callable = Callable(self, "_on_game_over_timer_timeout")
+	var reset_level = Callable(self,"_on_button_pressed")
+	snake_1_handle.connect("ensnared",callable_ensnare)
+	snake_2_handle.connect("ensnared",callable_ensnare)
+	snake_3_handle.connect("ensnared",callable_ensnare)
+	snake_4_handle.connect("ensnared",callable_ensnare)
+	snake_5_handle.connect("ensnared",callable_ensnare)
+	snake_6_handle.connect("ensnared",callable_ensnare)
+	timer_handle.connect("timeout",timer_callable)
+	game_over_button_handle.connect("pressed",reset_level)
+	
+	
+	#DOES NOT WORK AND NEEDS TO BE MOVED#
+	if GlobalVars.game_started == true:
+		emit_signal("remove_mouse")
+		emit_signal("snakes_go")
+	
 func _input(event):
 	# This section controls your player camera. Sensitivity can be changed.
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -111,7 +140,7 @@ func _physics_process(delta):
 func _on_button_button_down():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	emit_signal("remove_mouse")
-
+	GlobalVars.game_started = true
 
 func _on_snake_ensnared():
 	ensnared = true
@@ -143,5 +172,6 @@ func _on_game_over_timer_timeout():
 
 func _on_button_pressed():
 	get_tree().reload_current_scene()
+	
 	
 	

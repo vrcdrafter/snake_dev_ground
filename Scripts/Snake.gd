@@ -19,6 +19,7 @@ extends Node3D
 var _nav_map : RID
 @export var _ensnared : bool = false
 signal ensnared 
+
 var snake_state:String = "player_seeking"
 # these are all of the object that I want the snakes to idly move to .
 var patrol_objects :Array = []
@@ -48,10 +49,13 @@ func _ready():
 	
 	for child in get_node("../idle_objects").get_children():
 		patrol_objects.append(child)
-
+	# for getting the speed up on the snakes
 	var start_button :Button = get_node("../Button")
 	var callable = Callable(self,"give_snake_speed")
 	start_button.connect("button_down",callable)
+	# connecting another signal for player 
+	if GlobalVars.game_started == true:
+		give_snake_speed()
 
 
 func _physics_process(delta : float):

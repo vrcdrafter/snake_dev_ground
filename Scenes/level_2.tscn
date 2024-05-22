@@ -54,7 +54,7 @@ polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Arr
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_i6b4w"]
 
-[sub_resource type="Resource" id="Resource_wj4af"]
+[sub_resource type="Resource" id="Resource_plrgr"]
 script = ExtResource("6_4adq3")
 spacing = Vector3(5, 5, 5)
 enabled = true
@@ -63,7 +63,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_0hfya"]
+[sub_resource type="Resource" id="Resource_qbs00"]
 script = ExtResource("5_ut1k5")
 position = Vector3(3, 0, 13)
 rotation = Vector3(0, 0, 0)
@@ -74,7 +74,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_vavok"]
+[sub_resource type="Resource" id="Resource_3ygc2"]
 script = ExtResource("6_8f5w7")
 rotation = Vector3(0, 360, 0)
 snap_angle = Vector3(0, 0, 0)
@@ -84,9 +84,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_jhl12"]
+[sub_resource type="Resource" id="Resource_foiy0"]
 script = ExtResource("4_1ulp3")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_wj4af"), SubResource("Resource_0hfya"), SubResource("Resource_vavok")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_plrgr"), SubResource("Resource_qbs00"), SubResource("Resource_3ygc2")])
 
 [sub_resource type="Resource" id="Resource_5dyof"]
 script = ExtResource("9_c0ecb")
@@ -150,7 +150,7 @@ script = ExtResource("3_j3d0s")
 show_output_in_tree = true
 render_mode = 1
 keep_static_colliders = true
-modifier_stack = SubResource("Resource_jhl12")
+modifier_stack = SubResource("Resource_foiy0")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -1242,7 +1242,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0024, 0.0424972, -23.9337)
 
 [node name="Snake4" parent="." instance=ExtResource("20_m50yd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.5357, 0.0424972, -17.9321)
-visible = false
 
 [node name="Snake5" parent="." instance=ExtResource("20_m50yd")]
 transform = Transform3D(0.719776, 0, 0.694206, 0, 1, 0, -0.694206, 0, 0.719776, -21.3256, 0.0424972, -19.1526)
@@ -1281,6 +1280,10 @@ anchor_bottom = 0.8875
 grow_horizontal = 2
 grow_vertical = 2
 text = "game over play again ? "
+
+[node name="Game_over_timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
 
 [connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]
 

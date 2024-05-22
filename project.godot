@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Snake Redone"
-run/main_scene="res://Scenes/level_2.tscn"
+run/main_scene="res://Scenes/MainScene.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GlobalVars="*res://Scripts/global_vars.gd"
 
 [display]
 

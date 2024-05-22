@@ -41,6 +41,8 @@ func _on_area_3d_body_entered(body):
 	if unlocked:
 		audio.stream = un_locked_audio
 		audio.play()
+		
+		get_tree().change_scene_to_file("res://Scenes/level_2.tscn")
 		# add credits scene 
 	else:
 		audio.stream = locked_audio
