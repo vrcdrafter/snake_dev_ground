@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4olu8rca8807"]
+
+[ext_resource type="Shader" path="res://Materials/move.gdshader" id="1_y46ku"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_5echf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps3nd"]
+render_priority = 0
+shader = ExtResource("1_y46ku")
+shader_parameter/sway_speed = 1.0
+shader_parameter/sway_strength = 0.05
+shader_parameter/sway_phase_len = 8.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_5echf")
+surface_material_override/0 = SubResource("ShaderMaterial_ps3nd")

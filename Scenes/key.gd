@@ -5,9 +5,6 @@ extends Sprite3D
 @onready var colission_shape :Area3D = $Area3D
 signal found_a_key
 
-func _ready():
-	
-	print(parent_node.name)
 
 func _process(delta):
 

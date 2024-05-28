@@ -114,11 +114,11 @@ func _append_path():
 		return
 	var currentPoint : int = 1
 	var lastPos : Vector3 = currentPos
-	lastPos.y = 0.0
+	#lastPos.y = 0.0
 	var lenLeft : float = path_update_len
 	while(lenLeft > 0.0 && currentPoint < navPath.size()):
 		var currentPointPos : Vector3 = navPath[currentPoint]
-		currentPointPos.y = 0.0
+		#currentPointPos.y = 0.0
 		var clen : float = (currentPointPos - lastPos).length()
 		if(clen > lenLeft):
 			#Too far away
@@ -137,8 +137,8 @@ func _smooth_point(smooth_force : float):
 	var prevPos : Vector3 = movement_path.get_point_position(movement_path.point_count - 3)
 	var nextPos : Vector3 = movement_path.get_point_position(movement_path.point_count - 1)
 	#Just in case
-	prevPos.y = 0
-	nextPos.y = 0
+	#prevPos.y = 0
+	#nextPos.y = 0
 	var handle : Vector3 = (nextPos - prevPos).normalized() * smooth_force
 	movement_path.set_point_out(movement_path.point_count - 2, handle)
 	movement_path.set_point_in(movement_path.point_count - 2, -handle)
@@ -161,10 +161,7 @@ func _ensnare_target():
 func _on_nav_agent_velocity_computed(safe_velocity : Vector3):
 	#nav_agent.velocity = safe_velocity
 	pass
-	
-	
 func give_snake_speed():
-	print("snake has speed")
 	max_speed = 3
 
 

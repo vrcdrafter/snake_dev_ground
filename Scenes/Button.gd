@@ -8,4 +8,5 @@ func _ready() -> void:
 	player_handle.connect("remove_mouse",remove_mouse_callable)
 
 func _on_player_remove_mouse():
-	self.queue_free()
+	print("try to remove button ")
+	self.hide()

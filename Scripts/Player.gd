@@ -30,19 +30,19 @@ func _ready():
 	camera = $rotation_helper/Camera3D
 	rotation_helper = $rotation_helper
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	# declare ensnarement connection
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	# declare signals connection
 	var snake_1_handle :Node3D = get_node("../Snake")
 	var snake_2_handle :Node3D = get_node("../Snake2")
 	var snake_3_handle :Node3D = get_node("../Snake3")
 	var snake_4_handle :Node3D = get_node("../Snake4")
 	var snake_5_handle :Node3D = get_node("../Snake5")
 	var snake_6_handle :Node3D = get_node("../Snake6")
-	
+	var mouse_button :Button = get_node("../Button")
 	var timer_handle :Timer = get_node("../Game_over_timer")
 	var game_over_button_handle :Button = get_node("../Control/Button")
-	
+	var callable_mouse_button = Callable(self,"_on_button_button_down")
 	var callable_ensnare = Callable(self, "_on_snake_ensnared")
 	var timer_callable = Callable(self, "_on_game_over_timer_timeout")
 	var reset_level = Callable(self,"_on_button_pressed")
@@ -54,12 +54,15 @@ func _ready():
 	snake_6_handle.connect("ensnared",callable_ensnare)
 	timer_handle.connect("timeout",timer_callable)
 	game_over_button_handle.connect("pressed",reset_level)
-	
+	mouse_button.connect("pressed",callable_mouse_button)
 	
 	#DOES NOT WORK AND NEEDS TO BE MOVED#
 	if GlobalVars.game_started == true:
 		emit_signal("remove_mouse")
+		print("should be removing the enable mouse button AAAAAAAAsDDD")
 		emit_signal("snakes_go")
+		
+		
 	
 func _input(event):
 	# This section controls your player camera. Sensitivity can be changed.
@@ -70,21 +73,7 @@ func _input(event):
 		var camera_rot = rotation_helper.rotation
 		camera_rot.x = clampf(camera_rot.x, -1.4, 1.4)
 		rotation_helper.rotation = camera_rot
-	
-	# Release/Grab Mouse for debugging. You can change or replace this.
-	if Input.is_action_just_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
-	# Flashlight toggle. Defaults to F on Keyboard.
-	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_F:
-			if flashlight.is_visible_in_tree() and not event.echo:
-				flashlight.hide()
-			elif not event.echo:
-				flashlight.show()
+
 
 func _physics_process(delta):
 	var moving = false
@@ -139,6 +128,7 @@ func _physics_process(delta):
 
 func _on_button_button_down():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	emit_signal("remove_mouse")
 	GlobalVars.game_started = true
 

@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdcsvccg7p3hs"]
+[gd_scene load_steps=7 format=3 uid="uid://bdcsvccg7p3hs"]
 
 [ext_resource type="PackedScene" uid="uid://b8fmwcegp1us" path="res://Scenes/SkeletonPathFollow3D.tscn" id="1_ex0k2"]
 [ext_resource type="Script" path="res://Scripts/Snake.gd" id="1_soglc"]
 [ext_resource type="PackedScene" uid="uid://cpado5sjppwak" path="res://Imported/steve.glb" id="2_p4aj0"]
-[ext_resource type="Material" uid="uid://deeeqw02erxpd" path="res://Materials/GroundMaterial.tres" id="4_ix6co"]
 [ext_resource type="AudioStream" uid="uid://c1pevk528p5bw" path="res://sounds/zapsplat_animals_snake_hiss_short_14693.mp3" id="5_po3uh"]
 [ext_resource type="Script" path="res://Scenes/hiss.gd" id="6_ssmbu"]
 
@@ -66,9 +65,6 @@ bones/16/position = Vector3(0, 0.500251, 0)
 bones/16/rotation = Quaternion(0, 0, 0, 1)
 bones/17/position = Vector3(0, 0.496847, -2.84217e-14)
 bones/17/rotation = Quaternion(0, 0, 0, 1)
-
-[node name="Cube_001" parent="SnakePath/SkeletonPathFollow3D/steve/Armature/Skeleton3D" index="0"]
-surface_material_override/0 = ExtResource("4_ix6co")
 
 [node name="NavAgent" type="NavigationAgent3D" parent="SnakePath/SkeletonPathFollow3D/steve"]
 radius = 2.0

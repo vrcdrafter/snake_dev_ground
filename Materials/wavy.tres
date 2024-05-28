@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://mg6sx8lo7msq"]
+
+[ext_resource type="Shader" path="res://Materials/move.gdshader" id="1_e1r32"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_e1r32")
+shader_parameter/sway_speed = 1.0
+shader_parameter/sway_strength = 0.05
+shader_parameter/sway_phase_len = 8.0

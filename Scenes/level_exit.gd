@@ -42,7 +42,7 @@ func _on_area_3d_body_entered(body):
 		audio.stream = un_locked_audio
 		audio.play()
 		
-		get_tree().change_scene_to_file("res://Scenes/level_2.tscn")
+		
 		# add credits scene 
 	else:
 		audio.stream = locked_audio
@@ -60,3 +60,8 @@ func _on_key_3_key_found():
 
 func _on_key_1_key_found():
 	keys_found_num += 1
+
+
+func _on_audio_stream_player_3d_finished() -> void:
+	if audio.stream == un_locked_audio:
+		get_tree().change_scene_to_file("res://Scenes/level_2.tscn")

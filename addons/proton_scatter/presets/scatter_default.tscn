@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="7_jofmq"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="8_gnbkw"]
 
-[sub_resource type="Resource" id="Resource_jbxru"]
+[sub_resource type="Resource" id="Resource_qjfa5"]
 script = ExtResource("3_0051t")
 amount = 75
 enabled = true
@@ -19,7 +19,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_0oyil"]
+[sub_resource type="Resource" id="Resource_7g6x8"]
 script = ExtResource("4_5a045")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(20, 360, 20)
@@ -30,18 +30,19 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_ogw66"]
+[sub_resource type="Resource" id="Resource_ovpsh"]
 script = ExtResource("5_n2in0")
 iterations = 3
 offset_step = 0.2
 consecutive_step_multiplier = 0.75
+use_computeshader = true
 enabled = true
 override_global_seed = false
 custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_awufl"]
+[sub_resource type="Resource" id="Resource_h1pho"]
 script = ExtResource("5_gkw57")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -50,23 +51,26 @@ remove_points_on_miss = false
 align_with_collision_normal = false
 max_slope = 90.0
 collision_mask = 1
+exclude_mask = 0
 enabled = true
 override_global_seed = false
 custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_xqhqc"]
+[sub_resource type="Resource" id="Resource_jfsm4"]
 script = ExtResource("2_lt5xy")
-stack = Array[Resource]([SubResource("Resource_jbxru"), SubResource("Resource_0oyil"), SubResource("Resource_ogw66"), SubResource("Resource_awufl")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_qjfa5"), SubResource("Resource_7g6x8"), SubResource("Resource_ovpsh"), SubResource("Resource_h1pho")])
 
 [sub_resource type="Resource" id="Resource_g8bsm"]
 script = ExtResource("8_gnbkw")
-radius = 2.0
+radius = 0.5
 
 [node name="ProtonScatter" type="Node3D"]
 script = ExtResource("1_e0kty")
-modifier_stack = SubResource("Resource_xqhqc")
+modifier_stack = SubResource("Resource_jfsm4")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
 
 [node name="ScatterItem" type="Node3D" parent="."]
 script = ExtResource("6_3iwkw")

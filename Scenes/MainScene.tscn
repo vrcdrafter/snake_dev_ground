@@ -75,7 +75,6 @@ target = NodePath("../Player")
 
 [node name="Snake4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.5357, 0.0424972, -17.9321)
-visible = false
 target = NodePath("../Player")
 
 [node name="Snake5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
@@ -85,14 +84,6 @@ target = NodePath("../Player")
 [node name="Snake6" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
 transform = Transform3D(0.994007, 0, 0.109318, 0, 1, 0, -0.109318, 0, 0.994007, -13.0001, 0.0424972, -47.7836)
 target = NodePath("../Player")
-
-[node name="SunLight" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.322514, 0.946565, 0, -0.946565, -0.322514, 0, 11.3461, 0)
-visible = false
-light_color = Color(0.952941, 0.94902, 0.803922, 1)
-light_bake_mode = 0
-shadow_enabled = true
-directional_shadow_mode = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wpbe3")
@@ -188,7 +179,6 @@ wait_time = 10.0
 transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 16.4132, 16.4915, -30.2096)
 light_energy = 11.633
 light_bake_mode = 1
-shadow_enabled = true
 shadow_bias = 1.347
 shadow_normal_bias = 0.401
 shadow_transmittance_bias = -0.142
@@ -202,7 +192,6 @@ spot_angle = 42.2129
 transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -2.19176, 24.6392, -57.201)
 light_energy = 11.633
 light_bake_mode = 1
-shadow_enabled = true
 shadow_bias = 1.347
 shadow_normal_bias = 0.401
 shadow_transmittance_bias = -0.142
@@ -216,7 +205,6 @@ spot_angle = 42.2129
 transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -18.3899, 11.707, -27.8667)
 light_energy = 11.633
 light_bake_mode = 1
-shadow_enabled = true
 shadow_bias = 1.347
 shadow_normal_bias = 0.401
 shadow_transmittance_bias = -0.142
@@ -230,7 +218,6 @@ spot_angle = 42.2129
 transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -41.2577, 20.9349, -11.7136)
 light_energy = 11.633
 light_bake_mode = 1
-shadow_enabled = true
 shadow_bias = 1.347
 shadow_normal_bias = 0.401
 shadow_transmittance_bias = -0.142
@@ -244,7 +231,6 @@ spot_angle = 42.2129
 transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -20.1571, 15.715, 8.72342)
 light_energy = 11.633
 light_bake_mode = 1
-shadow_enabled = true
 shadow_bias = 1.347
 shadow_normal_bias = 0.401
 shadow_transmittance_bias = -0.142
@@ -258,7 +244,6 @@ spot_angle = 42.2129
 transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 3.42398, 23.7957, 28.4676)
 light_energy = 11.633
 light_bake_mode = 1
-shadow_enabled = true
 shadow_bias = 1.347
 shadow_normal_bias = 0.401
 shadow_transmittance_bias = -0.142
@@ -272,7 +257,6 @@ spot_angle = 42.2129
 transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 21.9447, 14.9389, 7.87686)
 light_energy = 11.633
 light_bake_mode = 1
-shadow_enabled = true
 shadow_bias = 1.347
 shadow_normal_bias = 0.401
 shadow_transmittance_bias = -0.142
@@ -287,7 +271,6 @@ transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.01582
 light_energy = 11.633
 light_indirect_energy = 1.099
 light_bake_mode = 1
-shadow_enabled = true
 shadow_bias = 1.347
 shadow_normal_bias = 0.401
 shadow_transmittance_bias = -0.142
@@ -366,20 +349,9 @@ shape = SubResource("BoxShape3D_tb5fe")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="level_exit"]
 stream = ExtResource("12_u4nqx")
 
-[connection signal="remove_mouse" from="Player" to="Button" method="_on_player_remove_mouse"]
-[connection signal="ensnared" from="Snake" to="Player" method="_on_snake_ensnared"]
-[connection signal="ensnared" from="Snake2" to="Player" method="_on_snake_ensnared"]
-[connection signal="ensnared" from="Snake3" to="Player" method="_on_snake_ensnared"]
-[connection signal="ensnared" from="Snake4" to="Player" method="_on_snake_ensnared"]
-[connection signal="ensnared" from="Snake5" to="Player" method="_on_snake_ensnared"]
-[connection signal="ensnared" from="Snake6" to="Player" method="_on_snake_ensnared"]
-[connection signal="button_down" from="Button" to="Player" method="_on_button_button_down"]
-[connection signal="key_found" from="key1" to="level_exit" method="_on_key_1_key_found"]
-[connection signal="key_found" from="key2" to="level_exit" method="_on_key_2_key_found"]
-[connection signal="key_found" from="key3" to="level_exit" method="_on_key_3_key_found"]
-[connection signal="pressed" from="Control/Button" to="Player" method="_on_button_pressed"]
 [connection signal="timeout" from="Game_over_timer" to="Player" method="_on_game_over_timer_timeout"]
 [connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]
+[connection signal="finished" from="level_exit/AudioStreamPlayer3D" to="level_exit" method="_on_audio_stream_player_3d_finished"]
 
 [editable path="key_1"]
 [editable path="key_2"]

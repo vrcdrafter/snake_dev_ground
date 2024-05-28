@@ -19,17 +19,17 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:/Users/mhawley/Downloads/SnakeRedone/textures/poster.jpg
+map_Kd C:/Users/mhawley/Desktop/github_stuff/snek_run/textures/poster.jpg
 
 newmtl exit
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Ks 0.500000 0.500000 0.500000
-Ke 19.799999 19.799999 19.799999
+Ke 1.000000 1.000000 1.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:/Users/mhawley/Downloads/SnakeRedone/textures/exit.png
+map_Kd C:/Users/mhawley/Desktop/github_stuff/snek_run/textures/exit.png
 
 newmtl wall
 Ns 250.000000
@@ -39,7 +39,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:/Users/mhawley/Downloads/SnakeRedone/textures/bad_texture.png
+map_Kd C:/Users/mhawley/Desktop/github_stuff/snek_run/textures/bad_texture.png
 
 newmtl window
 Ns 250.000000
@@ -49,4 +49,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:/Users/mhawley/Downloads/SnakeRedone/textures/window_wide.png
+map_Kd C:/Users/mhawley/Desktop/github_stuff/snek_run/textures/window_wide.png
