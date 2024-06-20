@@ -6,7 +6,14 @@ var unlocked :bool = false
 var un_locked_audio: Resource  = preload("res://sounds/glitchedtones_Door+Bathroom+Unlock+01.mp3")
 var locked_audio: Resource  = preload("res://sounds/zapsplat_household_door_handle_try_open_locked_001_10218.mp3")
 
+var level_2_scene :String = "res://Scenes/level_2.tscn"
+
+
 var keys_found_num :int = 0
+
+var level_oneshot :bool = true
+
+var use_sub_threads: bool = false
 
 func _ready() -> void:
 	
@@ -27,9 +34,10 @@ func _process(delta):
 
 	if keys_found_num == 3:
 		unlocked = true
+		# start loading next scene 
+
 		
 	
-
 	
 	
 
@@ -64,4 +72,5 @@ func _on_key_1_key_found():
 
 func _on_audio_stream_player_3d_finished() -> void:
 	if audio.stream == un_locked_audio:
-		get_tree().change_scene_to_file("res://Scenes/level_2.tscn")
+		get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+		

@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2stdiapbpqxp"]
+
+[ext_resource type="Script" path="res://Scripts/LOADING_SCREEN.gd" id="1_a2k8r"]
+[ext_resource type="Texture2D" uid="uid://dgerjccpownvh" path="res://textures/cobra_2.png" id="2_q1qmw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6q76"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("loading_bar", "percenctage_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a2k8r")
+loading_bar = NodePath("ProgressBar")
+percenctage_label = NodePath("Label")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -67.0
+offset_right = -30.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_q1qmw")
+expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 245.0
+offset_top = 103.0
+offset_right = 878.0
+offset_bottom = 183.0
+theme_override_styles/background = SubResource("StyleBoxFlat_y6q76")
+max_value = 1.0
+step = 0.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 508.0
+offset_top = 23.0
+offset_right = 599.0
+offset_bottom = 46.0
+text = "LOADING...,"
