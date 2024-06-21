@@ -1,20 +1,36 @@
 extends Area3D
 
-@onready var old_snake_handle = get_node("../../Snake")
 
 var snake_new = preload("res://Scenes/Snake.tscn")
 
+var number_of_snakes_needed :int = 0 
+
+func _ready() -> void:
+	for n in get_children():
+		if n.get_class() == "Marker3D":
+			
+			number_of_snakes_needed += 1
+			
+	print("I have a marker 3d ", number_of_snakes_needed)
+
 
 func _on_body_entered(body: Node3D) -> void:
-	print("found some body ")
-	var snake_instance = snake_new.instantiate()
-	snake_instance.position = $Marker3D.global_position
-	if body.is_in_group("player"):
-		print("player is in camper")
-		#remove snake 
-		old_snake_handle.queue_free()
-		
-		
-		get_tree().get_root().get_node("./Node3D").add_child(snake_instance)
-		
 	
+	
+	# need a for loop for each new instance to make 
+
+
+	if body.is_in_group("player"):
+		var snake_instance = []
+		for n in range(number_of_snakes_needed):
+			# load snakes into array
+			snake_instance.append(snake_new.instantiate())
+			snake_instance[n].position = get_node("Marker3D"+str(n+1)).global_position
+		var remove_snake = []
+		for n in range(number_of_snakes_needed):
+			# gets handles
+			remove_snake.append(get_node("../../Snake" + str(n+1)))
+			remove_snake[n].queue_free()
+			get_tree().get_root().get_node("./Node3D").add_child(snake_instance[n])
+		
+	# end foor loop 

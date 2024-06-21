@@ -61,7 +61,7 @@ mesh = ExtResource("1_ax0kv")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.1473, 1.30242, -31.664)
 collision_layer = 3
 
-[node name="Snake" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
+[node name="Snake1" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_7ghly")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.61313, 0.0424972, 30.2918)
 target = NodePath("../Player")
 

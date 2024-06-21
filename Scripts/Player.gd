@@ -33,7 +33,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	# declare signals connection
-	var snake_1_handle :Node3D = get_node("../Snake")
+	var snake_1_handle :Node3D = get_node("../Snake1")
 	var snake_2_handle :Node3D = get_node("../Snake2")
 	var snake_3_handle :Node3D = get_node("../Snake3")
 	var snake_4_handle :Node3D = get_node("../Snake4")
