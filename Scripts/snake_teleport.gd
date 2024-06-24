@@ -20,25 +20,22 @@ func _on_body_entered(body: Node3D) -> void:
 
 
 	if body.is_in_group("player"):
-		self.monitorable = false
+		set_deferred("monitorable", false)
+
+		print("found player in area , should happen once . A")
 		var snake_instance = []
 		for n in range(number_of_snakes_needed):
 			# load snakes into array
 			snake_instance.append(snake_new.instantiate())
 			snake_instance[n].position = get_node("Marker3D"+str(n+1)).global_position
 			
-		var remove_snake = []
+		var remove_snake :Array = get_tree().get_nodes_in_group("snake")
 		for n in range(number_of_snakes_needed):
 			# gets handles
-			remove_snake.append(get_node("../../Snake" + str(n+1)))
 			remove_snake[n].queue_free()
 			get_tree().get_root().get_node("./Node3D").add_child(snake_instance[n])
 			snake_instance[n].name = "Snake" + str(n+1)
-		var rename_snake = []
-		for n in range(number_of_snakes_needed):
-			print("../../Snake" + str(n+6))
-			rename_snake.append(get_node("../../Snake" + str(n+6)))
-			rename_snake[n].name = "Snake" + str(n+1)
+
 			
 		emit_signal("reconnect_snakes")
 	# end foor loop 

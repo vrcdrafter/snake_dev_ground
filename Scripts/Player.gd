@@ -142,12 +142,11 @@ func _on_button_pressed():
 	
 	
 func remake_connections():
-	var snake_1_handle :Node3D = get_node("../Snake1")
-	var snake_2_handle :Node3D = get_node("../Snake2")
-	var snake_3_handle :Node3D = get_node("../Snake3")
-	var snake_4_handle :Node3D = get_node("../Snake4")
-	var snake_5_handle :Node3D = get_node("../Snake5")
-	var snake_6_handle :Node3D = get_node("../Snake6")
+	
+	var all_snakes :Array = get_tree().get_nodes_in_group("snake")
+	
+	
+
 	var mouse_button :Button = get_node("../Button")
 	var timer_handle :Timer = get_node("../Game_over_timer")
 	var game_over_button_handle :Button = get_node("../Control/Button")
@@ -155,12 +154,8 @@ func remake_connections():
 	var callable_ensnare = Callable(self, "_on_snake_ensnared")
 	var timer_callable = Callable(self, "_on_game_over_timer_timeout")
 	var reset_level = Callable(self,"_on_button_pressed")
-	snake_1_handle.connect("ensnared",callable_ensnare)
-	snake_2_handle.connect("ensnared",callable_ensnare)
-	snake_3_handle.connect("ensnared",callable_ensnare)
-	snake_4_handle.connect("ensnared",callable_ensnare)
-	snake_5_handle.connect("ensnared",callable_ensnare)
-	snake_6_handle.connect("ensnared",callable_ensnare)
+	for n in range(all_snakes.size()):
+		all_snakes[n].connect("ensnared",callable_ensnare)
 	timer_handle.connect("timeout",timer_callable)
 	game_over_button_handle.connect("pressed",reset_level)
 	mouse_button.connect("pressed",callable_mouse_button)

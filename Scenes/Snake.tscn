@@ -15,7 +15,7 @@ _data = {
 point_count = 3
 up_vector_enabled = false
 
-[node name="Snake" type="Node3D"]
+[node name="Snake" type="Node3D" groups=["snake"]]
 script = ExtResource("1_soglc")
 
 [node name="SnakePath" type="Path3D" parent="."]
