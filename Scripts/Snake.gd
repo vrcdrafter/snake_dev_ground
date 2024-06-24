@@ -163,5 +163,3 @@ func _on_nav_agent_velocity_computed(safe_velocity : Vector3):
 	pass
 func give_snake_speed():
 	max_speed = 3
-
-

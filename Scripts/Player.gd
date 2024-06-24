@@ -32,30 +32,7 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	# declare signals connection
-	var snake_1_handle :Node3D = get_node("../Snake1")
-	var snake_2_handle :Node3D = get_node("../Snake2")
-	var snake_3_handle :Node3D = get_node("../Snake3")
-	var snake_4_handle :Node3D = get_node("../Snake4")
-	var snake_5_handle :Node3D = get_node("../Snake5")
-	var snake_6_handle :Node3D = get_node("../Snake6")
-	var mouse_button :Button = get_node("../Button")
-	var timer_handle :Timer = get_node("../Game_over_timer")
-	var game_over_button_handle :Button = get_node("../Control/Button")
-	var callable_mouse_button = Callable(self,"_on_button_button_down")
-	var callable_ensnare = Callable(self, "_on_snake_ensnared")
-	var timer_callable = Callable(self, "_on_game_over_timer_timeout")
-	var reset_level = Callable(self,"_on_button_pressed")
-	snake_1_handle.connect("ensnared",callable_ensnare)
-	snake_2_handle.connect("ensnared",callable_ensnare)
-	snake_3_handle.connect("ensnared",callable_ensnare)
-	snake_4_handle.connect("ensnared",callable_ensnare)
-	snake_5_handle.connect("ensnared",callable_ensnare)
-	snake_6_handle.connect("ensnared",callable_ensnare)
-	timer_handle.connect("timeout",timer_callable)
-	game_over_button_handle.connect("pressed",reset_level)
-	mouse_button.connect("pressed",callable_mouse_button)
-	
+	remake_connections()
 	#DOES NOT WORK AND NEEDS TO BE MOVED#
 	if GlobalVars.game_started == true:
 		emit_signal("remove_mouse")
@@ -164,4 +141,31 @@ func _on_button_pressed():
 	get_tree().reload_current_scene()
 	
 	
-	
+func remake_connections():
+	var snake_1_handle :Node3D = get_node("../Snake1")
+	var snake_2_handle :Node3D = get_node("../Snake2")
+	var snake_3_handle :Node3D = get_node("../Snake3")
+	var snake_4_handle :Node3D = get_node("../Snake4")
+	var snake_5_handle :Node3D = get_node("../Snake5")
+	var snake_6_handle :Node3D = get_node("../Snake6")
+	var mouse_button :Button = get_node("../Button")
+	var timer_handle :Timer = get_node("../Game_over_timer")
+	var game_over_button_handle :Button = get_node("../Control/Button")
+	var callable_mouse_button = Callable(self,"_on_button_button_down")
+	var callable_ensnare = Callable(self, "_on_snake_ensnared")
+	var timer_callable = Callable(self, "_on_game_over_timer_timeout")
+	var reset_level = Callable(self,"_on_button_pressed")
+	snake_1_handle.connect("ensnared",callable_ensnare)
+	snake_2_handle.connect("ensnared",callable_ensnare)
+	snake_3_handle.connect("ensnared",callable_ensnare)
+	snake_4_handle.connect("ensnared",callable_ensnare)
+	snake_5_handle.connect("ensnared",callable_ensnare)
+	snake_6_handle.connect("ensnared",callable_ensnare)
+	timer_handle.connect("timeout",timer_callable)
+	game_over_button_handle.connect("pressed",reset_level)
+	mouse_button.connect("pressed",callable_mouse_button)
+
+
+func _on_camper_area_reconnect_snakes() -> void:
+	print("pleace reconenct everything")
+	remake_connections()

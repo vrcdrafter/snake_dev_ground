@@ -24,15 +24,15 @@ GlobalVars="*res://Scripts/global_vars.gd"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/proton_scatter/plugin.cfg")
-
 [file_customization]
 
 folder_colors={
 "res://level_data/": "orange"
 }
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
