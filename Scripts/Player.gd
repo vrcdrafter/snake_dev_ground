@@ -145,7 +145,7 @@ func remake_connections():
 	
 	var all_snakes :Array = get_tree().get_nodes_in_group("snake")
 	
-	
+	var frame_rate_manager :Node3D = get_node("..")
 
 	var mouse_button :Button = get_node("../Button")
 	var timer_handle :Timer = get_node("../Game_over_timer")
@@ -162,5 +162,10 @@ func remake_connections():
 
 
 func _on_camper_area_reconnect_snakes() -> void:
+	print("pleace reconenct everything")
+	remake_connections()
+
+
+func _on_node_3d_reconnect_snakes() -> void:
 	print("pleace reconenct everything")
 	remake_connections()

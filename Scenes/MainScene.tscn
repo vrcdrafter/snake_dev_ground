@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://bs8o0t7ufn02h"]
+[gd_scene load_steps=22 format=3 uid="uid://bs8o0t7ufn02h"]
 
+[ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_ar0pa"]
 [ext_resource type="ArrayMesh" uid="uid://dexkoe446kr8x" path="res://level_data/office.obj" id="1_ax0kv"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_8gvmm"]
 [ext_resource type="PackedScene" uid="uid://bdcsvccg7p3hs" path="res://Scenes/Snake.tscn" id="4_7ghly"]
@@ -41,7 +42,8 @@ emission_texture = ExtResource("8_g6x30")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tb5fe"]
 
-[node name="MainScene" type="Node3D"]
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_ar0pa")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
@@ -348,6 +350,40 @@ shape = SubResource("BoxShape3D_tb5fe")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="level_exit"]
 stream = ExtResource("12_u4nqx")
+
+[node name="Label" type="Label" parent="."]
+auto_translate_mode = 1
+offset_left = 1067.0
+offset_top = 12.0
+offset_right = 1151.0
+offset_bottom = 48.0
+text = "FRAME_R"
+
+[node name="FRAMES" type="Label" parent="."]
+auto_translate_mode = 1
+offset_left = 1069.0
+offset_top = 35.0
+offset_right = 1153.0
+offset_bottom = 71.0
+text = "FRAME_R"
+
+[node name="Reset_snake_position_1" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.1685, 0, 0)
+
+[node name="Reset_snake_position_2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.221, 0, 0)
+
+[node name="Reset_snake_position_3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -51.837)
+
+[node name="Reset_snake_position_4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62688, 0, 23.1643)
+
+[node name="Reset_snake_position_5" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.8943, 0, 0)
+
+[node name="Reset_snake_position_6" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.6129, 0, 15.7941)
 
 [connection signal="timeout" from="Game_over_timer" to="Player" method="_on_game_over_timer_timeout"]
 [connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]
