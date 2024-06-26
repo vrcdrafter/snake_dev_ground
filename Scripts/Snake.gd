@@ -25,6 +25,8 @@ var snake_state:String = "player_seeking"
 var patrol_objects :Array = []
 var pick_new_object :bool = false
 
+@export var append_path_hits :int = 0
+
 #Class for easier storage and update of curve points
 class CurvePoint:
 	var point : Vector3
@@ -108,6 +110,8 @@ func _physics_process(delta : float):
 
 #Called to prepare next part of path toward target
 func _append_path():
+	append_path_hits += 1
+	
 	var lastPathPos : Vector3 = path_node.to_global(movement_path.get_point_position(movement_path.point_count - 1))
 	var currentPos : Vector3 = NavigationServer3D.map_get_closest_point(_nav_map, lastPathPos)
 	var targetPos : Vector3 = NavigationServer3D.map_get_closest_point(_nav_map, target.global_position)

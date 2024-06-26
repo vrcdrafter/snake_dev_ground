@@ -68,6 +68,7 @@ size = Vector3(7.54199, 8.27136, 11.2485)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_is4hd")
+frames = 14
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("1_fnhw7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.814892, 1.7411)

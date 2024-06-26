@@ -16,23 +16,28 @@ func _process(delta: float) -> void:
 	Frame_label.text = str(frames)
 	
 	if frames < 15:
-		reset_snakes()
+		destroy_weakest_snake()
 		emit_signal("restor_speed")
 
 
-func reset_snakes():
-		var snake_instance = []
-		for n in range(6):
-			# load snakes into array
-			snake_instance.append(snake_new.instantiate())
-			snake_instance[n].position = get_node("Reset_snake_position_"+str(n+1)).global_position
-			
-		var remove_snake :Array = get_tree().get_nodes_in_group("snake")
-		for n in range(6):
-			# gets handles
-			remove_snake[n].queue_free()
-			get_tree().get_root().get_node("./Node3D").add_child(snake_instance[n])
-			snake_instance[n].name = "Snake" + str(n+1)
-			
-			
-		emit_signal("reconnect_snakes")
+func destroy_weakest_snake():
+	
+		var all_current_snakes :Array= get_tree().get_nodes_in_group("snake")
+		var snake_append_hits :Array= []
+		var highest_append_instance :int = 0
+		var index :int 
+		# put in append data 
+		for n in range(all_current_snakes.size()):
+			snake_append_hits.append(all_current_snakes[n].append_path_hits)
+		print("all snake sized", snake_append_hits)
+		# find highest hit 
+		for i in snake_append_hits.size():
+			if snake_append_hits[i] > highest_append_instance:
+				highest_append_instance = snake_append_hits[i]
+				index = i
+		# find index
+
+		
+		var snake_to_desctory = all_current_snakes[index]
+		print("highest index", index, "destroy", snake_to_desctory)
+		#emit_signal("reconnect_snakes")
