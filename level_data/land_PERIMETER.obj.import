@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bagq8yockkxmf"
+path="res://.godot/imported/land_PERIMETER.obj-5c353859724daaf073a7aa2f68996587.mesh"
+
+[deps]
+
+files=["res://.godot/imported/land_PERIMETER.obj-5c353859724daaf073a7aa2f68996587.mesh"]
+
+source_file="res://level_data/land_PERIMETER.obj"
+dest_files=["res://.godot/imported/land_PERIMETER.obj-5c353859724daaf073a7aa2f68996587.mesh", "res://.godot/imported/land_PERIMETER.obj-5c353859724daaf073a7aa2f68996587.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

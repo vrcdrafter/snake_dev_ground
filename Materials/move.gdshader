@@ -6,8 +6,7 @@ uniform float sway_phase_len = 8.0;
 
 
 void vertex() {
-    float strength = COLOR.g * sway_strength;
-    VERTEX.x -= 1.0 + sin(TIME) ;
+    VERTEX.x += sin(UV.y * TIME) * 1.0;
 	
 	
     //VERTEX.x += sin(VERTEX.x * 32.0 * 0.9123 + TIME * sway_speed * 1.3123) * strength * cos(VERTEX.x);

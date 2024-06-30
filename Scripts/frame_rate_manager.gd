@@ -6,18 +6,15 @@ signal restor_speed
 
 
 var snake_new = preload("res://Scenes/Snake.tscn")
-@export var frames :int = 60
+
 signal reconnect_snakes
 
 func _process(delta: float) -> void:
 	
-	#var frames = Engine.get_frames_per_second()
+	var frames = Engine.get_frames_per_second()
 	
 	Frame_label.text = str(frames)
-	
-	if frames < 15:
-		destroy_weakest_snake()
-		emit_signal("restor_speed")
+
 
 
 func destroy_weakest_snake():

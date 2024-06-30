@@ -1,12 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://18visascqnjt"]
+[gd_scene load_steps=2 format=3 uid="uid://18visascqnjt"]
 
 [ext_resource type="ArrayMesh" uid="uid://2i8kc62add3n" path="res://level_data/grass.tres" id="1_h4fjk"]
-[ext_resource type="Material" uid="uid://mg6sx8lo7msq" path="res://Materials/wavy.tres" id="2_x0wov"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Grass" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.258306, 0, 0.217228)
 mesh = ExtResource("1_h4fjk")
-surface_material_override/0 = ExtResource("2_x0wov")
-surface_material_override/1 = ExtResource("2_x0wov")
