@@ -72,5 +72,14 @@ func _on_key_1_key_found():
 
 func _on_audio_stream_player_3d_finished() -> void:
 	if audio.stream == un_locked_audio:
+		save_level_access()
 		get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+		# save the data locally 
+
 		
+		
+func save_level_access():
+	const path :String = "user://.save"
+	var file = FileAccess.open(path,FileAccess.WRITE)
+	file.store_string("11")
+	file.close()

@@ -13,12 +13,14 @@ func _ready() -> void:
 	
 	if FileAccess.file_exists(path):
 		#do a read 
+		file = FileAccess.open(path,FileAccess.READ)
 		print("data esists")
 		terminal.text = "file already exists \n"
+		terminal.text = "is is here \n " + file.get_path_absolute() + "\n"
 		# load it 
 		
 		
-		terminal.text = load_game()
+		terminal.text = load_game() +"\n"
 		
 		# close the file 
 		
@@ -32,6 +34,8 @@ func _ready() -> void:
 		terminal.text = "file does not exist we made one here \n " + file.get_path_absolute()
 		file.close()
 	print(load_game())
+	
+	level_access() # asses what levels the player gets 
 	
 	
 func save(content):
@@ -50,18 +54,31 @@ func _on_level_3_button_down() -> void:
 	if load_game() == "111":
 		print("load level 3")
 	else:
+		
 		print("save is corrupt")
 
 func _on_level_2_button_down() -> void:
-	print(load_game())
-	if load_game() == "11":
-		print("load level 2")
-	else:
-		print("save is corrupt")
+
+	get_tree().change_scene_to_file("res://Scenes/level_2.tscn")
+
 
 func _on_level_1_button_down() -> void:
-	print(load_game())
-	if load_game() == "1":
-		get_tree().change_scene_to_file("res://Scenes/MainScene.tscn")
+
+	get_tree().change_scene_to_file("res://Scenes/MainScene.tscn")
+
+
+
+func level_access():
+	if load_game().contains("1"):
+		$LEVEL1.disabled = false
 	else:
-		print("save is corrupt")
+		$LEVEL1.disabled = true
+		
+	if load_game().contains("11"):
+		$LEVEL2.disabled = false
+	else:
+		$LEVEL2.disabled = true
+	if load_game().contains("111"):
+		$LEVEL3.disabled = false
+	else:
+		$LEVEL3.disabled = true
