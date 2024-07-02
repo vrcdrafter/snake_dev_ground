@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://5s3bx0fea1h3"]
+
+[ext_resource type="Script" path="res://Scripts/title_script.gd" id="1_eysnh"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eysnh")
+
+[node name="LEVEL1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 152.0
+offset_right = 426.0
+offset_bottom = 252.0
+text = "LVEL_1
+"
+
+[node name="LEVEL2" type="Button" parent="."]
+auto_translate_mode = 1
+layout_mode = 0
+offset_left = 460.0
+offset_top = 146.0
+offset_right = 785.0
+offset_bottom = 246.0
+text = "LVEL_2
+"
+
+[node name="LEVEL3" type="Button" parent="."]
+auto_translate_mode = 1
+layout_mode = 0
+offset_left = 112.0
+offset_top = 293.0
+offset_right = 437.0
+offset_bottom = 393.0
+text = "LVEL_3
+"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 370.0
+offset_right = 952.0
+offset_bottom = 545.0
+
+[node name="Label2" type="Label" parent="."]
+auto_translate_mode = 1
+layout_mode = 0
+offset_left = 274.0
+offset_top = 31.0
+offset_right = 812.0
+offset_bottom = 206.0
+text = "SELECT A LEVEL 	"
+
+[connection signal="button_down" from="LEVEL1" to="." method="_on_level_1_button_down"]
+[connection signal="button_down" from="LEVEL2" to="." method="_on_level_2_button_down"]
+[connection signal="button_down" from="LEVEL3" to="." method="_on_level_3_button_down"]
