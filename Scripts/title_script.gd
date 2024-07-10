@@ -50,21 +50,20 @@ func load_game():
 
 
 func _on_level_3_button_down() -> void:
-	print(load_game())
-	if load_game() == "111":
-		print("load level 3")
-	else:
-		
-		print("save is corrupt")
+	GlobalVars.next_level = "res://Scenes/level_3.tscn"
+	get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+	setup_level()
 
 func _on_level_2_button_down() -> void:
-
-	get_tree().change_scene_to_file("res://Scenes/level_2.tscn")
+	GlobalVars.next_level = "res://Scenes/level_2.tscn"
+	get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+	setup_level()
 
 
 func _on_level_1_button_down() -> void:
-
-	get_tree().change_scene_to_file("res://Scenes/MainScene.tscn")
+	GlobalVars.next_level = "res://Scenes/MainScene.tscn"
+	get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+	setup_level()
 
 
 
@@ -82,3 +81,9 @@ func level_access():
 		$LEVEL3.disabled = false
 	else:
 		$LEVEL3.disabled = true
+
+
+func setup_level():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	GlobalVars.game_started = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

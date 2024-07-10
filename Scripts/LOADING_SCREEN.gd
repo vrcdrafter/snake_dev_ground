@@ -9,7 +9,9 @@ var scene_path :String
 var progress : Array
 
 func _ready() -> void:
-	scene_path = "res://Scenes/level_2.tscn"
+	# fetch what is in global 
+	var next_level :String = GlobalVars.next_level
+	scene_path = next_level
 	ResourceLoader.load_threaded_request(scene_path)
 	
 func _process(delta: float) -> void:

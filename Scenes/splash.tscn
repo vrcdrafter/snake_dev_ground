@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://c53j1gg03k2d5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_if53k"]
+shading_mode = 0
+albedo_color = Color(0.626876, 0.87828, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pcbtj"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(-0.0174349, -0.999848, 0, 0.994752, -0.0173461, 0.100831, -0.100815, 0.00175797, 0.994904, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_if53k")
+visibility_range_begin = 1.0
+visibility_range_end = 14.0
+visibility_range_end_margin = 15.0
+visibility_range_fade_mode = 2
+amount = 16
+lifetime = 0.38
+speed_scale = 1.51
+randomness = 0.05
+mesh = SubResource("SphereMesh_pcbtj")
+emission_shape = 3
+emission_box_extents = Vector3(1, 4.405, 1)
+flatness = 0.65
+gravity = Vector3(0, 0.3, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 9.0
+tangential_accel_max = 15.65

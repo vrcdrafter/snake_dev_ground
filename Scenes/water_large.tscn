@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c57iqxegavhmn"]
+
+[ext_resource type="ArrayMesh" uid="uid://jfnubaevkpk1" path="res://level_data/plane_high_density.obj" id="1_kor34"]
+[ext_resource type="Material" uid="uid://cx0bhj60x3e5v" path="res://Materials/water_large.tres" id="2_57obx"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.122422, 0)
+mesh = ExtResource("1_kor34")
+material = ExtResource("2_57obx")

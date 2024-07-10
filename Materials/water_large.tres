@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cx0bhj60x3e5v"]
+
+[ext_resource type="Shader" path="res://Scenes/water_large.gdshader" id="1_la2bc"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_la2bc")
+shader_parameter/WATER_COL = Vector4(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Vector4(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Vector4(0.8125, 0.9609, 0.9648, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(30, 30)
+shader_parameter/height = 0.01
+shader_parameter/wave_size = Vector2(1, 1)
+shader_parameter/wave_speed = 1.5

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://crx1nxsvh7rt8"]
+
+[ext_resource type="Texture2D" uid="uid://cq3esp8r1ajno" path="res://textures/water.png" id="1_rqeuk"]
+[ext_resource type="Script" path="res://Scenes/mesh_instance_3d.gd" id="2_porqs"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_oq3mp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m326e"]
+shading_mode = 0
+albedo_texture = ExtResource("1_rqeuk")
+uv1_scale = Vector3(3, 3, 3)
+uv1_offset = Vector3(419.024, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("QuadMesh_oq3mp")
+surface_material_override/0 = SubResource("StandardMaterial3D_m326e")
+script = ExtResource("2_porqs")

@@ -18,6 +18,7 @@ var use_sub_threads: bool = false
 func _ready() -> void:
 	
 	
+	
 	var callable_1 = Callable(self,"_on_key_1_key_found")
 	var callable_2 = Callable(self,"_on_key_2_key_found")
 	var callable_3 = Callable(self,"_on_key_3_key_found")
@@ -73,6 +74,10 @@ func _on_key_1_key_found():
 func _on_audio_stream_player_3d_finished() -> void:
 	if audio.stream == un_locked_audio:
 		save_level_access()
+		if get_tree().current_scene.name == "level_2":
+			GlobalVars.next_level = "res://Scenes/level_3.tscn"
+		else:
+			GlobalVars.next_level = "res://Scenes/level_2.tscn"
 		get_tree().change_scene_to_file("res://Scenes/loading.tscn")
 		# save the data locally 
 
@@ -81,5 +86,8 @@ func _on_audio_stream_player_3d_finished() -> void:
 func save_level_access():
 	const path :String = "user://.save"
 	var file = FileAccess.open(path,FileAccess.WRITE)
-	file.store_string("11")
+	if get_tree().current_scene.name == "level_2":
+		file.store_string("111")
+	else:
+		file.store_string("11")
 	file.close()

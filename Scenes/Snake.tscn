@@ -68,6 +68,8 @@ bones/17/position = Vector3(0, 0.496847, -2.84217e-14)
 bones/17/rotation = Quaternion(0, 0, 0, 1)
 
 [node name="Cube_001" parent="SnakePath/SkeletonPathFollow3D/steve/Armature/Skeleton3D" index="0"]
+cast_shadow = 0
+extra_cull_margin = 1.0
 surface_material_override/0 = ExtResource("4_2tjcj")
 
 [node name="NavAgent" type="NavigationAgent3D" parent="SnakePath/SkeletonPathFollow3D/steve"]

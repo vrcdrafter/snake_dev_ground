@@ -30,7 +30,7 @@ func _ready():
 	camera = $rotation_helper/Camera3D
 	rotation_helper = $rotation_helper
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	setup_level()
 	
 	remake_connections()
 	#DOES NOT WORK AND NEEDS TO BE MOVED#
@@ -104,7 +104,7 @@ func _physics_process(delta):
 			
 
 func _on_button_button_down():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 	
 	emit_signal("remove_mouse")
 	GlobalVars.game_started = true
@@ -147,7 +147,7 @@ func remake_connections():
 	
 	var frame_rate_manager :Node3D = get_node("..")
 
-	var mouse_button :Button = get_node("../Button")
+	
 	var timer_handle :Timer = get_node("../Game_over_timer")
 	var game_over_button_handle :Button = get_node("../Control/Button")
 	var callable_mouse_button = Callable(self,"_on_button_button_down")
@@ -158,7 +158,7 @@ func remake_connections():
 		all_snakes[n].connect("ensnared",callable_ensnare)
 	timer_handle.connect("timeout",timer_callable)
 	game_over_button_handle.connect("pressed",reset_level)
-	mouse_button.connect("pressed",callable_mouse_button)
+	
 
 
 func _on_camper_area_reconnect_snakes() -> void:
@@ -169,3 +169,10 @@ func _on_camper_area_reconnect_snakes() -> void:
 func _on_node_3d_reconnect_snakes() -> void:
 	print("pleace reconenct everything")
 	remake_connections()
+	
+	
+func setup_level():
+	print("please remove mouse")
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

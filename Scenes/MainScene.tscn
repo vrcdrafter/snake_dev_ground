@@ -1,10 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://bs8o0t7ufn02h"]
+[gd_scene load_steps=21 format=3 uid="uid://bs8o0t7ufn02h"]
 
 [ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_ar0pa"]
 [ext_resource type="ArrayMesh" uid="uid://dexkoe446kr8x" path="res://level_data/office.obj" id="1_ax0kv"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_8gvmm"]
 [ext_resource type="PackedScene" uid="uid://bdcsvccg7p3hs" path="res://Scenes/Snake.tscn" id="4_7ghly"]
-[ext_resource type="Script" path="res://Scenes/Button.gd" id="4_g768y"]
 [ext_resource type="PackedScene" uid="uid://cttmnlxwbspd8" path="res://Scenes/key.tscn" id="5_2q7fl"]
 [ext_resource type="Texture2D" uid="uid://5db3ibvc4wq2" path="res://textures/key.png" id="5_vsamh"]
 [ext_resource type="Script" path="res://Scenes/key_ui.gd" id="6_vkncj"]
@@ -89,15 +88,6 @@ target = NodePath("../Player")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wpbe3")
-
-[node name="Button" type="Button" parent="."]
-offset_left = 41.0
-offset_top = 26.0
-offset_right = 150.0
-offset_bottom = 103.0
-text = "HIT FOR MOUSE
-"
-script = ExtResource("4_g768y")
 
 [node name="idle_objects" type="Node3D" parent="."]
 visible = false

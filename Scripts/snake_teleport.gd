@@ -5,12 +5,14 @@ var snake_new = preload("res://Scenes/Snake.tscn")
 
 var number_of_snakes_needed :int = 0 
 signal reconnect_snakes
+var top_node_name : String
 
 func _ready() -> void:
 	for n in get_children():
 		if n.get_class() == "Marker3D":
 			number_of_snakes_needed += 1
 	print("I have a marker 3d ", number_of_snakes_needed)
+	top_node_name = get_tree().current_scene.name
 
 
 func _on_body_entered(body: Node3D) -> void:
@@ -20,7 +22,7 @@ func _on_body_entered(body: Node3D) -> void:
 
 
 	if body.is_in_group("player"):
-		set_deferred("monitorable", false)
+		set_deferred("monitoring", false)
 
 		print("found player in area , should happen once . A")
 		var snake_instance = []
@@ -33,7 +35,7 @@ func _on_body_entered(body: Node3D) -> void:
 		for n in range(number_of_snakes_needed):
 			# gets handles
 			remove_snake[n].queue_free()
-			get_tree().get_root().get_node("./Node3D").add_child(snake_instance[n])
+			get_tree().get_root().get_node("./" + top_node_name).add_child(snake_instance[n])
 			snake_instance[n].name = "Snake" + str(n+1)
 
 			

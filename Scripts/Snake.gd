@@ -52,10 +52,10 @@ func _ready():
 	for child in get_node("../idle_objects").get_children():
 		patrol_objects.append(child)
 	# for getting the speed up on the snakes
-	var start_button :Button = get_node("../Button")
+	
 	var reset_snakes_script :Node3D = get_node("..")
 	var callable = Callable(self,"give_snake_speed")
-	start_button.connect("button_down",callable)
+	
 	reset_snakes_script.connect("restor_speed",callable)
 	# connecting another signal for player 
 	if GlobalVars.game_started == true:
