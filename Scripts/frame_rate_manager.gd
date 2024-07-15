@@ -1,5 +1,5 @@
 extends Node3D
-
+# this is not used unless the snakes start to get stuck . 
 @onready var Frame_label :Label = $FRAMES
  
 signal restor_speed
