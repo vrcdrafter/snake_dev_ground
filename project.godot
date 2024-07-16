@@ -24,6 +24,11 @@ GlobalVars="*res://Scripts/global_vars.gd"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/mhawley/Desktop/github_stuff/snek_run/promotion/video_level_3/level3.png"
+movie_writer/fps=10
+
 [file_customization]
 
 folder_colors={

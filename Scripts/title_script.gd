@@ -75,10 +75,12 @@ func level_access():
 		
 	if load_game().contains("11"):
 		$LEVEL2.disabled = false
+		$Node2D/level_1_vid2.modulate = Color(1,1,1,1)
 	else:
 		$LEVEL2.disabled = true
 	if load_game().contains("111"):
 		$LEVEL3.disabled = false
+		$Node2D/level_1_vid3.modulate = Color(1,1,1,1)
 	else:
 		$LEVEL3.disabled = true
 

@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://brjxnm8olabin" path="res://textures/exit.png" id="7_n3cck"]
 [ext_resource type="Script" path="res://Scenes/level_exit.gd" id="8_faw8s"]
 [ext_resource type="AudioStream" uid="uid://dcgl5vwym86it" path="res://sounds/zapsplat_household_door_handle_try_open_locked_001_10218.mp3" id="9_ftdrd"]
-[ext_resource type="Script" path="res://Scripts/water_effects_manager.gd" id="11_xqfym"]
 [ext_resource type="PackedScene" uid="uid://c53j1gg03k2d5" path="res://Scenes/splash.tscn" id="14_oguk0"]
 [ext_resource type="Script" path="res://Scripts/snake_teleport.gd" id="14_tda6y"]
 [ext_resource type="Script" path="res://Scripts/water_move.gd" id="16_ayemc"]
@@ -53,14 +52,14 @@ up_vector_enabled = false
 specular_mode = 2
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(1.91, 4.41, 3.15)
-uv1_offset = Vector3(-190860, 0, 0)
+uv1_offset = Vector3(-227103, 0, 0)
 uv1_triplanar_sharpness = 2.73209
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xquqc"]
 albedo_color = Color(0.801126, 0.850845, 1, 1)
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(30, 30, 30)
-uv1_offset = Vector3(-0.0915028, -0.040339, 0)
+uv1_offset = Vector3(0.0279885, 0.0960034, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_wapur"]
 
@@ -69,6 +68,15 @@ bake_interval = 34.85
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 57.3623, 17.3451, 73.8321, 0, 0, 0, 0, 0, 0, 55.6867, 16.4695, 67.4695, 0, 0, 0, 0, 0, 0, 51.9937, 14.7399, 61.3252, 0, 0, 0, 0, 0, 0, 47.2083, 12.7507, 57.2775, 0, 0, 0, 0, 0, 0, 41.1713, 10.3762, 54.3365, 0, 0, 0, 0, 0, 0, 36.2557, 8.68551, 53.3088, 0, 0, 0, 0, 0, 0, 29.718, 7.51152, 54.7222, 0, 0, 0, 0, 0, 0, 25.4986, 7.09036, 59.492, 0, 0, 0, 0, 0, 0, 24.852, 7.44243, 64.2359, 0, 0, 0, 0, 0, 0, 27.7452, 6.75316, 68.4616, 0, 0, 0, 0, 0, 0, 31.4764, 5.78656, 72.6628, 0, 0, 0, 0, 0, 0, 37.0104, 3.81388, 78.2248, 0, 0, 0, 0, 0, 0, 37.7829, 1.71796, 82.1324, 0, 0, 0, 0, 0, 0, 36.1206, -0.791529, 86.0306, 0, 0, 0, 0, 0, 0, 33.3071, -2.43845, 88.2155, 0, 0, 0, 0, 0, 0, 28.6487, -3.97822, 84.3269, 0, 0, 0, 0, 0, 0, 24.7446, -4.89751, 80.1465, 0, 0, 0, 0, 0, 0, 17.5275, -6.41849, 77.6909, 0, 0, 0, 0, 0, 0, 13.5777, -7.57457, 78.5993),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.18232, 0, 0, 0, 2.20244)
+}
+point_count = 19
+up_vector_enabled = false
+
+[sub_resource type="Curve3D" id="Curve3D_ce12c"]
+bake_interval = 10.0
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 67.2902, 6.81679, 89.6307, 0, 0, 0, 0, 0, 0, 65.2261, 7.16496, 89.372, 0, 0, 0, 0, 0, 0, 63.312, 7.3276, 89.4597, 0, 0, 0, 0, 0, 0, 60.1855, 6.91047, 89.7095, 0, 0, 0, 0, 0, 0, 58.7384, 5.76814, 90.9847, 0, 0, 0, 0, 0, 0, 57.0455, 4.47364, 94.3981, 0, 0, 0, 0, 0, 0, 56.8683, 4.08976, 95.6408, 0, 0, 0, 0, 0, 0, 58.0416, 2.91981, 98.9026, 0, 0, 0, 0, 0, 0, 59.61, 1.89718, 104.152, 0, 0, 0, 0, 0, 0, 59.3336, 2.08755, 108.453, 0, 0, 0, 0, 0, 0, 56.4695, 1.94335, 110.277, 0, 0, 0, 0, 0, 0, 54.537, 1.91799, 110.307, 0, 0, 0, 0, 0, 0, 52.065, 1.17302, 110.164, 0, 0, 0, 0, 0, 0, 49.5424, 0.511886, 109.647, 0, 0, 0, 0, 0, 0, 47.5016, -0.175646, 109.168, 0, 0, 0, 0, 0, 0, 45.3525, -0.799901, 108.561, 0, 0, 0, 0, 0, 0, 42.9249, -1.82137, 108.526, 0, 0, 0, 0, 0, 0, 38.7099, -3.36338, 108.127, 0, 0, 0, 0, 0, 0, 36.0321, -6.28055, 108.742),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 19
 up_vector_enabled = false
@@ -92,19 +100,19 @@ use_collision = true
 mesh = ExtResource("3_t1gl8")
 
 [node name="key_1" parent="." instance=ExtResource("4_x4bgi")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -26.8019, 18.9525, 39.4135)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -26.8019, -0.806633, 42.1887)
 
 [node name="Sprite3D" parent="key_1" index="0"]
 transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
 
 [node name="key_2" parent="." instance=ExtResource("4_x4bgi")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -39.3678, 1.72197, -47.048)
+transform = Transform3D(0.433805, 0, -0.248623, 0, 0.5, 0, 0.248623, 0, 0.433805, -12.4411, 5.13766, 7.11379)
 
 [node name="Sprite3D" parent="key_2" index="0"]
 transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
 
 [node name="key_3" parent="." instance=ExtResource("4_x4bgi")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 48.4063, -16.2403, -53.4422)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -77.7619, 3.32957, 53.7113)
 
 [node name="Sprite3D" parent="key_3" index="0"]
 transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
@@ -131,7 +139,7 @@ texture = ExtResource("5_ysdh8")
 script = ExtResource("6_fi0df")
 
 [node name="level_exit" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.39328, 0.016998, 0.0177866, 0.00953376, -0.0076969, -2.65067, -0.0236123, 0.999826, -0.0207081, 26.1994, -3.30944, -39.6856)
+transform = Transform3D(1.39328, 0.016998, 0.0177866, 0.00953376, -0.0076969, -2.65067, -0.0236123, 0.999826, -0.0207081, -36.8936, 4.01113, -88.4117)
 mesh = SubResource("PlaneMesh_eudyw")
 skeleton = NodePath("../ExitSign6")
 surface_material_override/0 = SubResource("StandardMaterial3D_3cojb")
@@ -210,17 +218,17 @@ priority = 3
 script = ExtResource("14_tda6y")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="traps/camper_area"]
-transform = Transform3D(0.89926, 0, -0.437414, 0, 1, 0, 0.437414, 0, 0.89926, 1.39818, -5.23927, -2.39076)
+transform = Transform3D(0.991883, 0, -0.127151, 0, 1, 0, 0.127151, 0, 0.991883, -43.777, -16.5212, -15.4432)
 shape = SubResource("BoxShape3D_i36n6")
 
 [node name="Marker3D1" type="Marker3D" parent="traps/camper_area"]
-transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, 5.44642, -7.78826, -7.78515)
+transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, -37.4997, -16.8981, -18.8856)
 
 [node name="Marker3D3" type="Marker3D" parent="traps/camper_area"]
-transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, 0.138672, -7.8921, -5.80067)
+transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, -44.2773, -27.3072, -5.14659)
 
 [node name="Marker3D2" type="Marker3D" parent="traps/camper_area"]
-transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, -1.46624, -4.91051, 0.360606)
+transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, -35.1249, -17.0896, -20.6541)
 
 [node name="traps2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6841, 8.91208, -33.2258)
@@ -230,26 +238,14 @@ priority = 3
 script = ExtResource("14_tda6y")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="traps2/camper_area"]
-transform = Transform3D(0.89926, 0, -0.437414, 0, 1, 0, 0.437414, 0, 0.89926, -9.73619, -5.23927, -12.8186)
+transform = Transform3D(0.89926, 0, -0.437414, 0, 1, 0, 0.437414, 0, 0.89926, 58.7554, 17.3354, 33.1186)
 shape = SubResource("BoxShape3D_i36n6")
 
 [node name="Marker3D1" type="Marker3D" parent="traps2/camper_area"]
-transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, 5.44642, -7.78826, -7.78515)
-
-[node name="Marker3D3" type="Marker3D" parent="traps2/camper_area"]
-transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, 0.138672, -7.8921, -5.80067)
+transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, 61.7942, 14.3094, 30.8654)
 
 [node name="Marker3D2" type="Marker3D" parent="traps2/camper_area"]
-transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, -1.46624, -4.91051, 0.360606)
-
-[node name="Marker3D4" type="Marker3D" parent="traps2/camper_area"]
-transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, 2.67802, -4.91051, -15.0202)
-
-[node name="Marker3D5" type="Marker3D" parent="traps2/camper_area"]
-transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, 10.4016, -4.91051, -9.57686)
-
-[node name="Marker3D6" type="Marker3D" parent="traps2/camper_area"]
-transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, 0.276648, -6.1389, -2.637)
+transform = Transform3D(0.517176, 0, 0.855879, 0, 1, 0, -0.855879, 0, 0.517176, 62.0743, 13.8403, 35.6747)
 
 [node name="Label" type="Label" parent="."]
 offset_left = 1067.0
@@ -286,7 +282,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9459, 0, 25.9718)
 
 [node name="water_effects" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.4207, 6.20445, -79.7252)
-script = ExtResource("11_xqfym")
 
 [node name="Path3D" type="Path3D" parent="water_effects"]
 curve = SubResource("Curve3D_3l8xc")
@@ -330,14 +325,32 @@ path_u_distance = 1.0
 path_joined = false
 script = ExtResource("17_blljb")
 
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="water_effects"]
+material_override = SubResource("StandardMaterial3D_04ut4")
+polygon = PackedVector2Array(-1.08387, 0.912033, 1.41962, 0.943306, 0.18161, 0.053937)
+mode = 2
+path_node = NodePath("../Path3D3")
+path_interval_type = 1
+path_interval = 0.39
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+script = ExtResource("17_blljb")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="water_effects"]
-transform = Transform3D(141.01, 0, 0, 0, -5.89313e-06, 0.964475, 0, -134.819, -4.21585e-08, 0, -6.3915, 68.2271)
+transform = Transform3D(141.01, 0, 0, 0, -5.89313e-06, 0.964475, 0, -134.819, -4.21585e-08, 0, -6.27201, 68.2271)
 material_override = SubResource("StandardMaterial3D_xquqc")
 mesh = SubResource("QuadMesh_wapur")
 script = ExtResource("16_ayemc")
 
 [node name="Path3D2" type="Path3D" parent="water_effects"]
 curve = SubResource("Curve3D_wblql")
+
+[node name="Path3D3" type="Path3D" parent="water_effects"]
+curve = SubResource("Curve3D_ce12c")
 
 [node name="Snake1" parent="." instance=ExtResource("18_xu8b1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.21418, 0)
