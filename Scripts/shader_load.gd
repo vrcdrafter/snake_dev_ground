@@ -13,7 +13,7 @@ var one_shot :bool = true
 	
 func _process(delta: float) -> void:
 	if GlobalVars.shaders_loaded != true:
-		print(rad_to_deg(player.rotation.y))
+		
 		if rad_to_deg(player.rotation.y) > 179:
 			rotating = false
 			GlobalVars.shaders_loaded = true
@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 			self.visible = false
 			
 			if one_shot:
-				player.global_position = Vector3(-41.099,2.668,-81.275)
+				player.global_position = $player_start_position.global_position
 				one_shot = false
 	else:
 		self.visible = false

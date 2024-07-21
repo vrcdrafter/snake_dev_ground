@@ -25,7 +25,7 @@ func _on_body_entered(body: Node3D) -> void:
 		set_deferred("monitoring", false)
 
 		print("found player in area , should happen once . A")
-		var snake_instance = []
+		var snake_instance :Array[Node3D] = []
 		for n in range(number_of_snakes_needed):
 			# load snakes into array
 			snake_instance.append(snake_new.instantiate())
