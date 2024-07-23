@@ -30,7 +30,7 @@ func _on_body_entered(body: Node3D) -> void:
 			# load snakes into array
 			snake_instance.append(snake_new.instantiate())
 			snake_instance[n].position = get_node("Marker3D"+str(n+1)).global_position
-			
+			snake_instance[n].rotation = get_node("Marker3D"+str(n+1)).rotation
 		var remove_snake :Array = get_tree().get_nodes_in_group("snake")
 		for n in range(number_of_snakes_needed):
 			# gets handles

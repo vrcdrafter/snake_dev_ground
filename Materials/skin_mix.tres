@@ -1,0 +1,55 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://brc2wqs0duqn2"]
+
+[ext_resource type="Texture2D" uid="uid://bihulyc807y0v" path="res://icon.svg" id="1_8f8j5"]
+[ext_resource type="Texture2D" uid="uid://b3xwgqjvsaar2" path="res://textures/wall.jpg" id="2_4ws00"]
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_eos34"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_14w0g"]
+texture = ExtResource("1_8f8j5")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_s3eeh"]
+texture = ExtResource("2_4ws00")
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_8;
+uniform sampler2D tex_frg_7;
+
+
+
+void fragment() {
+// Texture2D:8
+	vec4 n_out8p0 = texture(tex_frg_8, UV);
+
+
+// Mix:6
+	vec3 n_in6p1 = vec3(1.00000, 1.00000, 1.00000);
+	vec3 n_in6p2 = vec3(0.50000, 0.50000, 0.50000);
+	vec3 n_out6p0 = mix(vec3(n_out8p0.xyz), n_in6p1, n_in6p2);
+
+
+// Texture2D:7
+	vec4 n_out7p0 = texture(tex_frg_7, UV);
+
+
+// Output:0
+	ALBEDO = n_out6p0;
+	ALPHA = n_out7p0.x;
+
+
+}
+"
+graph_offset = Vector2(-123.93, 47.9631)
+nodes/fragment/0/position = Vector2(660, 160)
+nodes/fragment/6/node = SubResource("VisualShaderNodeMix_eos34")
+nodes/fragment/6/position = Vector2(400, 100)
+nodes/fragment/7/node = SubResource("VisualShaderNodeTexture_14w0g")
+nodes/fragment/7/position = Vector2(-60, 280)
+nodes/fragment/8/node = SubResource("VisualShaderNodeTexture_s3eeh")
+nodes/fragment/8/position = Vector2(-280, 0)
+nodes/fragment/connections = PackedInt32Array(6, 0, 0, 0, 8, 0, 6, 0, 7, 0, 0, 1)

@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://f5bhdahkv1s2"]
+
+[ext_resource type="Shader" uid="uid://brc2wqs0duqn2" path="res://Materials/skin_mix.tres" id="1_1y66w"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_1y66w")

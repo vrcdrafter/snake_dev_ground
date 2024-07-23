@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc8veiw0wivkg"]
+
+[ext_resource type="Material" uid="uid://f5bhdahkv1s2" path="res://Materials/snake_skin_experiment.tres" id="1_5150m"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_g2shn"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_g2shn")
+surface_material_override/0 = ExtResource("1_5150m")

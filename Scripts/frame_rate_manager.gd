@@ -16,7 +16,6 @@ func _process(delta: float) -> void:
 	Frame_label.text = str(frames)
 
 
-
 func destroy_weakest_snake():
 	
 		var all_current_snakes :Array= get_tree().get_nodes_in_group("snake")
