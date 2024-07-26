@@ -18,7 +18,7 @@ var dir = Vector3.ZERO
 var flashlight
 signal remove_mouse
 signal snakes_go
-# esnanremente data
+# esnanremente data   hi
 var ensnared = false
 var ensnared_position:Vector3 
 var snakes_around_you :int = 0 
