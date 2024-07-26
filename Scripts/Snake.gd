@@ -63,7 +63,7 @@ func _ready():
 
 
 func _physics_process(delta : float):
-
+	
 	if snake_state == "player_seeking":
 		target = get_node("../Player")
 		

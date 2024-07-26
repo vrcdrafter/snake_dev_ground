@@ -30,17 +30,21 @@ func _process(_delta : float):
 	for data in skeletons:
 		if(data.skeleton.is_visible_in_tree()):
 			if(exact):
-				_adjust_bone_exact(0, data, 0.0)
+				
+				_adjust_bone_exact(0, data, 3.0)
 			else:
 				_adjust_bone(0, data.skeleton)
 
 func _on_child_entered_tree(node : Node):
 	var skeletonsInNode = node.find_children("*", "Skeleton3D")
+	
 	for sk in skeletonsInNode:
 		var skelData : SkeletonData = SkeletonData.new()
 		skelData.skeleton = sk
 		skelData.calc_length()
+		
 		skeletons.append(skelData)
+		
 	set_process(!skeletons.is_empty())
 
 func _on_child_exiting_tree(node : Node):
@@ -62,13 +66,16 @@ func _adjust_bone_exact(bone_id : int, data : SkeletonData, currentOffset : floa
 	if(parentBoneId != -1):
 		boneGlobalTransform = data.skeleton.global_transform * data.skeleton.get_bone_global_pose(bone_id)
 		parentBoneGlobalTransform = parentBoneGlobalTransform * data.skeleton.get_bone_global_pose(parentBoneId)
+		
 		currentOffset -= data.bone_length * boneGlobalTransform.basis.get_scale().x
+
+		
 		if(currentOffset < 0.0):
 			currentOffset = 0.0
 	else:
 		boneGlobalTransform = data.skeleton.global_transform * data.skeleton.get_bone_global_rest(bone_id)
 		currentOffset = path_node.curve.get_closest_offset(path_node.to_local(boneGlobalTransform.origin))
-	
+		
 	pathGlobalTransform = path_node.global_transform * path_node.curve.sample_baked_with_rotation(currentOffset, cubic_interp, tilt_enabled)
 	targetTransform = pathGlobalTransform
 	targetTransform.basis.x = pathGlobalTransform.basis.y
