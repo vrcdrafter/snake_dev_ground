@@ -152,7 +152,11 @@ func _smooth_point(smooth_force : float):
 func _ensnare_target():
 	var targetTransform : Transform3D = target.global_transform
 	targetTransform = targetTransform.looking_at(path_follow.global_position)
-	var ensData : Curve3D = preload("res://Resources/EnsnarmentData.res")
+	var ensData : Curve3D
+	if self.name.contains("heft"):
+		ensData = preload("res://Resources/EnsnarmentData_large.res")
+	else:
+		ensData = preload("res://Resources/EnsnarmentData.res")
 	#Append to movement path
 	for i in ensData.point_count:
 		var cp : CurvePoint = CurvePoint.new()
