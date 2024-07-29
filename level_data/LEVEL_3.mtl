@@ -31,6 +31,16 @@ Ni 1.450000
 d 1.000000
 illum 2
 
+newmtl bath_hallway
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Users/mathe/OneDrive/Desktop/snake_dev_ground/textures/bathroom_hallways.png
+
 newmtl black_cieling
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
