@@ -39,7 +39,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd C:/Users/mathe/OneDrive/Desktop/snake_dev_ground/textures/bathroom_hallways.png
+map_Kd C:/Users/mhawley/Desktop/github_stuff/snek_run/textures/bathroom_hallways_light.png
 
 newmtl black_cieling
 Ns 250.000000
@@ -61,6 +61,16 @@ Ni 1.450000
 d 1.000000
 illum 2
 
+newmtl hall_generic
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/mhawley/Desktop/github_stuff/snek_run/textures/bathroom_hallways.png
+
 newmtl structure
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
@@ -79,7 +89,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:/Users/mathe/OneDrive/Desktop/snake_dev_ground/textures/tan_tile.png
+map_Kd C:/Users/mhawley/Desktop/github_stuff/snek_run/textures/tan_tile.png
 
 newmtl tile.001
 Ns 250.000000
@@ -89,4 +99,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:/Users/mathe/OneDrive/Desktop/snake_dev_ground/textures/tile.png
+map_Kd C:/Users/mhawley/Desktop/github_stuff/snek_run/textures/tile.png
