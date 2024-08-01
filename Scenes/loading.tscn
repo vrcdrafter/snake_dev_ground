@@ -1,9 +1,67 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2stdiapbpqxp"]
+[gd_scene load_steps=14 format=3 uid="uid://c2stdiapbpqxp"]
 
 [ext_resource type="Script" path="res://Scripts/LOADING_SCREEN.gd" id="1_a2k8r"]
-[ext_resource type="Texture2D" uid="uid://dgerjccpownvh" path="res://textures/cobra_2.png" id="2_q1qmw"]
+[ext_resource type="Texture2D" uid="uid://bugnhepifd1hr" path="res://textures/loading_snake.png" id="2_uvu1y"]
+[ext_resource type="Script" path="res://Scripts/animated_sprite_2d.gd" id="3_pyv2j"]
+
+[sub_resource type="Gradient" id="Gradient_bnte7"]
+offsets = PackedFloat32Array(0, 0.989744, 0.994872, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0938673, 0.0938673, 0.0938673, 1, 0.271795, 0.271795, 0.271795, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2tfw4"]
+gradient = SubResource("Gradient_bnte7")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6q76"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8oni"]
+atlas = ExtResource("2_uvu1y")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_556v0"]
+atlas = ExtResource("2_uvu1y")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t87vu"]
+atlas = ExtResource("2_uvu1y")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfeor"]
+atlas = ExtResource("2_uvu1y")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27676"]
+atlas = ExtResource("2_uvu1y")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfuto"]
+atlas = ExtResource("2_uvu1y")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62v1c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8oni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_556v0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t87vu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfeor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27676")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfuto")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("loading_bar", "percenctage_label")]
 layout_mode = 3
@@ -27,7 +85,7 @@ offset_right = -30.0
 offset_bottom = 57.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_q1qmw")
+texture = SubResource("GradientTexture2D_2tfw4")
 expand_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -48,3 +106,11 @@ offset_top = 23.0
 offset_right = 599.0
 offset_bottom = 46.0
 text = "LOADING...,"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(126, 559)
+scale = Vector2(5.96875, 5.5)
+sprite_frames = SubResource("SpriteFrames_62v1c")
+animation = &"new_animation"
+frame_progress = 0.835581
+script = ExtResource("3_pyv2j")

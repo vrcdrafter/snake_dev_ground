@@ -2,13 +2,20 @@ extends Area3D
 
 
 var snake_new = preload("res://Scenes/Snake.tscn")
+var snake_new_heft = preload("res://Scenes/Snake_large.tscn")
 
 var number_of_snakes_needed :int = 0 
 signal reconnect_snakes
 var top_node_name : String
 
+var use_large_snakes :bool = false
+
 func _ready() -> void:
 	for n in get_children():
+		# check to see if you need to replace with hefty snake 
+		if n.name.contains("heft_marker"):
+			print("GIVE ME SOME HEFTY ONES ")
+			use_large_snakes = true
 		if n.get_class() == "Marker3D":
 			number_of_snakes_needed += 1
 	print("I have a marker 3d ", number_of_snakes_needed)
@@ -24,13 +31,21 @@ func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		set_deferred("monitoring", false)
 
-		print("found player in area , should happen once . A")
+		
 		var snake_instance :Array[Node3D] = []
 		for n in range(number_of_snakes_needed):
 			# load snakes into array
-			snake_instance.append(snake_new.instantiate())
-			snake_instance[n].position = get_node("Marker3D"+str(n+1)).global_position
-			snake_instance[n].rotation = get_node("Marker3D"+str(n+1)).rotation
+			if use_large_snakes:
+				snake_instance.append(snake_new_heft.instantiate())
+			else:
+				snake_instance.append(snake_new.instantiate())
+			if use_large_snakes:
+				snake_instance[n].position = get_node("Marker3D"+str(n+1)+"_heft_marker").global_position
+				snake_instance[n].rotation = get_node("Marker3D"+str(n+1)+"_heft_marker").rotation
+				snake_instance[n].scale = Vector3(2.3,2.3,2.3)
+			else:
+				snake_instance[n].position = get_node("Marker3D"+str(n+1)).global_position
+				snake_instance[n].rotation = get_node("Marker3D"+str(n+1)).rotation
 		var remove_snake :Array = get_tree().get_nodes_in_group("snake")
 		for n in range(number_of_snakes_needed):
 			# gets handles
