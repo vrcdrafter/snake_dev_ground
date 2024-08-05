@@ -15,6 +15,8 @@ extends Node3D
 @onready var movement_path : Curve3D = $SnakePath.curve
 @onready var path_follow : SkeletonPathFollow3D = $SnakePath/SkeletonPathFollow3D
 @onready var nav_agent : NavigationAgent3D = $SnakePath/SkeletonPathFollow3D/steve/NavAgent
+@onready var snake_skin_mesh :MeshInstance3D = $SnakePath/SkeletonPathFollow3D/steve/Armature/Skeleton3D/Cube_001
+
 
 var _nav_map : RID
 @export var _ensnared : bool = false
@@ -153,7 +155,8 @@ func _ensnare_target():
 	var targetTransform : Transform3D = target.global_transform
 	targetTransform = targetTransform.looking_at(path_follow.global_position)
 	var ensData : Curve3D
-	if self.name.contains("heft"):
+	if snake_skin_mesh.mesh.get_faces().size() > 16000:  # more verticies means its the larger snake
+		print("HEFTY PATH USED")
 		ensData = preload("res://Resources/EnsnarmentData_large.res")
 	else:
 		ensData = preload("res://Resources/EnsnarmentData.res")

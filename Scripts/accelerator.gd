@@ -2,7 +2,7 @@ extends Area3D
 
 
 var player_entered :bool = false
-var strength :float = .1
+var strength :float = 6
 
 @onready var Player_handle :CharacterBody3D = get_node("../../Player")
 
@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 	
 	if player_entered:
 		print("trying to move player")
-		Player_handle.global_position += pointing * strength
+		Player_handle.global_position += pointing * strength * delta
 
 
 func _on_body_entered(body: Node3D) -> void:

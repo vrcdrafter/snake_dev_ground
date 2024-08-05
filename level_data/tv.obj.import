@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://714xku8egoae"
+path="res://.godot/imported/tv.obj-d2d482d895db5969ca634b2db0420cc8.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tv.obj-d2d482d895db5969ca634b2db0420cc8.mesh"]
+
+source_file="res://level_data/tv.obj"
+dest_files=["res://.godot/imported/tv.obj-d2d482d895db5969ca634b2db0420cc8.mesh", "res://.godot/imported/tv.obj-d2d482d895db5969ca634b2db0420cc8.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
