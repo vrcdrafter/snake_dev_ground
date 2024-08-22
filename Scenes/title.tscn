@@ -1,6 +1,7 @@
-[gd_scene load_steps=203 format=3 uid="uid://5s3bx0fea1h3"]
+[gd_scene load_steps=204 format=3 uid="uid://5s3bx0fea1h3"]
 
 [ext_resource type="Script" path="res://Scripts/title_script.gd" id="1_eysnh"]
+[ext_resource type="Texture2D" uid="uid://crymiptwhcvya" path="res://textures/title.png" id="2_bn42a"]
 [ext_resource type="Texture2D" uid="uid://d2au6heuy2hy2" path="res://promotion/video_level_1/level100000097.png" id="61_6uxrw"]
 [ext_resource type="Texture2D" uid="uid://ch1nvue4xg8a8" path="res://promotion/video_level_1/level100000098.png" id="62_1cf0u"]
 [ext_resource type="Texture2D" uid="uid://dgenfnyqi7ewc" path="res://promotion/video_level_1/level100000099.png" id="63_3relq"]
@@ -836,12 +837,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eysnh")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 24.0
+offset_right = 6547.0
+offset_bottom = 5904.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_bn42a")
+
 [node name="LEVEL1" type="Button" parent="."]
 layout_mode = 0
-offset_left = 133.0
-offset_top = 132.0
-offset_right = 458.0
-offset_bottom = 232.0
+offset_left = 51.0
+offset_top = 91.0
+offset_right = 209.0
+offset_bottom = 170.0
 text = "    LEVEL_1
 "
 alignment = 0
@@ -849,10 +859,10 @@ alignment = 0
 [node name="LEVEL2" type="Button" parent="."]
 auto_translate_mode = 1
 layout_mode = 0
-offset_left = 131.0
-offset_top = 290.0
-offset_right = 456.0
-offset_bottom = 390.0
+offset_left = 43.0
+offset_top = 261.0
+offset_right = 205.0
+offset_bottom = 341.0
 text = "   LEVEL_2
 "
 alignment = 0
@@ -860,10 +870,10 @@ alignment = 0
 [node name="LEVEL3" type="Button" parent="."]
 auto_translate_mode = 1
 layout_mode = 0
-offset_left = 131.0
-offset_top = 448.0
-offset_right = 456.0
-offset_bottom = 548.0
+offset_left = 40.0
+offset_top = 445.0
+offset_right = 178.0
+offset_bottom = 521.0
 text = "   LEVEL_3
 "
 alignment = 0
@@ -879,17 +889,17 @@ text = "fdsafdsa"
 [node name="Label2" type="Label" parent="."]
 auto_translate_mode = 1
 layout_mode = 0
-offset_left = 223.0
-offset_top = 33.0
-offset_right = 761.0
-offset_bottom = 208.0
+offset_left = 37.0
+offset_top = 20.0
+offset_right = 177.0
+offset_bottom = 51.0
 text = "SELECT A LEVEL 	"
 
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="level_1_vid" type="AnimatedSprite2D" parent="Node2D"]
 material = SubResource("CanvasItemMaterial_ir1x8")
-position = Vector2(633.25, 183.75)
+position = Vector2(391, 139)
 scale = Vector2(0.244358, 0.227623)
 sprite_frames = SubResource("SpriteFrames_pkuhe")
 frame_progress = 0.195251
@@ -898,7 +908,7 @@ script = ExtResource("207_y1drt")
 [node name="level_1_vid2" type="AnimatedSprite2D" parent="Node2D"]
 modulate = Color(0.201353, 0.198784, 0.207031, 1)
 material = SubResource("CanvasItemMaterial_5xsa6")
-position = Vector2(630, 348)
+position = Vector2(391, 313)
 scale = Vector2(0.241753, 0.221451)
 sprite_frames = SubResource("SpriteFrames_mndfu")
 script = SubResource("GDScript_fnk0v")
@@ -906,7 +916,7 @@ script = SubResource("GDScript_fnk0v")
 [node name="level_1_vid3" type="AnimatedSprite2D" parent="Node2D"]
 modulate = Color(0.201353, 0.198784, 0.207031, 1)
 material = SubResource("CanvasItemMaterial_x3nj4")
-position = Vector2(637, 526)
+position = Vector2(390, 492)
 scale = Vector2(0.25217, 0.232253)
 sprite_frames = SubResource("SpriteFrames_nyyro")
 script = SubResource("GDScript_nmk8q")

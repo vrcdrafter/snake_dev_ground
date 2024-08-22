@@ -16,7 +16,11 @@ extends Node3D
 @onready var path_follow : SkeletonPathFollow3D = $SnakePath/SkeletonPathFollow3D
 @onready var nav_agent : NavigationAgent3D = $SnakePath/SkeletonPathFollow3D/steve/NavAgent
 @onready var snake_skin_mesh :MeshInstance3D = $SnakePath/SkeletonPathFollow3D/steve/Armature/Skeleton3D/Cube_001
+var time :float = 0
+var snake_wavyness :float = .3
+var wave_thing :float = 0
 
+var previous_point :Vector3 = Vector3(0,0,0) # used to store the previos point for the wave calculationh
 
 var _nav_map : RID
 @export var _ensnared : bool = false
@@ -65,6 +69,9 @@ func _ready():
 
 
 func _physics_process(delta : float):
+	time += delta
+	wave_thing = (sin(time)*snake_wavyness)
+	
 	
 	if snake_state == "player_seeking":
 		target = get_node("../Player")
@@ -73,9 +80,12 @@ func _physics_process(delta : float):
 		# logic to pick new cub if close enough  .
 		if ((target.global_position - path_follow.global_position).length() < 3.0):
 			pick_new_object = true
+			# this is where random switching and uncontrolled may occur . 
+			
 		if pick_new_object: 
 			# to make sure the next target is different 
 			var next_target = patrol_objects.pick_random()
+			# if the next target is the same keep picking new target
 			while next_target == target:
 				next_target = patrol_objects.pick_random()
 			target = next_target
@@ -86,7 +96,7 @@ func _physics_process(delta : float):
 	#nav_agent.get_next_path_position()
 	path_follow.progress += nav_agent.velocity.length() * delta
 	if(!_ensnared && movement_path.get_baked_length() - path_follow.progress < path_update_len):
-		_append_path()
+		_append_path(wave_thing) # now needs time as a argument to make snake do wave
 	if((get_node("../Player").global_position - path_follow.global_position).length() < path_update_len * 1 && !_ensnared):
 		# if it reaches a cube go pick another one
 		
@@ -111,7 +121,7 @@ func _physics_process(delta : float):
 	
 
 #Called to prepare next part of path toward target
-func _append_path():
+func _append_path(wave :float):
 	append_path_hits += 1
 	
 	var lastPathPos : Vector3 = path_node.to_global(movement_path.get_point_position(movement_path.point_count - 1))
@@ -122,24 +132,48 @@ func _append_path():
 		return
 	var currentPoint : int = 1
 	var lastPos : Vector3 = currentPos
-	#lastPos.y = 0.0
+
 	var lenLeft : float = path_update_len
 	while(lenLeft > 0.0 && currentPoint < navPath.size()):
+		
+		
 		var currentPointPos : Vector3 = navPath[currentPoint]
+		# may want to modify the current PointPos 
+		
+		currentPointPos = Vector3(currentPointPos.x + wave ,currentPointPos.y,currentPointPos.z + wave) # this is a real mouth full but what its doing is gradually moving the points back and forth 
 		#currentPointPos.y = 0.0
 		var clen : float = (currentPointPos - lastPos).length()
 		if(clen > lenLeft):
+			
+			
 			#Too far away
 			var newPoint : Vector3 = lastPos + (currentPointPos - lastPos).normalized() * lenLeft
-			movement_path.add_point(path_node.to_local(newPoint))
+			var adding_point :Vector3 = path_node.to_local(newPoint)
+			# get the deirection the snake is heading in
+			var direction_vector :Vector3 = previous_point - adding_point 
+			var sway_point = Perpendicular(direction_vector) 
+			var wavy_point :Vector3 = Vector3(adding_point.x + (sway_point.x * wave) ,adding_point.y,adding_point.z + (sway_point.z * wave))
+			movement_path.add_point(wavy_point)
 			lenLeft = 0.0
+			previous_point = adding_point
 		else:
 			#Too close
-			movement_path.add_point(path_node.to_local(currentPointPos))
+			
+			
+			var adding_point_2 :Vector3 = path_node.to_local(currentPointPos)
+			var direction_vector_2 :Vector3 = previous_point - adding_point_2
+			var sway_point_2 = Perpendicular(direction_vector_2) 
+			
+			var wavy_point_2 :Vector3 = Vector3(adding_point_2.x + (sway_point_2.x * wave) ,adding_point_2.y,adding_point_2.z + (sway_point_2.z * wave))
+			movement_path.add_point(wavy_point_2)
+			previous_point = adding_point_2
 			lenLeft -= clen
 		_smooth_point(path_smoothing)
 		lastPos = currentPointPos
 		currentPoint += 1
+
+		
+		
 
 func _smooth_point(smooth_force : float):
 	var prevPos : Vector3 = movement_path.get_point_position(movement_path.point_count - 3)
@@ -156,7 +190,7 @@ func _ensnare_target():
 	targetTransform = targetTransform.looking_at(path_follow.global_position)
 	var ensData : Curve3D
 	if snake_skin_mesh.mesh.get_faces().size() > 16000:  # more verticies means its the larger snake
-		print("HEFTY PATH USED")
+		
 		ensData = preload("res://Resources/EnsnarmentData_large.res")
 	else:
 		ensData = preload("res://Resources/EnsnarmentData.res")
@@ -176,3 +210,9 @@ func _on_nav_agent_velocity_computed(safe_velocity : Vector3):
 	pass
 func give_snake_speed():
 	max_speed = 3
+
+func Perpendicular(input_vect : Vector3):
+	var y_vect :Vector3 = Vector3(0,1,0)
+	var perpendicular_vect = y_vect.cross(input_vect)
+	perpendicular_vect = perpendicular_vect.normalized()
+	return perpendicular_vect

@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cq3esp8r1ajno" path="res://textures/water.png" id="16_dowux"]
 [ext_resource type="Script" path="res://Scenes/mesh_instance_3d.gd" id="17_blljb"]
 [ext_resource type="AudioStream" uid="uid://bv3ig75r3y0gt" path="res://sounds/zapsplat_nature_creek_from_waterfall_close_15142.wav" id="18_f5wok"]
-[ext_resource type="PackedScene" uid="uid://bdcsvccg7p3hs" path="res://Scenes/Snake.tscn" id="18_xu8b1"]
+[ext_resource type="PackedScene" uid="uid://bdcsvccg7p3hs" path="res://Scenes/Snake.tscn" id="18_jq7dr"]
 [ext_resource type="ArrayMesh" uid="uid://ckwcctwgk3jvf" path="res://level_data/tree_palm.obj" id="19_1hqol"]
 [ext_resource type="Script" path="res://Scripts/shader_load.gd" id="19_yhpu3"]
 [ext_resource type="Script" path="res://Scripts/accelerator.gd" id="20_4fpx2"]
@@ -244,14 +244,14 @@ up_vector_enabled = false
 specular_mode = 2
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(1.91, 4.41, 3.15)
-uv1_offset = Vector3(-4052.23, 0, 0)
+uv1_offset = Vector3(-97014.1, 0, 0)
 uv1_triplanar_sharpness = 2.73209
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xquqc"]
 albedo_color = Color(0.801126, 0.850845, 1, 1)
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(30, 30, 30)
-uv1_offset = Vector3(-0.0161346, 0.0986898, 0)
+uv1_offset = Vector3(0.0139963, 0.0990157, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_wapur"]
 
@@ -259,7 +259,7 @@ uv1_offset = Vector3(-0.0161346, 0.0986898, 0)
 albedo_color = Color(0.801126, 0.850845, 1, 1)
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(10, 10, 10)
-uv1_offset = Vector3(-0.0161346, 0.0986898, 0)
+uv1_offset = Vector3(0.0139963, 0.0990157, 0)
 
 [sub_resource type="Curve3D" id="Curve3D_wblql"]
 bake_interval = 34.85
@@ -664,7 +664,7 @@ path_joined = false
 script = ExtResource("17_blljb")
 
 [node name="pool" type="MeshInstance3D" parent="water_effects"]
-transform = Transform3D(141.01, 0, 0, 0, -5.89313e-06, 0.964475, 0, -134.819, -4.21585e-08, 0, -6.30161, 68.2271)
+transform = Transform3D(141.01, 0, 0, 0, -5.89313e-06, 0.964475, 0, -134.819, -4.21585e-08, 0, -6.2986, 68.2271)
 material_override = SubResource("StandardMaterial3D_xquqc")
 mesh = SubResource("QuadMesh_wapur")
 script = ExtResource("14_84msn")
@@ -673,7 +673,7 @@ script = ExtResource("14_84msn")
 transform = Transform3D(15, 0, 0, 0, -4.63996e-07, 10.615, 0, -10.615, -4.63996e-07, 57.0119, 17.8241, 12.217)
 
 [node name="pool2" type="MeshInstance3D" parent="water_effects/pool2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.30161, 4.44089e-16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.2986, 4.44089e-16)
 material_override = SubResource("StandardMaterial3D_5r7mk")
 mesh = SubResource("QuadMesh_wapur")
 skeleton = NodePath("../..")
@@ -685,20 +685,23 @@ curve = SubResource("Curve3D_wblql")
 [node name="Path3D3" type="Path3D" parent="water_effects"]
 curve = SubResource("Curve3D_ce12c")
 
-[node name="Snake1" parent="." instance=ExtResource("18_xu8b1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.21418, 0)
+[node name="Snake1" parent="." instance=ExtResource("18_jq7dr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83727, 0)
 
-[node name="Snake2" parent="." instance=ExtResource("18_xu8b1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.39993, 4.27877, 9.27024)
+[node name="Snake2" parent="." instance=ExtResource("18_jq7dr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83727, 12.2733)
 
-[node name="Snake3" parent="." instance=ExtResource("18_xu8b1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1212, 3.27301, 13.4432)
+[node name="Snake3" parent="." instance=ExtResource("18_jq7dr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83727, -7.17157)
 
-[node name="Snake4" parent="." instance=ExtResource("18_xu8b1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.58239, 23.0933)
+[node name="Snake4" parent="." instance=ExtResource("18_jq7dr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83727, 5.68674)
 
-[node name="Snake5" parent="." instance=ExtResource("18_xu8b1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.43837, 18.658)
+[node name="Snake5" parent="." instance=ExtResource("18_jq7dr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83727, 16.4699)
+
+[node name="Snake6" parent="." instance=ExtResource("18_jq7dr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83727, 20.7019)
 
 [node name="Snake_heft" parent="." instance=ExtResource("15_jxb65")]
 transform = Transform3D(2.235, 0, 0, 0, 2.235, 0, 0, 0, 2.235, -40.7713, 3.04877, -61.4883)
