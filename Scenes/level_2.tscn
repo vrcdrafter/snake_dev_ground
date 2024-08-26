@@ -508,6 +508,30 @@ transform = Transform3D(0.483053, 0, -0.875591, 0, 1, 0, 0.875591, 0, 0.483053, 
 use_collision = true
 size = Vector3(36.408, 51.3629, 1)
 
+[node name="menu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="menu"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 96.0
+offset_right = 812.0
+offset_bottom = 221.0
+text = "MAIN_MENU
+"
+
+[node name="Button2" type="Button" parent="menu"]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 247.0
+offset_right = 807.0
+offset_bottom = 362.0
+text = "RESTART"
+
 [connection signal="reconnect_snakes" from="." to="Player" method="_on_node_3d_reconnect_snakes"]
 [connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]
 [connection signal="finished" from="level_exit/AudioStreamPlayer3D" to="level_exit" method="_on_audio_stream_player_3d_finished"]

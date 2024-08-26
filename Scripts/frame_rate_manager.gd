@@ -4,17 +4,27 @@ extends Node3D
  
 signal restor_speed
 
+signal remove_mouse
 
 var snake_new = preload("res://Scenes/Snake.tscn")
 
 signal reconnect_snakes
+
+var toggle :bool = true # for the pause stuff
 
 func _process(delta: float) -> void:
 	
 	var frames = Engine.get_frames_per_second()
 	
 	Frame_label.text = str(frames)
-
+	
+	var menu :Callable = Callable(self, "_on_button_button_down")
+	var menu_button :Button = get_node("menu/Button")
+	menu_button.connect("button_down",menu)
+	
+	var restart :Callable = Callable(self, "_on_button_2_button_down")
+	var menu_button_2 :Button = get_node("menu/Button2")
+	menu_button_2.connect("button_down",restart)
 
 func destroy_weakest_snake():
 	
@@ -37,3 +47,28 @@ func destroy_weakest_snake():
 		var snake_to_desctory = all_current_snakes[index]
 		print("highest index", index, "destroy", snake_to_desctory)
 		#emit_signal("reconnect_snakes")
+		
+func _input(event: InputEvent) -> void:
+	
+	if Input.is_action_just_pressed("menu"):
+		if toggle:
+			Engine.time_scale = 0
+			toggle = false
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			$menu.visible = true
+		else:
+			Engine.time_scale = 1
+			toggle = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			$menu.visible = false
+
+
+func _on_button_button_down() -> void:
+	Engine.time_scale = 1
+	GlobalVars.next_level = "res://Scenes/title.tscn"
+	get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+
+
+func _on_button_2_button_down() -> void:
+	Engine.time_scale = 1
+	get_tree().reload_current_scene()
