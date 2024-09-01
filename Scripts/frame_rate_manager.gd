@@ -12,11 +12,7 @@ signal reconnect_snakes
 
 var toggle :bool = true # for the pause stuff
 
-func _process(delta: float) -> void:
-	
-	var frames = Engine.get_frames_per_second()
-	
-	Frame_label.text = str(frames)
+func _ready() -> void:
 	
 	var menu :Callable = Callable(self, "_on_button_button_down")
 	var menu_button :Button = get_node("menu/Button")
@@ -25,6 +21,16 @@ func _process(delta: float) -> void:
 	var restart :Callable = Callable(self, "_on_button_2_button_down")
 	var menu_button_2 :Button = get_node("menu/Button2")
 	menu_button_2.connect("button_down",restart)
+
+
+
+func _process(delta: float) -> void:
+	
+	var frames = Engine.get_frames_per_second()
+	
+	Frame_label.text = str(frames)
+	
+
 
 func destroy_weakest_snake():
 	

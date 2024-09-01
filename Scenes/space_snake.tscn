@@ -1,0 +1,122 @@
+[gd_scene load_steps=10 format=3 uid="uid://bfo34niu4we43"]
+
+[ext_resource type="Script" path="res://Scripts/Snake.gd" id="1_karc5"]
+[ext_resource type="PackedScene" uid="uid://b8fmwcegp1us" path="res://Scenes/SkeletonPathFollow3D.tscn" id="3_jqlli"]
+[ext_resource type="PackedScene" uid="uid://b5fyo4c8he11p" path="res://level_data/snake_hefty.glb" id="4_s43jt"]
+[ext_resource type="Texture2D" uid="uid://blgrwafq568nm" path="res://textures/snake_boss.png" id="5_rshvd"]
+[ext_resource type="Script" path="res://Scripts/junk_get_mesh.gd" id="6_dc4fx"]
+[ext_resource type="AudioStream" uid="uid://c1pevk528p5bw" path="res://sounds/zapsplat_animals_snake_hiss_short_14693.mp3" id="7_la4wa"]
+[ext_resource type="Script" path="res://Scenes/hiss.gd" id="8_vy72y"]
+
+[sub_resource type="Curve3D" id="Curve3D_ip3j1"]
+resource_local_to_scene = true
+bake_interval = 0.01
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -13.0432, 0, 0, 0, 0, 0, 0, 0, 0, -0.130476, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+up_vector_enabled = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rgu5q"]
+albedo_texture = ExtResource("5_rshvd")
+texture_filter = 0
+texture_repeat = false
+
+[node name="Snake" type="Node3D" groups=["snake"]]
+script = ExtResource("1_karc5")
+
+[node name="SnakePath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_ip3j1")
+
+[node name="SkeletonPathFollow3D" parent="SnakePath" instance=ExtResource("3_jqlli")]
+transform = Transform3D(-4.37106e-08, 0, -0.999981, 0, 1, 0, 0.999981, 0, -4.37106e-08, -4.0432, 0, 0)
+progress = 9.0
+loop = false
+
+[node name="steve" parent="SnakePath/SkeletonPathFollow3D" instance=ExtResource("4_s43jt")]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="SnakePath/SkeletonPathFollow3D/steve/Armature" index="0"]
+bones/0/position = Vector3(-8.52651e-14, 0, -1.90735e-06)
+bones/0/rotation = Quaternion(0.5, 0.5, 0.5, 0.5)
+bones/1/position = Vector3(0, 0.500008, 2.1856e-08)
+bones/1/rotation = Quaternion(2.18557e-08, 0, 0, 1)
+bones/2/position = Vector3(0, 0.500011, -1.77643e-15)
+bones/2/rotation = Quaternion(-1.77639e-15, 0, 0, 1)
+bones/3/position = Vector3(0, 0.50001, 0)
+bones/3/rotation = Quaternion(0, 0, 0, 1)
+bones/4/position = Vector3(0, 0.50001, 0)
+bones/4/rotation = Quaternion(0, 0, 0, 1)
+bones/5/position = Vector3(0, 0.50001, 7.10556e-15)
+bones/5/rotation = Quaternion(0, 0, 0, 1)
+bones/6/position = Vector3(0, 0.500008, 0)
+bones/6/rotation = Quaternion(0, 0, 0, 1)
+bones/7/position = Vector3(0, 0.500011, -1.42111e-14)
+bones/7/rotation = Quaternion(0, 0, 0, 1)
+bones/8/position = Vector3(0, 0.50001, 1.42111e-14)
+bones/8/rotation = Quaternion(0, 0, 0, 1)
+bones/9/position = Vector3(0, 0.500009, -1.42111e-14)
+bones/9/rotation = Quaternion(0, 0, 0, 1)
+bones/10/position = Vector3(0, 0.50001, 0)
+bones/10/rotation = Quaternion(0, 0, 0, 1)
+bones/11/position = Vector3(0, 0.50001, -1.42111e-14)
+bones/11/rotation = Quaternion(0, 0, 0, 1)
+bones/12/position = Vector3(0, 0.50001, 2.84222e-14)
+bones/12/rotation = Quaternion(0, 0, 0, 1)
+bones/13/position = Vector3(0, 0.50001, -2.84222e-14)
+bones/13/rotation = Quaternion(0, 0, 0, 1)
+bones/14/position = Vector3(0, 0.500008, 2.84222e-14)
+bones/14/rotation = Quaternion(0, 0, 0, 1)
+bones/15/position = Vector3(0, 0.500014, 2.84222e-14)
+bones/15/rotation = Quaternion(0, 0, 0, 1)
+bones/16/position = Vector3(0, 0.500008, -2.84222e-14)
+bones/16/rotation = Quaternion(0, 0, 0, 1)
+bones/17/position = Vector3(0, 0.500011, 5.68445e-14)
+bones/17/rotation = Quaternion(0, 0, 0, 1)
+bones/18/position = Vector3(0, 0.500004, 0)
+bones/18/rotation = Quaternion(0, 0, 0, 1)
+bones/19/position = Vector3(0, 1.90735e-06, -2.84222e-14)
+bones/19/rotation = Quaternion(0, 0, 0, 1)
+bones/20/position = Vector3(0, 0, 0)
+bones/20/rotation = Quaternion(0, 0, 0, 1)
+bones/21/position = Vector3(0, 0, 0)
+bones/21/rotation = Quaternion(0, 0, 0, 1)
+bones/22/position = Vector3(0, 0, 0)
+bones/22/rotation = Quaternion(0, 0, 0, 1)
+bones/23/position = Vector3(0, 0, 0)
+bones/23/rotation = Quaternion(0, 0, 0, 1)
+bones/24/position = Vector3(0, 0, 0)
+bones/24/rotation = Quaternion(0, 0, 0, 1)
+bones/25/position = Vector3(0, 0, 0)
+bones/25/rotation = Quaternion(0, 0, 0, 1)
+bones/26/position = Vector3(0, 0, 0)
+bones/26/rotation = Quaternion(0, 0, 0, 1)
+bones/27/position = Vector3(0, 0, 0)
+bones/27/rotation = Quaternion(0, 0, 0, 1)
+bones/28/position = Vector3(0, 0, 0)
+bones/28/rotation = Quaternion(0, 0, 0, 1)
+bones/29/position = Vector3(0, 0, 0)
+bones/29/rotation = Quaternion(0, 0, 0, 1)
+
+[node name="Cube_001" parent="SnakePath/SkeletonPathFollow3D/steve/Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_rgu5q")
+script = ExtResource("6_dc4fx")
+
+[node name="NavAgent" type="NavigationAgent3D" parent="SnakePath/SkeletonPathFollow3D/steve"]
+radius = 2.0
+max_speed = 30.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SnakePath"]
+stream = ExtResource("7_la4wa")
+unit_size = 5.0
+max_distance = 10.0
+script = ExtResource("8_vy72y")
+
+[node name="Timer" type="Timer" parent="SnakePath/AudioStreamPlayer3D"]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="SnakePath/AudioStreamPlayer3D/Timer" to="SnakePath/AudioStreamPlayer3D" method="_on_timer_timeout"]
+
+[editable path="SnakePath/SkeletonPathFollow3D/steve"]

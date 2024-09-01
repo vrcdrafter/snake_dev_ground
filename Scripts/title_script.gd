@@ -47,6 +47,12 @@ func load_game():
 	var content = file.get_as_text()
 	return content
 	
+	
+func _on_level_4_button_down() -> void:
+
+	GlobalVars.next_level = "res://Scenes/level_4.tscn"
+	get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+	setup_level()
 
 
 func _on_level_3_button_down() -> void:

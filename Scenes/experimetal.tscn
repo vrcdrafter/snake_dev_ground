@@ -1,0 +1,136 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1dsqa25kwwv6"]
+
+[ext_resource type="Script" path="res://Scenes/controller.gd" id="1_h0tpo"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_q33i6"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_b07qu"]
+
+[node name="dynamic_snake" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10.8284, 9.01425)
+
+[node name="head" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.607729)
+mesh = SubResource("SphereMesh_q33i6")
+script = ExtResource("1_h0tpo")
+
+[node name="body1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -4)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -6)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -12)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body9" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -17)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body10" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -23)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -43)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body12" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -40)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body13" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -36)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body14" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -36)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body15" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -15)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body16" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body17" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body18" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body19" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body20" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body21" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body22" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body23" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body24" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body25" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body26" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body27" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body28" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="body29" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+mesh = SubResource("PrismMesh_b07qu")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0748221, 0.997197, 0, -0.997197, -0.0748221, 0, 1.77048, -0.132843)
