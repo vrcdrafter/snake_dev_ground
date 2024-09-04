@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bdcsvccg7p3hs"]
 
 [ext_resource type="PackedScene" uid="uid://b8fmwcegp1us" path="res://Scenes/SkeletonPathFollow3D.tscn" id="1_ex0k2"]
-[ext_resource type="Script" path="res://Scripts/Snake.gd" id="1_soglc"]
+[ext_resource type="Script" path="res://Scripts/Snake_new.gd" id="1_gqpos"]
 [ext_resource type="PackedScene" uid="uid://cpado5sjppwak" path="res://Imported/steve.glb" id="2_p4aj0"]
 [ext_resource type="Material" uid="uid://bptuvtsg0iiph" path="res://Materials/snake_scale.tres" id="4_2tjcj"]
 [ext_resource type="AudioStream" uid="uid://c1pevk528p5bw" path="res://sounds/zapsplat_animals_snake_hiss_short_14693.mp3" id="5_po3uh"]
@@ -17,7 +17,7 @@ point_count = 3
 up_vector_enabled = false
 
 [node name="Snake" type="Node3D" groups=["snake"]]
-script = ExtResource("1_soglc")
+script = ExtResource("1_gqpos")
 
 [node name="SnakePath" type="Path3D" parent="."]
 curve = SubResource("Curve3D_ip3j1")
