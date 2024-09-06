@@ -13,11 +13,19 @@ var bone_numbers :int = 0
 @onready var nav : NavigationAgent3D = $NavigationAgent3D
 @onready var target :Marker3D = get_node("../Marker3D")
 var body_segment_pimitived :Array[MeshInstance3D] = []
-
+@onready var donut = get_node("../donut")
 @onready var skeleton :Skeleton3D = get_node("../snake_hefty/Armature/Skeleton3D")
 var tris_ready :bool = false
+# curve stuff
+var path :Path3D 
+var curve :Curve3D
+var ensnarement_points :PackedVector3Array
 
 func _ready() -> void:
+	
+	path= get_node("../Path3D")
+	curve = path.curve
+	ensnarement_points = curve.get_baked_points()
 		# get bone lenghts 
 	bone_length = calc_length()
 	print("bone length ", skeleton.get_bone_count())
@@ -33,6 +41,9 @@ func _ready() -> void:
 		tri_array[i].name = "body"+str(i)
 		tri_array[i].global_position = Vector3(0,0,i*.2)
 		self.add_sibling.call_deferred(tri_array[i])
+		
+	# get first ensarement data loaded 
+	
 
 
 func _process(delta: float) -> void:
@@ -55,19 +66,33 @@ func _process(delta: float) -> void:
 	
 	var input_dir :Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
+	
+	
 	target.global_position += Vector3(input_dir.x*delta*SPEED,0,input_dir.y*delta*SPEED)
 	
-	follower(delta)
+	if Input.is_action_just_pressed("ui_accept"):
+		run_ensnarement()
+	else:
+		follower(delta)
+		
+		# put test dont
+	var direction = transform.basis.z.normalized()
+	donut.global_position = (direction * -2 ) + global_position
+
 	
 func _physics_process(delta: float) -> void:
 	
 	var current_location = global_transform.origin
 	nav.target_position = target.global_position
 	var next_location = nav.get_next_path_position()
+	self.look_at(next_location)
 	var new_velocity = (next_location - current_location).normalized() * SPEED
 	
 	velocity = new_velocity
 	move_and_slide()
+	
+
+	
 	
 
 func follower(delta):
@@ -89,3 +114,21 @@ func follower(delta):
 func calc_length():
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
 	return bone_length
+	
+func run_ensnarement():
+	# first make curve for all points where snake is at that moment 
+	var points :Array[Vector3] 
+	for i in range(body_segment_pimitived.size()):
+		points.append(body_segment_pimitived[i].global_position)
+	curve.clear_points()
+	points.pop_front() # have no idea why I have to do this 
+	for i in points.size():
+		curve.add_point(points[(points.size()-1)-i]) # add the points in reverse
+	# hard part , want to force a concatenation 
+	# get head direction 
+	var head_direction :Vector3 = self.transform.basis.z.normalized()
+	var point_ahead =  (head_direction * -3 ) + global_position# putting it 2 meters away, assuming target is 2 meters away 
+	curve.add_point(point_ahead)
+	# add points to current curve , no rotation yet
+	#for i in ensnarement_points.size():
+	#	curve.add_point(ensnarement_points[i] + point_ahead)

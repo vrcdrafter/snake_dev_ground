@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1dsqa25kwwv6"]
+[gd_scene load_steps=11 format=3 uid="uid://d1dsqa25kwwv6"]
 
 [ext_resource type="Script" path="res://Scenes/controller.gd" id="1_h0tpo"]
 [ext_resource type="PackedScene" uid="uid://cwc2b4pwatonw" path="res://Imported/snake_hefty.glb" id="2_22wgb"]
@@ -7,11 +7,26 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ipe6r"]
 
+[sub_resource type="PrismMesh" id="PrismMesh_n3l2d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea0iy"]
+albedo_color = Color(0.27177, 1, 0.241704, 1)
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_j8h7q"]
 vertices = PackedVector3Array(-6.07072, -1, -15.5919, -6.07072, -1, 5.65808, 6.17928, -1, 5.65808, 6.17928, -1, -15.5919)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3e3sc"]
+
+[sub_resource type="Curve3D" id="Curve3D_rcx5l"]
+bake_interval = 12.39
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.883335, 0.117653, -1.0555, 0, 0, 0, 0, 0, 0, 1.19478, -0.509266, -1.30146, 0, 0, 0, 0, 0, 0, 0.490335, 0.164542, 1.19661, 0, 0, 0, 0, 0, 0, -0.910314, 0.152723, 1.23193, 0, 0, 0, 0, 0, 0, -1.05108, 0.041038, -0.449619),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="TorusMesh" id="TorusMesh_o28cn"]
 
 [node name="dynamic_snake" type="Node3D"]
 
@@ -32,6 +47,11 @@ script = ExtResource("1_h0tpo")
 shape = SubResource("SphereShape3D_ipe6r")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="head"]
+target_desired_distance = 2.82
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="head"]
+mesh = SubResource("PrismMesh_n3l2d")
+surface_material_override/0 = SubResource("StandardMaterial3D_ea0iy")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.0748221, 0.997197, 0, -0.997197, -0.0748221, 0, 10.1789, -0.763744)
@@ -48,5 +68,17 @@ use_collision = true
 mesh = SubResource("BoxMesh_3e3sc")
 
 [node name="snake_hefty" parent="." instance=ExtResource("2_22wgb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.17486, 0, 0)
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_rcx5l")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.117533, 0.284993, -0.951291, 1.49007e-08, 0.957931, 0.286982, 0.993039, -0.033731, 0.112592, -0.883335, 0.117653, -1.0555)
+
+[node name="donut" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 3.29832)
+mesh = SubResource("TorusMesh_o28cn")
+skeleton = NodePath("../head")
 
 [editable path="snake_hefty"]
