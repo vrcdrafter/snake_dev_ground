@@ -20,6 +20,9 @@ var tris_ready :bool = false
 var path :Path3D 
 var curve :Curve3D
 var ensnarement_points :PackedVector3Array
+var tri_array :Array[MeshInstance3D] 
+
+var running_on_track :bool = false
 
 func _ready() -> void:
 	
@@ -33,7 +36,7 @@ func _ready() -> void:
 		# get # of bones 
 		
 	# build as manny triangles as you have bones . 
-	var tri_array :Array[MeshInstance3D] 
+	
 	
 	for i in bone_numbers:
 		tri_array.append(MeshInstance3D.new())
@@ -58,9 +61,7 @@ func _process(delta: float) -> void:
 		for i in range(body_segment_pimitived.size()):
 			print(body_segment_pimitived[i].name, " ")
 		tris_ready = true
-		 
-	
-	
+
 	# This just controls acceleration. Don't touch it.
 
 	
@@ -71,9 +72,13 @@ func _process(delta: float) -> void:
 	target.global_position += Vector3(input_dir.x*delta*SPEED,0,input_dir.y*delta*SPEED)
 	
 	if Input.is_action_just_pressed("ui_accept"):
-		run_ensnarement()
+		running_on_track = true
+		make_ensnarement_curve() # jsut make track one 
+		follow_path()
+		
 	else:
-		follower(delta)
+		if not running_on_track:
+			follower(delta)
 		
 		# put test dont
 	var direction = transform.basis.z.normalized()
@@ -115,7 +120,7 @@ func calc_length():
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
 	return bone_length
 	
-func run_ensnarement():
+func make_ensnarement_curve():
 	# first make curve for all points where snake is at that moment 
 	var points :Array[Vector3] 
 	for i in range(body_segment_pimitived.size()):
@@ -130,5 +135,25 @@ func run_ensnarement():
 	var point_ahead =  (head_direction * -3 ) + global_position# putting it 2 meters away, assuming target is 2 meters away 
 	curve.add_point(point_ahead)
 	# add points to current curve , no rotation yet
-	#for i in ensnarement_points.size():
-	#	curve.add_point(ensnarement_points[i] + point_ahead)
+	for i in ensnarement_points.size():
+		curve.add_point(ensnarement_points[i] + point_ahead)
+
+func follow_path():
+	# need to make follow paths and put the meshes in each one 
+	var follow_path_array :Array[PathFollow3D] 
+	for i in bone_numbers:
+		follow_path_array.append(PathFollow3D.new())
+		follow_path_array[i].name = "path" + str(i)
+		get_node("../Path3D").add_child(follow_path_array[i])
+	
+	# move each segment into array 
+	for i in bone_numbers:
+		get_node("..").remove_child(tri_array[i])
+		tri_array[i].global_position = Vector3(0,0,0)
+		get_node("../Path3D/"+ "path" + str(i) ).add_child(tri_array[i])
+		#zero it all out 
+		
+		get_node("../Path3D/"+ "path" + str(i)).set_progress(i*bone_length)
+
+		
+		
