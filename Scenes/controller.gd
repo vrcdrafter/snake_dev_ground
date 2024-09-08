@@ -129,9 +129,9 @@ func follower(delta):
 		else:
 			body_segment_pimitived[i].look_at(body_segment_pimitived[i-1].global_position)
 			if ((body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position).length() > bone_length):
-				body_segment_pimitived[i].global_position += (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * 100
+				body_segment_pimitived[i].global_position += (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * SPEED
 			if ((body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position).length() < bone_length + .1):
-				body_segment_pimitived[i].global_position -= (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * 100
+				body_segment_pimitived[i].global_position -= (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * SPEED
 
 func calc_length():
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
