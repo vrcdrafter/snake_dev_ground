@@ -3,7 +3,7 @@ extends CharacterBody3D
 const ACCEL = 10
 const DEACCEL = 30
 
-const SPEED = 5.0
+const SPEED = 10
 const SPRINT_MULT = 2
 const JUMP_VELOCITY = 4.5
 var bone_length :float = 0
@@ -20,9 +20,11 @@ var tris_ready :bool = false
 var path :Path3D 
 var curve :Curve3D
 var ensnarement_points :PackedVector3Array
-var tri_array :Array[MeshInstance3D] 
+var tri_array :Array[MeshInstance3D]
+var follow_path_array :Array[PathFollow3D] 
 
 var running_on_track :bool = false
+var just_tarting_out :bool = true
 
 func _ready() -> void:
 	
@@ -72,17 +74,32 @@ func _process(delta: float) -> void:
 	target.global_position += Vector3(input_dir.x*delta*SPEED,0,input_dir.y*delta*SPEED)
 	
 	if Input.is_action_just_pressed("ui_accept"):
-		running_on_track = true
-		make_ensnarement_curve() # jsut make track one 
-		follow_path()
+		if !running_on_track:
+			running_on_track = true
+			make_ensnarement_curve() # jsut make track one 
+			move_segments_to_path()
+		else:
+			
+			move_segments_back_normal()
+			running_on_track =false
+			
+
 		
-	else:
-		if not running_on_track:
+	
+	if not running_on_track:
 			follower(delta)
+	else:
+		take_measurment()
+		var segment_positions :Array[float]
+		var segment_follow_path :Array[PathFollow3D]
 		
+		for i in bone_numbers:
+			segment_follow_path.append(get_node("../Path3D/"+ "path" + str(i)))
+
+		for i in bone_numbers:
+			segment_follow_path[i].progress += 2 *delta
 		# put test dont
-	var direction = transform.basis.z.normalized()
-	donut.global_position = (direction * -2 ) + global_position
+
 
 	
 func _physics_process(delta: float) -> void:
@@ -112,9 +129,9 @@ func follower(delta):
 		else:
 			body_segment_pimitived[i].look_at(body_segment_pimitived[i-1].global_position)
 			if ((body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position).length() > bone_length):
-				body_segment_pimitived[i].global_position += (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * SPEED
+				body_segment_pimitived[i].global_position += (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * 100
 			if ((body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position).length() < bone_length + .1):
-				body_segment_pimitived[i].global_position -= (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * SPEED
+				body_segment_pimitived[i].global_position -= (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * 100
 
 func calc_length():
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
@@ -138,9 +155,9 @@ func make_ensnarement_curve():
 	for i in ensnarement_points.size():
 		curve.add_point(ensnarement_points[i] + point_ahead)
 
-func follow_path():
+func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
-	var follow_path_array :Array[PathFollow3D] 
+	
 	for i in bone_numbers:
 		follow_path_array.append(PathFollow3D.new())
 		follow_path_array[i].name = "path" + str(i)
@@ -155,5 +172,30 @@ func follow_path():
 		
 		get_node("../Path3D/"+ "path" + str(i)).set_progress(i*bone_length)
 
+		# also move the head 
+	
+func move_segments_back_normal():
+	print("remove stuff")
+	for i in bone_numbers:
 		
+		get_node("../Path3D/"+ "path" + str(i) ).remove_child(tri_array[i])
+		get_node("../Path3D").remove_child(follow_path_array[i])
+		get_node("..").add_child(tri_array[i])
 		
+func take_measurment(): # takes a measurement of all the tri meshs
+	var main_follow_path :PathFollow3D = get_node("../Path3D/PathFollow3D")
+	var bone_positions :Array[float]
+	var tiney_measurment_box :Area3D = get_node("../Path3D/PathFollow3D/Area3D")
+	var colission_tiney_box :CollisionShape3D = CollisionShape3D.new()
+	var the_box :BoxShape3D = BoxShape3D.new()
+	the_box.size = Vector3(.1,.1,.1)
+	colission_tiney_box.shape = the_box
+	get_node("../Path3D/PathFollow3D").add_child(tiney_measurment_box)
+	tiney_measurment_box.name = "Area3D"
+	get_node("../Path3D/PathFollow3D/Area3D").add_child(colission_tiney_box)
+
+	# start to move whatever is in there
+	main_follow_path.progress += 20
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	print("found something")

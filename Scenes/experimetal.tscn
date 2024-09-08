@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1dsqa25kwwv6"]
+[gd_scene load_steps=10 format=3 uid="uid://d1dsqa25kwwv6"]
 
 [ext_resource type="Script" path="res://Scenes/controller.gd" id="1_h0tpo"]
 [ext_resource type="PackedScene" uid="uid://cwc2b4pwatonw" path="res://Imported/snake_hefty.glb" id="2_22wgb"]
-[ext_resource type="Script" path="res://Scenes/path_follow_3d.gd" id="3_o5h2d"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c8cyt"]
 
@@ -26,8 +25,6 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
-
-[sub_resource type="TorusMesh" id="TorusMesh_o28cn"]
 
 [node name="dynamic_snake" type="Node3D"]
 
@@ -76,11 +73,9 @@ curve = SubResource("Curve3D_rcx5l")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
 transform = Transform3D(0.117537, 0.284994, -0.951296, 1.49012e-08, 0.957935, 0.286984, 0.993069, -0.0337312, 0.112593, -0.883335, 0.117653, -1.0555)
-script = ExtResource("3_o5h2d")
 
-[node name="donut" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 3.29832)
-mesh = SubResource("TorusMesh_o28cn")
-skeleton = NodePath("../head")
+[node name="Area3D" type="Area3D" parent="Path3D/PathFollow3D"]
+
+[connection signal="body_entered" from="Path3D/PathFollow3D/Area3D" to="head" method="_on_area_3d_body_entered"]
 
 [editable path="snake_hefty"]
