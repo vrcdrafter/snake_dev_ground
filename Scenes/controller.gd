@@ -21,10 +21,13 @@ var path :Path3D
 var curve :Curve3D
 var ensnarement_points :PackedVector3Array
 var tri_array :Array[MeshInstance3D]
+var area_array :Array[Area3D]
+var Segment_colission_array :Array[CollisionShape3D]
 var follow_path_array :Array[PathFollow3D] 
 
 var running_on_track :bool = false
 var just_tarting_out :bool = true
+var need_measurment :bool = true
 
 func _ready() -> void:
 	
@@ -47,6 +50,12 @@ func _ready() -> void:
 		tri_array[i].global_position = Vector3(0,0,i*.2)
 		self.add_sibling.call_deferred(tri_array[i])
 		
+		area_array.append(Area3D.new())
+		area_array[i].name = "area"+str(i)
+		Segment_colission_array.append(CollisionShape3D.new())
+		Segment_colission_array[i].shape = BoxShape3D.new()
+		tri_array[i].add_child(area_array[i])
+		area_array[i].add_child(Segment_colission_array[i])
 	# get first ensarement data loaded 
 	
 
@@ -75,9 +84,12 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		if !running_on_track:
-			running_on_track = true
+			
 			make_ensnarement_curve() # jsut make track one 
 			move_segments_to_path()
+			
+			
+			running_on_track = true
 		else:
 			
 			move_segments_back_normal()
@@ -88,16 +100,24 @@ func _process(delta: float) -> void:
 	
 	if not running_on_track:
 			follower(delta)
+			need_measurment = true
 	else:
-		take_measurment()
-		var segment_positions :Array[float]
-		var segment_follow_path :Array[PathFollow3D]
-		
-		for i in bone_numbers:
-			segment_follow_path.append(get_node("../Path3D/"+ "path" + str(i)))
+		if need_measurment:
+			take_measurment_setup(delta)
 
-		for i in bone_numbers:
-			segment_follow_path[i].progress += 2 *delta
+			var main_follow_path = get_node("../Path3D/PathFollow3D")
+
+			main_follow_path.progress += 30 * delta
+			
+		else:
+			var segment_positions :Array[float]
+			var segment_follow_path :Array[PathFollow3D]
+			
+			for i in bone_numbers:
+				segment_follow_path.append(get_node("../Path3D/"+ "path" + str(i)))
+
+			for i in bone_numbers:
+				segment_follow_path[i].progress += 2 *delta
 		# put test dont
 
 
@@ -182,20 +202,16 @@ func move_segments_back_normal():
 		get_node("../Path3D").remove_child(follow_path_array[i])
 		get_node("..").add_child(tri_array[i])
 		
-func take_measurment(): # takes a measurement of all the tri meshs
+func take_measurment_setup(delta): # takes a measurement of all the tri meshs
 	var main_follow_path :PathFollow3D = get_node("../Path3D/PathFollow3D")
 	var bone_positions :Array[float]
 	var tiney_measurment_box :Area3D = get_node("../Path3D/PathFollow3D/Area3D")
-	var colission_tiney_box :CollisionShape3D = CollisionShape3D.new()
-	var the_box :BoxShape3D = BoxShape3D.new()
-	the_box.size = Vector3(.1,.1,.1)
-	colission_tiney_box.shape = the_box
-	get_node("../Path3D/PathFollow3D").add_child(tiney_measurment_box)
-	tiney_measurment_box.name = "Area3D"
-	get_node("../Path3D/PathFollow3D/Area3D").add_child(colission_tiney_box)
+	var colission_tiney_box :CollisionShape3D = get_node("../Path3D/PathFollow3D/Area3D/CollisionShape3D")
 
-	# start to move whatever is in there
-	main_follow_path.progress += 20
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	print("found something")
+
+
+func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+	print("found a area ", area.name)
+	if area.name == "area27":
+		need_measurment = false
