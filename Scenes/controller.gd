@@ -28,6 +28,9 @@ var follow_path_array :Array[PathFollow3D]
 var running_on_track :bool = false
 var just_tarting_out :bool = true
 var need_measurment :bool = true
+var reset_colission :bool = true
+
+@onready var measure_path_global = get_node("../Path3D/PathFollow3D")
 
 func _ready() -> void:
 	
@@ -51,7 +54,7 @@ func _ready() -> void:
 		self.add_sibling.call_deferred(tri_array[i])
 		
 		area_array.append(Area3D.new())
-		area_array[i].name = "area"+str(i)
+		area_array[i].name = str(i)
 		Segment_colission_array.append(CollisionShape3D.new())
 		Segment_colission_array[i].shape = BoxShape3D.new()
 		tri_array[i].add_child(area_array[i])
@@ -101,13 +104,18 @@ func _process(delta: float) -> void:
 	if not running_on_track:
 			follower(delta)
 			need_measurment = true
+			measure_path_global.progress = 0 
+			# turn on measurment again 
+			if reset_colission:
+				for i in bone_numbers:
+					area_array[i].collision_layer = 1
+					area_array[i].collision_mask = 1
+				reset_colission = false
+
 	else:
 		if need_measurment:
-			take_measurment_setup(delta)
 
-			var main_follow_path = get_node("../Path3D/PathFollow3D")
-
-			main_follow_path.progress += 30 * delta
+			measure_path_global.progress += 50 * delta
 			
 		else:
 			var segment_positions :Array[float]
@@ -195,7 +203,7 @@ func move_segments_to_path():
 		# also move the head 
 	
 func move_segments_back_normal():
-	print("remove stuff")
+
 	for i in bone_numbers:
 		
 		get_node("../Path3D/"+ "path" + str(i) ).remove_child(tri_array[i])
@@ -212,6 +220,12 @@ func take_measurment_setup(delta): # takes a measurement of all the tri meshs
 
 
 func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
-	print("found a area ", area.name)
-	if area.name == "area27":
+	if running_on_track:
+		
+		print(get_node("../Path3D/"+ "path" + area.name).get_progress(), "found a area ", area.name)
+		area.collision_layer = 0 
+		area.collision_layer = 0
+
+	if area.name == "27":
 		need_measurment = false
+		reset_colission = true
