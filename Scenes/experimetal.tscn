@@ -1,9 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1dsqa25kwwv6"]
+[gd_scene load_steps=9 format=3 uid="uid://d1dsqa25kwwv6"]
 
 [ext_resource type="Script" path="res://Scenes/controller.gd" id="1_h0tpo"]
 [ext_resource type="PackedScene" uid="uid://cwc2b4pwatonw" path="res://Imported/snake_hefty.glb" id="2_22wgb"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_c8cyt"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ipe6r"]
 
@@ -11,12 +9,6 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea0iy"]
 albedo_color = Color(0.27177, 1, 0.241704, 1)
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_j8h7q"]
-vertices = PackedVector3Array(-6.07072, -1, -15.5919, -6.07072, -1, 5.65808, 6.17928, -1, 5.65808, 6.17928, -1, -15.5919)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-
-[sub_resource type="BoxMesh" id="BoxMesh_3e3sc"]
 
 [sub_resource type="Curve3D" id="Curve3D_rcx5l"]
 bake_interval = 12.39
@@ -31,12 +23,6 @@ point_count = 5
 [sub_resource type="SphereMesh" id="SphereMesh_nhe8g"]
 
 [node name="dynamic_snake" type="Node3D"]
-
-[node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.06367, 0, -4.69355)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Marker3D"]
-mesh = SubResource("CapsuleMesh_c8cyt")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10.8284, 9.01425)
@@ -60,14 +46,6 @@ transform = Transform3D(1, 0, 0, 0, -0.0748221, 0.997197, 0, -0.997197, -0.07482
 light_energy = 6.916
 spot_range = 29.1019
 spot_angle = 66.28
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_j8h7q")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="NavigationRegion3D"]
-transform = Transform3D(13.1414, 0, 0, 0, 1, 0, 0, 0, 22.3649, 0, -2, -4.90947)
-use_collision = true
-mesh = SubResource("BoxMesh_3e3sc")
 
 [node name="snake_hefty" parent="." instance=ExtResource("2_22wgb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.17486, 0, 0)

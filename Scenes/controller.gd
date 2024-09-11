@@ -11,7 +11,7 @@ var bone_numbers :int = 0
 @onready var body_piece_one :MeshInstance3D = get_node("../body1")
 @onready var body_piece_two :MeshInstance3D = get_node("../body2")
 @onready var nav : NavigationAgent3D = $NavigationAgent3D
-@onready var target :Marker3D = get_node("../Marker3D")
+@onready var target :Marker3D = get_node("../../Marker3D")
 var body_segment_pimitived :Array[MeshInstance3D] = []
 @onready var donut = get_node("../donut")
 @onready var skeleton :Skeleton3D = get_node("../snake_hefty/Armature/Skeleton3D")
@@ -32,11 +32,32 @@ var reset_colission :bool = true
 
 @onready var measure_path_global = get_node("../Path3D/PathFollow3D")
 
+#Class for easier storage and update of curve points
+class CurvePoint:
+	var point : Vector3
+	var point_in : Vector3
+	var point_out : Vector3
+	
+	func trans(transf : Transform3D):
+		point_in = point + point_in
+		point_out = point + point_out
+		point = transf * point
+		point_in = transf * point_in
+		point_out = transf * point_out
+	
+	func loc(node : Node3D):
+		point = node.to_local(point)
+		point_in = node.to_local(point_in) - point
+		point_out = node.to_local(point_out) - point
+
+
 func _ready() -> void:
 	
 	path= get_node("../Path3D")
 	curve = path.curve
 	ensnarement_points = curve.get_baked_points()
+	for i in range(ensnarement_points.size()):
+		ensnarement_points[i] = path.to_local(ensnarement_points[i])
 		# get bone lenghts 
 	bone_length = calc_length()
 	print("bone length ", skeleton.get_bone_count())
@@ -80,9 +101,6 @@ func _process(delta: float) -> void:
 
 	
 	var input_dir :Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
-	
-	
 	target.global_position += Vector3(input_dir.x*delta*SPEED,0,input_dir.y*delta*SPEED)
 	
 	if Input.is_action_just_pressed("ui_accept"):
