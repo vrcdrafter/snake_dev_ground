@@ -27,6 +27,8 @@ var follow_path_array :Array[PathFollow3D]
 var running_on_track :bool = false
 var just_tarting_out :bool = true
 
+
+
 @onready var measure_path_global = get_node("../Path3D/PathFollow3D")
 
 #Class for easier storage and update of curve points
@@ -135,9 +137,12 @@ func _physics_process(delta: float) -> void:
 
 
 func follower(delta):
+	
+
+	
 	for i in range(body_segment_pimitived.size()):
 		
-		if i == 1: # meaning its the first piece  
+		if i == 0: # meaning its the first piece  
 			body_segment_pimitived[i].look_at(global_position)
 			if ((global_position - body_segment_pimitived[i].global_position).length() > bone_length):
 				body_segment_pimitived[i].global_position += (global_position - body_segment_pimitived[i].global_position) * delta * SPEED
@@ -157,10 +162,12 @@ func calc_length():
 func make_ensnarement_curve():
 	# first make curve for all points where snake is at that moment 
 	var points :Array[Vector3] 
+	
 	for i in range(body_segment_pimitived.size()):
 		points.append(body_segment_pimitived[i].global_position)
 	curve.clear_points()
-	points.pop_front() # have no idea why I have to do this 
+	points.pop_front() # have no idea why It does this
+
 	for i in points.size():
 		curve.add_point(points[(points.size()-1)-i]) # add the points in reverse
 	# hard part , want to force a concatenation 
@@ -171,6 +178,8 @@ func make_ensnarement_curve():
 	# add points to current curve , no rotation yet
 	for i in ensnarement_points.size():
 		curve.add_point(ensnarement_points[i] + point_ahead)
+	
+	
 
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 

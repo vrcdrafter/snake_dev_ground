@@ -28,9 +28,6 @@ mesh = SubResource("BoxMesh_3e3sc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.58059)
 visible = false
 
-[node name="PathFollow3D" parent="dynamic_snake/Path3D" index="0"]
-transform = Transform3D(0.117536, 0.284993, -0.951293, 1.4901e-08, 0.957929, 0.286983, 0.993061, -0.033731, 0.112592, -0.883335, 0.117653, -1.0555)
-
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.06367, 0, -4.69355)
 script = ExtResource("2_t000p")
