@@ -24,10 +24,11 @@ mesh = SubResource("BoxMesh_3e3sc")
 
 [node name="dynamic_snake" parent="." instance=ExtResource("1_qwqxf")]
 
-[node name="dynamic_snake2" parent="." instance=ExtResource("1_qwqxf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60565, -1.5, -10.6505)
+[node name="head" parent="dynamic_snake" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.58059)
+visible = false
 
-[node name="PathFollow3D" parent="dynamic_snake2/Path3D" index="0"]
+[node name="PathFollow3D" parent="dynamic_snake/Path3D" index="0"]
 transform = Transform3D(0.117536, 0.284993, -0.951293, 1.4901e-08, 0.957929, 0.286983, 0.993061, -0.033731, 0.112592, -0.883335, 0.117653, -1.0555)
 
 [node name="Marker3D" type="Marker3D" parent="."]
@@ -40,5 +41,5 @@ mesh = SubResource("CapsuleMesh_c8cyt")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10.8284, 9.01425)
 
-[editable path="dynamic_snake2"]
-[editable path="dynamic_snake2/snake_hefty"]
+[editable path="dynamic_snake"]
+[editable path="dynamic_snake/snake_hefty"]
