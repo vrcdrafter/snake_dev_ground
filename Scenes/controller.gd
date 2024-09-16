@@ -135,11 +135,7 @@ func _physics_process(delta: float) -> void:
 	# move them bones 
 	
 		
-	skeleton.set_bone_pose_position(0,tri_array[27].global_position)
-	skeleton.set_bone_pose_rotation(0,tri_array[27].global_position)
-	skeleton.set_bone_pose_position(1,tri_array[26].global_position)
-	skeleton.set_bone_pose_position(2,tri_array[25].global_position)
-	skeleton.set_bone_pose_position(3,tri_array[24].global_position)
+	override_skeleton()
 
 
 func follower(delta):
@@ -211,3 +207,9 @@ func take_measurment_setup(delta): # takes a measurement of all the tri meshs
 	var bone_positions :Array[float]
 	var tiney_measurment_box :Area3D = get_node("../Path3D/PathFollow3D/Area3D")
 	var colission_tiney_box :CollisionShape3D = get_node("../Path3D/PathFollow3D/Area3D/CollisionShape3D")
+	
+func override_skeleton():
+	for i in bone_numbers:
+		var transform = tri_array[-i+bone_numbers-1].get_global_transform()
+		skeleton.set_bone_global_pose_override(i, transform, 1, true)
+		skeleton.set_bone_pose_rotation(i, tri_array[-i+bone_numbers-1].global_transform.basis.get_rotation_quaternion())

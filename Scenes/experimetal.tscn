@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d1dsqa25kwwv6"]
 
 [ext_resource type="Script" path="res://Scenes/controller.gd" id="1_h0tpo"]
-[ext_resource type="PackedScene" uid="uid://cwc2b4pwatonw" path="res://Imported/snake_hefty.glb" id="2_22wgb"]
+[ext_resource type="PackedScene" uid="uid://b5fyo4c8he11p" path="res://level_data/snake_hefty.glb" id="2_1irvj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ipe6r"]
 
@@ -19,9 +19,6 @@ _data = {
 point_count = 5
 
 [node name="dynamic_snake" type="Node3D"]
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10.8284, 9.01425)
 
 [node name="head" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.607729)
@@ -43,9 +40,8 @@ light_energy = 6.916
 spot_range = 29.1019
 spot_angle = 66.28
 
-[node name="snake_hefty" parent="." instance=ExtResource("2_22wgb")]
-
 [node name="Path3D" type="Path3D" parent="."]
 curve = SubResource("Curve3D_rcx5l")
 
-[editable path="snake_hefty"]
+[node name="snake_hefty" parent="." instance=ExtResource("2_1irvj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.607729)
