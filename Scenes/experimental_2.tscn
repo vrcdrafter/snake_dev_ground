@@ -26,6 +26,10 @@ mesh = SubResource("BoxMesh_3e3sc")
 
 [node name="head" parent="dynamic_snake" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.58059)
+<<<<<<< HEAD
+=======
+visible = false
+>>>>>>> 8072b896f42ec3c75839feb1809ecac5956f85cd
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.06367, 0, -4.69355)
