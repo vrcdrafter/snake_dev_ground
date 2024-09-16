@@ -12,7 +12,7 @@ var bone_numbers :int = 0
 @onready var body_piece_two :MeshInstance3D = get_node("../body2")
 @onready var nav : NavigationAgent3D = $NavigationAgent3D
 @onready var target :Marker3D = get_node("../../Marker3D")
-var body_segment_pimitived :Array[MeshInstance3D] = []
+var body_segment_pimitived :Array[Node3D] = []
 @onready var donut = get_node("../donut")
 @onready var skeleton :Skeleton3D = get_node("../snake_hefty/Armature/Skeleton3D")
 var tris_ready :bool = false
@@ -20,6 +20,7 @@ var tris_ready :bool = false
 var path :Path3D 
 var curve :Curve3D
 var ensnarement_points :PackedVector3Array
+var rotate_heper :Array[Node3D]
 var tri_array :Array[MeshInstance3D]
 var area_array :Array[Area3D]
 var Segment_colission_array :Array[CollisionShape3D]
@@ -29,23 +30,7 @@ var just_tarting_out :bool = true
 
 @onready var measure_path_global = get_node("../Path3D/PathFollow3D")
 
-#Class for easier storage and update of curve points
-class CurvePoint:
-	var point : Vector3
-	var point_in : Vector3
-	var point_out : Vector3
-	
-	func trans(transf : Transform3D):
-		point_in = point + point_in
-		point_out = point + point_out
-		point = transf * point
-		point_in = transf * point_in
-		point_out = transf * point_out
-	
-	func loc(node : Node3D):
-		point = node.to_local(point)
-		point_in = node.to_local(point_in) - point
-		point_out = node.to_local(point_out) - point
+
 
 func _ready() -> void:
 	
@@ -63,11 +48,22 @@ func _ready() -> void:
 	# build as manny triangles as you have bones . 
 	
 	for i in bone_numbers:
+		# add area 3d 
+		
+		rotate_heper.append(Node3D.new())
+		
+		rotate_heper[i].name = "rotate" + str(i)
+		self.add_sibling.call_deferred(rotate_heper[i])
+		
+		# add triangles
 		tri_array.append(MeshInstance3D.new())
 		tri_array[i].mesh = PrismMesh.new()
 		tri_array[i].name = "body"+str(i)
-		tri_array[i].global_position = Vector3(0,0,i*.2)
-		self.add_sibling.call_deferred(tri_array[i])
+		tri_array[i].rotate_y(deg_to_rad(90))
+		tri_array[i].rotate_x(deg_to_rad(90))
+		tri_array[i].hide()
+		rotate_heper[i].global_position = Vector3(0,0,i*.2)
+		rotate_heper[i].add_child.call_deferred(tri_array[i])
 		
 		area_array.append(Area3D.new())
 		area_array[i].name = str(i)
@@ -80,11 +76,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	if tris_ready != true:
-	# get all body segments into an array .
+	# get all Node 3d's (triangles) into an array .
 		var all_nodes :Array[Node] = get_node("..").get_children()
+		print(all_nodes)
 		for i in range(all_nodes.size()):
-			if all_nodes[i].name.contains("body"):
+			if all_nodes[i].name.contains("rotate"):
 				body_segment_pimitived.append(all_nodes[i])
+				print(body_segment_pimitived)
 			
 		for i in range(body_segment_pimitived.size()):
 			print(body_segment_pimitived[i].name, " ")
@@ -106,7 +104,8 @@ func _process(delta: float) -> void:
 			running_on_track =false
 
 	if not running_on_track:
-			follower(delta)
+		
+		follower(delta)
 	else:
 		var segment_positions :Array[float]
 		var segment_follow_path :Array[PathFollow3D]
@@ -132,13 +131,23 @@ func _physics_process(delta: float) -> void:
 		velocity = new_velocity
 		move_and_slide()
 	
+	
+	# move them bones 
+	
+		
+	skeleton.set_bone_pose_position(0,tri_array[27].global_position)
+	skeleton.set_bone_pose_rotation(0,tri_array[27].global_position)
+	skeleton.set_bone_pose_position(1,tri_array[26].global_position)
+	skeleton.set_bone_pose_position(2,tri_array[25].global_position)
+	skeleton.set_bone_pose_position(3,tri_array[24].global_position)
 
 
 func follower(delta):
 	for i in range(body_segment_pimitived.size()):
 		
-		if i == 1: # meaning its the first piece  
+		if i == 0: # meaning its the first piece  
 			body_segment_pimitived[i].look_at(global_position)
+			
 			if ((global_position - body_segment_pimitived[i].global_position).length() > bone_length):
 				body_segment_pimitived[i].global_position += (global_position - body_segment_pimitived[i].global_position) * delta * SPEED
 			if ((global_position - body_segment_pimitived[i].global_position).length() < bone_length + .1):
@@ -182,20 +191,20 @@ func move_segments_to_path():
 	
 	# move each segment into array 
 	for i in bone_numbers:
-		get_node("..").remove_child(tri_array[i])
-		tri_array[i].global_position = Vector3(0,0,0)
-		get_node("../Path3D/"+ "path" + str(i) ).add_child(tri_array[i])
+		get_node("..").remove_child(rotate_heper[i])
+		rotate_heper[i].global_position = Vector3(0,0,0)
+		get_node("../Path3D/"+ "path" + str(i) ).add_child(rotate_heper[i])
 		#zero it all out 
 		
 		get_node("../Path3D/"+ "path" + str(i)).set_progress(i*bone_length*1.1)
 
 func move_segments_back_normal():
 	for i in bone_numbers:
-		var tri_pos :Vector3 = tri_array[i].global_position
-		get_node("../Path3D/"+ "path" + str(i) ).remove_child(tri_array[i])
+		var tri_pos :Vector3 = rotate_heper[i].global_position
+		get_node("../Path3D/"+ "path" + str(i) ).remove_child(rotate_heper[i])
 		get_node("../Path3D").remove_child(follow_path_array[i])
-		tri_array[i].global_position = tri_pos
-		get_node("..").add_child(tri_array[i])
+		rotate_heper[i].global_position = tri_pos
+		get_node("..").add_child(rotate_heper[i])
 		
 func take_measurment_setup(delta): # takes a measurement of all the tri meshs
 	var main_follow_path :PathFollow3D = get_node("../Path3D/PathFollow3D")

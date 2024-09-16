@@ -44,7 +44,6 @@ spot_range = 29.1019
 spot_angle = 66.28
 
 [node name="snake_hefty" parent="." instance=ExtResource("2_22wgb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.17486, 0, 0)
 
 [node name="Path3D" type="Path3D" parent="."]
 curve = SubResource("Curve3D_rcx5l")
