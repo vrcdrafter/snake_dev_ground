@@ -29,7 +29,7 @@ var running_on_track :bool = false
 var just_tarting_out :bool = true
 
 @onready var measure_path_global = get_node("../Path3D/PathFollow3D")
-
+var halt: bool = false
 
 
 func _ready() -> void:
@@ -94,17 +94,19 @@ func _process(delta: float) -> void:
 	var input_dir :Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	target.global_position += Vector3(input_dir.x*delta*SPEED,0,input_dir.y*delta*SPEED)
 	
-	if Input.is_action_just_pressed("ui_accept"):
-		if !running_on_track:
+	if (target.global_position - global_position).length() < 1 and not running_on_track :
+		
 			make_ensnarement_curve() # jsut make track one 
 			move_segments_to_path()
 			running_on_track = true
-		else:
-			move_segments_back_normal()
-			running_on_track =false
+	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .9:
+		halt = true
+	if Input.is_action_just_pressed("ui_accept"):
+		move_segments_back_normal()
+		running_on_track =false
 
-	if not running_on_track:
-		
+	if not running_on_track and not halt:
+
 		follower(delta)
 	else:
 		var segment_positions :Array[float]
