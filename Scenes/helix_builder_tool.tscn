@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://don0amn26ijc2"]
+
+[ext_resource type="Script" path="res://Scripts/helix_builder_tool.gd" id="1_xkfay"]
+
+[sub_resource type="Curve3D" id="Curve3D_04vef"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(-0.718921, 0, -0.695264, 0, 1, 0, 0.695264, 0, -0.718921, 0, 0, 0)
+script = ExtResource("1_xkfay")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-0.0737948, 0, -0.99587, 0, 1, 0, 0.99587, 0, -0.0737948, 0, 0, 0)
+
+[node name="Marker3D" type="Marker3D" parent="Node3D"]
+transform = Transform3D(1.00012, 0, -1.33738e-06, 0, 1, 0, 1.33738e-06, 0, 1.00012, -0.0419705, 0, 0.999783)
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_04vef")
