@@ -7,12 +7,14 @@
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(-0.718921, 0, -0.695264, 0, 1, 0, 0.695264, 0, -0.718921, 0, 0, 0)
 script = ExtResource("1_xkfay")
+Radius = 1.0
+pitch = 0.3
 
 [node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(-0.0737948, 0, -0.99587, 0, 1, 0, 0.99587, 0, -0.0737948, 0, 0, 0)
+transform = Transform3D(0.394055, 0, -0.914007, 0, 1, 0, 0.914007, 0, 0.394055, 0, 934.236, 0)
 
 [node name="Marker3D" type="Marker3D" parent="Node3D"]
-transform = Transform3D(1.00012, 0, -1.33738e-06, 0, 1, 0, 1.33738e-06, 0, 1.00012, -0.0419705, 0, 0.999783)
+transform = Transform3D(1.00012, 0, -1.16229e-06, 0, 1, 0, 1.16229e-06, 0, 1.00012, -0.99786, -934.157, 0.116094)
 
 [node name="Path3D" type="Path3D" parent="."]
 curve = SubResource("Curve3D_04vef")
