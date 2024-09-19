@@ -110,21 +110,23 @@ func _process(delta: float) -> void:
 			running_on_track = true
 	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .9:
 		halt = true
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept"): # this will be continue chase , relace with other condition 
 		move_segments_back_normal()
 		running_on_track =false
+		halt = false
 
 	if not running_on_track and not halt:
 
 		follower(delta)
-	else:
+	elif running_on_track and not halt:
 		var segment_positions :Array[float]
 		var segment_follow_path :Array[PathFollow3D]
 		for i in bone_numbers:
 			segment_follow_path.append(get_node("../Path3D/"+ "path" + str(i)))
 		for i in bone_numbers:
 			segment_follow_path[i].progress += 2 *delta
-		# put test dont
+	else:
+		pass # meaning dont move at all 
 	
 func _physics_process(delta: float) -> void:
 	
