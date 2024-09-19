@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://8hakiepxdoc"]
+[gd_scene load_steps=7 format=3 uid="uid://8hakiepxdoc"]
 
 [ext_resource type="PackedScene" uid="uid://d1dsqa25kwwv6" path="res://Scenes/experimetal.tscn" id="1_qwqxf"]
+[ext_resource type="Curve3D" uid="uid://358xbesq0nc6" path="res://Resources/perfect_ensnarement.tres" id="2_ecy5m"]
 [ext_resource type="Script" path="res://junk_player.gd" id="2_t000p"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_j8h7q"]
@@ -25,6 +26,9 @@ mesh = SubResource("BoxMesh_3e3sc")
 
 [node name="head" parent="dynamic_snake" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0130634, 0.0471439, -10.9702)
+
+[node name="Path3D" parent="dynamic_snake" index="2"]
+curve = ExtResource("2_ecy5m")
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.06367, 0, -4.69355)
