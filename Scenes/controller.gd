@@ -34,8 +34,17 @@ var halt: bool = false
 
 func _ready() -> void:
 	
-	path= get_node("../Path3D")
+	path = get_node("../Path3D")
+	var new_curve :Curve3D = Curve3D.new()
+	var curve_resource :Curve3D = load("res://Resources/perfect_ensnarement.tres")
+	var resource_points :PackedVector3Array = curve_resource.get_baked_points()
+	# run a for loop to add all the points 
+	for i in resource_points.size():
+		new_curve.add_point(resource_points[i])
+	path.curve = new_curve # set it so its the new curve istance 
+	# get points 
 	curve = path.curve
+	curve.up_vector_enabled = false # because I said so 
 	ensnarement_points = curve.get_baked_points()
 	for i in range(ensnarement_points.size()):
 		ensnarement_points[i] = path.to_local(ensnarement_points[i])
@@ -173,7 +182,7 @@ func make_ensnarement_curve():
 	# hard part , want to force a concatenation 
 	# get head direction 
 	var head_direction :Vector3 = self.transform.basis.z.normalized()
-	var point_ahead =  (head_direction * -3 ) + global_position# putting it 2 meters away, assuming target is 2 meters away 
+	var point_ahead =  ((head_direction * -2 ) + global_position)# putting it 2 meters away, assuming target is 2 meters away 
 	curve.add_point(point_ahead)
 	# add points to current curve , no rotation yet
 	for i in ensnarement_points.size():
