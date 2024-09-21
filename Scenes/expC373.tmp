@@ -1,0 +1,333 @@
+[gd_scene load_steps=19 format=3 uid="uid://e0olfir68i4m"]
+
+[ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_dbafg"]
+[ext_resource type="PackedScene" uid="uid://d1dsqa25kwwv6" path="res://Scenes/experimetal.tscn" id="2_hc5r1"]
+[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_dlol5"]
+[ext_resource type="Texture2D" uid="uid://5db3ibvc4wq2" path="res://textures/key.png" id="5_p6ije"]
+[ext_resource type="Script" path="res://Scenes/key_ui.gd" id="6_oi4ed"]
+[ext_resource type="PackedScene" uid="uid://cttmnlxwbspd8" path="res://Scenes/key.tscn" id="7_orb0i"]
+[ext_resource type="Texture2D" uid="uid://brjxnm8olabin" path="res://textures/exit.png" id="10_xdehe"]
+[ext_resource type="Script" path="res://Scenes/level_exit.gd" id="11_gjk3q"]
+[ext_resource type="AudioStream" uid="uid://dcgl5vwym86it" path="res://sounds/zapsplat_household_door_handle_try_open_locked_001_10218.mp3" id="12_crs8j"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_g8pah"]
+vertices = PackedVector3Array(-44.8579, 1.5182, -62.6739, -44.8579, 1.5182, 62.6261, 44.8421, 1.5182, 62.6261, 44.8421, 1.5182, -62.6739)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_size = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_muwqh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h55fm"]
+
+[sub_resource type="Sky" id="Sky_3i8d2"]
+sky_material = SubResource("ProceduralSkyMaterial_h55fm")
+
+[sub_resource type="Environment" id="Environment_wpbe3"]
+background_mode = 2
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_3i8d2")
+ambient_light_energy = 1.23
+reflected_light_source = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_txush"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_74opj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqvcg"]
+albedo_texture = ExtResource("10_xdehe")
+emission_enabled = true
+emission_energy_multiplier = 1.1
+emission_texture = ExtResource("10_xdehe")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tb5fe"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_dbafg")
+
+[node name="dynamic_snake" parent="." instance=ExtResource("2_hc5r1")]
+
+[node name="head" parent="dynamic_snake" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.64716, -0.607729)
+
+[node name="NavRegion" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_g8pah")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="NavRegion"]
+transform = Transform3D(90.7158, 0, 0, 0, 2.5, 0, 0, 0, 126.348, 0, -0.231797, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_muwqh")
+
+[node name="Player" parent="." instance=ExtResource("3_dlol5")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.1473, 1.30242, -31.664)
+collision_layer = 3
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wpbe3")
+
+[node name="idle_objects" type="Node3D" parent="."]
+visible = false
+
+[node name="cube1" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3497, 0.999507, 34.3061)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube2" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3497, 0.999507, 6.15189)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube3" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8304, 0.999507, 6.15189)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube4" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.1027, 0.999507, 6.15189)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube5" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.1027, 0.999507, -23.4363)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube6" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1419, 0.999507, -33.6582)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="cube7" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1419, 0.999507, -51.8007)
+mesh = SubResource("BoxMesh_txush")
+
+[node name="key1" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.1)
+position = Vector2(980, 94)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_p6ije")
+script = ExtResource("6_oi4ed")
+
+[node name="key2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.1)
+position = Vector2(980, 185)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_p6ije")
+script = ExtResource("6_oi4ed")
+
+[node name="key3" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.1)
+position = Vector2(979, 268)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_p6ije")
+script = ExtResource("6_oi4ed")
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 493.0
+offset_top = 238.0
+offset_right = 533.0
+offset_bottom = 278.0
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.85
+anchor_top = 0.1125
+anchor_right = 2.85
+anchor_bottom = 0.8875
+grow_horizontal = 2
+grow_vertical = 2
+text = "game over play again ? "
+
+[node name="Game_over_timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+
+[node name="lights" type="Node3D" parent="."]
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 16.4132, 16.4915, -30.2096)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 23.1542
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -2.19176, 24.6392, -57.201)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -18.3899, 11.707, -27.8667)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -41.2577, 20.9349, -11.7136)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -20.1571, 15.715, 8.72342)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 3.42398, 23.7957, 28.4676)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 21.9447, 14.9389, 7.87686)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 37.1059, 20.8251, -11.3036)
+light_energy = 11.633
+light_indirect_energy = 1.099
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="key_1" parent="." instance=ExtResource("7_orb0i")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -44.1101, 1.8351, -11.2281)
+
+[node name="Sprite3D" parent="key_1" index="0"]
+transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
+
+[node name="key_2" parent="." instance=ExtResource("7_orb0i")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 18.2305, 1.07402, 18.0838)
+
+[node name="Sprite3D" parent="key_2" index="0"]
+transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
+
+[node name="key_3" parent="." instance=ExtResource("7_orb0i")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 14.0702, 1.8351, -30.3022)
+
+[node name="Sprite3D" parent="key_3" index="0"]
+transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
+
+[node name="level_exit" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.931421, -0.74373, 0.0272977, 0.00953376, -0.0076969, -2.65067, 1.03645, 0.668436, -0.000149627, 26.1994, 2.72954, -39.6856)
+mesh = SubResource("PlaneMesh_74opj")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_eqvcg")
+script = ExtResource("11_gjk3q")
+
+[node name="Area3D" type="Area3D" parent="level_exit"]
+transform = Transform3D(1, 0, 9.8953e-10, 0, 1, -1.21508e-09, 2.54659e-11, -1.24601e-10, 1, 9.53674e-07, 0, 0.43684)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level_exit/Area3D"]
+shape = SubResource("BoxShape3D_tb5fe")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="level_exit"]
+stream = ExtResource("12_crs8j")
+
+[node name="Label" type="Label" parent="."]
+auto_translate_mode = 1
+offset_left = 1067.0
+offset_top = 12.0
+offset_right = 1151.0
+offset_bottom = 48.0
+text = "FRAME_R"
+
+[node name="FRAMES" type="Label" parent="."]
+auto_translate_mode = 1
+offset_left = 1069.0
+offset_top = 35.0
+offset_right = 1153.0
+offset_bottom = 71.0
+text = "FRAME_R"
+
+[node name="menu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="menu"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 96.0
+offset_right = 812.0
+offset_bottom = 221.0
+text = "MAIN_MENU
+"
+
+[node name="Button2" type="Button" parent="menu"]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 247.0
+offset_right = 807.0
+offset_bottom = 362.0
+text = "RESTART"
+
+[connection signal="timeout" from="Game_over_timer" to="Player" method="_on_game_over_timer_timeout"]
+[connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]
+[connection signal="finished" from="level_exit/AudioStreamPlayer3D" to="level_exit" method="_on_audio_stream_player_3d_finished"]
+[connection signal="button_down" from="menu/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="menu/Button2" to="." method="_on_button_2_button_down"]
+
+[editable path="dynamic_snake"]
+[editable path="key_1"]
+[editable path="key_2"]
+[editable path="key_3"]
