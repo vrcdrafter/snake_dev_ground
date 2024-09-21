@@ -11,7 +11,8 @@ var bone_numbers :int = 0
 @onready var body_piece_one :MeshInstance3D = get_node("../body1")
 @onready var body_piece_two :MeshInstance3D = get_node("../body2")
 @onready var nav : NavigationAgent3D = $NavigationAgent3D
-@onready var target :Marker3D = get_node("../../Marker3D")
+
+@export var target : Node3D
 var body_segment_pimitived :Array[Node3D] = []
 @onready var donut = get_node("../donut")
 @onready var skeleton :Skeleton3D = get_node("../snake_hefty/Armature/Skeleton3D")
@@ -30,9 +31,18 @@ var just_tarting_out :bool = true
 
 @onready var measure_path_global = get_node("../Path3D/PathFollow3D")
 var halt: bool = false
+@export var _ensnared : bool = false
 
+var patrol_objects :Array[MeshInstance3D]
+
+
+var snake_state:String = "player_seeking"
+var pick_new_object :bool = false
 
 func _ready() -> void:
+	# get all the partrol objects
+	for child in get_node("../../idle_objects").get_children():
+		patrol_objects.append(child)
 	
 	path = get_node("../Path3D")
 	var new_curve :Curve3D = Curve3D.new()
@@ -50,7 +60,7 @@ func _ready() -> void:
 		ensnarement_points[i] = path.to_local(ensnarement_points[i])
 		# get bone lenghts 
 	bone_length = calc_length()
-	print("bone length ", skeleton.get_bone_count())
+
 	bone_numbers = skeleton.get_bone_count()
 		# get # of bones 
 		
@@ -87,21 +97,19 @@ func _process(delta: float) -> void:
 	if tris_ready != true:
 	# get all Node 3d's (triangles) into an array .
 		var all_nodes :Array[Node] = get_node("..").get_children()
-		print(all_nodes)
+
 		for i in range(all_nodes.size()):
 			if all_nodes[i].name.contains("rotate"):
 				body_segment_pimitived.append(all_nodes[i])
-				print(body_segment_pimitived)
+
 			
-		for i in range(body_segment_pimitived.size()):
-			print(body_segment_pimitived[i].name, " ")
+
 		tris_ready = true
 
 	# This just controls acceleration. Don't touch it.
 
 	
-	var input_dir :Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	target.global_position += Vector3(input_dir.x*delta*SPEED,0,input_dir.y*delta*SPEED)
+
 	
 	if (target.global_position - global_position).length() < 2 and not running_on_track :
 			
@@ -110,7 +118,7 @@ func _process(delta: float) -> void:
 			running_on_track = true
 	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .9:
 		halt = true
-	if Input.is_action_just_pressed("ui_accept"): # this will be continue chase , relace with other condition 
+	if (target.global_position - global_position).length() >3 and running_on_track : # this will be continue chase , relace with other condition 
 		move_segments_back_normal()
 		running_on_track =false
 		halt = false
@@ -126,9 +134,45 @@ func _process(delta: float) -> void:
 		for i in bone_numbers:
 			segment_follow_path[i].progress += 2 *delta
 	else:
+		_ensnared = true
 		pass # meaning dont move at all 
+		
+
+
 	
 func _physics_process(delta: float) -> void:
+	
+	# main decision tree logic ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+	if snake_state == "player_seeking":
+		target = get_node("../../Player")
+		
+	if snake_state == "patrol":
+		# logic to pick new cub if close enough  .
+		if ((target.global_position - global_position).length() < 3.0):
+			pick_new_object = true
+			# this is where random switching and uncontrolled may occur . 
+			
+		if pick_new_object: 
+			# to make sure the next target is different 
+			var next_target = patrol_objects.pick_random()
+			# if the next target is the same keep picking new target
+			while next_target == target:
+				next_target = patrol_objects.pick_random()
+			target = next_target
+			pick_new_object = false
+	# end decision process for snake ^^^^^^^^^^
+	var snake_to_player :float = (get_node("../../Player").global_position - global_position).length()
+	$Label.text = str(snake_to_player)
+	$Label2.text = snake_state
+	if !_ensnared and (snake_to_player > 16.0) and not (snake_state == "patrol"):
+		print("should be patrolling")
+		snake_state = "patrol"
+		pick_new_object = true
+	
+	if (snake_to_player < 5) :
+		print("looking for player ")
+		snake_state = "player_seeking"
 	
 	if running_on_track:
 		var all_point :PackedVector3Array = curve.get_baked_points()

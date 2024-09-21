@@ -23,6 +23,8 @@ up_vector_enabled = false
 
 [node name="head" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.607729)
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_h0tpo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="head"]
@@ -34,6 +36,10 @@ target_desired_distance = 2.82
 [node name="MeshInstance3D" type="MeshInstance3D" parent="head"]
 mesh = SubResource("PrismMesh_n3l2d")
 surface_material_override/0 = SubResource("StandardMaterial3D_ea0iy")
+
+[node name="Label" type="Label" parent="head"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.0748221, 0.997197, 0, -0.997197, -0.0748221, 0, 10.1789, -0.763744)
