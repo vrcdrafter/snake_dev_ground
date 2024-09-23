@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 const ACCEL = 10
 const DEACCEL = 30
-const SNAKE_SPEED = 4
+var SNAKE_SPEED = 3
 const SPEED = 10
 const SPRINT_MULT = 2
 const JUMP_VELOCITY = 4.5
@@ -11,7 +11,7 @@ var bone_numbers :int = 0
 @onready var body_piece_one :MeshInstance3D = get_node("../body1")
 @onready var body_piece_two :MeshInstance3D = get_node("../body2")
 @onready var nav : NavigationAgent3D = $NavigationAgent3D
-
+signal ensnared 
 @export var target : Node3D
 var body_segment_pimitived :Array[Node3D] = []
 @onready var donut = get_node("../donut")
@@ -63,7 +63,8 @@ func _ready() -> void:
 
 	bone_numbers = skeleton.get_bone_count()
 		# get # of bones 
-		
+	if GlobalVars.game_started == true:
+		give_snake_speed()
 	# build as manny triangles as you have bones . 
 	
 	for i in bone_numbers:
@@ -72,6 +73,7 @@ func _ready() -> void:
 		rotate_heper.append(Node3D.new())
 		
 		rotate_heper[i].name = "rotate" + str(i)
+		rotate_heper[i].position = Vector3(0,0,i*.2)
 		self.add_sibling.call_deferred(rotate_heper[i])
 		
 		# add triangles
@@ -81,7 +83,7 @@ func _ready() -> void:
 		tri_array[i].rotate_y(deg_to_rad(90))
 		tri_array[i].rotate_x(deg_to_rad(90))
 		tri_array[i].hide()
-		rotate_heper[i].global_position = Vector3(0,0,i*.2)
+		
 		rotate_heper[i].add_child.call_deferred(tri_array[i])
 		
 		area_array.append(Area3D.new())
@@ -116,6 +118,7 @@ func _process(delta: float) -> void:
 			make_ensnarement_curve() # jsut make track one 
 			move_segments_to_path()
 			running_on_track = true
+			emit_signal("ensnared")
 	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .9:
 		halt = true
 	if (target.global_position - global_position).length() >3 and running_on_track : # this will be continue chase , relace with other condition 
@@ -164,14 +167,14 @@ func _physics_process(delta: float) -> void:
 	# end decision process for snake ^^^^^^^^^^
 	var snake_to_player :float = (get_node("../../Player").global_position - global_position).length()
 	$Label.text = str(snake_to_player)
-	$Label2.text = snake_state
+
 	if !_ensnared and (snake_to_player > 16.0) and not (snake_state == "patrol"):
 		print("should be patrolling")
 		snake_state = "patrol"
 		pick_new_object = true
 	
 	if (snake_to_player < 5) :
-		print("looking for player ")
+		
 		snake_state = "player_seeking"
 	
 	if running_on_track:
@@ -270,3 +273,6 @@ func override_skeleton():
 		var transform = tri_array[-i+bone_numbers-1].get_global_transform()
 		skeleton.set_bone_global_pose_override(i, transform, 1, true)
 		skeleton.set_bone_pose_rotation(i, tri_array[-i+bone_numbers-1].global_transform.basis.get_rotation_quaternion())
+		
+func give_snake_speed():
+	SNAKE_SPEED = 3

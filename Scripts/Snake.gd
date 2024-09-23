@@ -64,8 +64,7 @@ func _ready():
 	
 	reset_snakes_script.connect("restor_speed",callable)
 	# connecting another signal for player 
-	if GlobalVars.game_started == true:
-		give_snake_speed()
+
 
 
 func _physics_process(delta : float):

@@ -110,6 +110,7 @@ func _on_button_button_down():
 	GlobalVars.game_started = true
 
 func _on_snake_ensnared():
+	print("should be ensnared")
 	ensnared = true
 	ensnared_position = self.get_global_position() # may want a different position , 
 	snakes_around_you += 1
@@ -144,7 +145,7 @@ func _on_button_pressed():
 func remake_connections():
 	
 	var all_snakes :Array = get_tree().get_nodes_in_group("snake")
-	
+	print("all _snakes", all_snakes)
 	var frame_rate_manager :Node3D = get_node("..")
 
 	
