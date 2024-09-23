@@ -179,7 +179,7 @@ func _physics_process(delta: float) -> void:
 	
 	if running_on_track:
 		var all_point :PackedVector3Array = curve.get_baked_points()
-		self.global_position = all_point[all_point.size()-1]
+		#self.global_position = all_point[all_point.size()-1]
 	
 	else:
 		var current_location = global_transform.origin

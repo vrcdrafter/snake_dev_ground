@@ -26,9 +26,8 @@ mesh = SubResource("BoxMesh_3e3sc")
 
 [node name="head" parent="dynamic_snake" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0130634, 0.0471439, -10.9702)
-visible = false
 
-[node name="Path3D" parent="dynamic_snake" index="2"]
+[node name="Path3D" parent="dynamic_snake" index="1"]
 curve = ExtResource("2_ecy5m")
 
 [node name="Marker3D" type="Marker3D" parent="."]
