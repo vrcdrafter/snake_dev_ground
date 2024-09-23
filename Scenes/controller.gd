@@ -46,7 +46,7 @@ func _ready() -> void:
 	
 	path = get_node("../Path3D")
 	var new_curve :Curve3D = Curve3D.new()
-	var curve_resource :Curve3D = load("res://Resources/perfect_ensnarement.tres")
+	var curve_resource :Curve3D = load("res://Resources/perfect_ensnarement_2.tres")
 	var resource_points :PackedVector3Array = curve_resource.get_baked_points()
 	# run a for loop to add all the points 
 	for i in resource_points.size():
@@ -119,7 +119,7 @@ func _process(delta: float) -> void:
 			move_segments_to_path()
 			running_on_track = true
 			emit_signal("ensnared")
-	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .9:
+	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .99:
 		halt = true
 	if (target.global_position - global_position).length() >3 and running_on_track : # this will be continue chase , relace with other condition 
 		move_segments_back_normal()
@@ -135,7 +135,7 @@ func _process(delta: float) -> void:
 		for i in bone_numbers:
 			segment_follow_path.append(get_node("../Path3D/"+ "path" + str(i)))
 		for i in bone_numbers:
-			segment_follow_path[i].progress += 2 *delta
+			segment_follow_path[i].progress += 8 *delta
 	else:
 		_ensnared = true
 		pass # meaning dont move at all 

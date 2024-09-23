@@ -840,16 +840,12 @@ text = "RESTART"
 
 [node name="dynamic_snake" parent="." instance=ExtResource("16_caj04")]
 
-[node name="head" parent="dynamic_snake" index="0" groups=["snake"]]
+[node name="head" parent="dynamic_snake" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6834, 1.66719, -4.69668)
-visible = true
 collision_mask = 1
 
 [node name="MeshInstance3D" parent="dynamic_snake/head" index="2"]
 mesh = SubResource("CapsuleMesh_h1wqv")
-
-[node name="SpotLight3D" parent="dynamic_snake" index="1"]
-transform = Transform3D(1, 0, 0, 0, -0.0748221, 0.997197, 0, -0.997197, -0.0748221, 38.6481, 10.4515, -15.6287)
 
 [connection signal="timeout" from="Game_over_timer" to="Player" method="_on_game_over_timer_timeout"]
 [connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]
