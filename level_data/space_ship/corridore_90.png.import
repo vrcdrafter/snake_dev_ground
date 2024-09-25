@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnlnaka230866"
-path="res://.godot/imported/corridore_straight.png-86c0377ad9593c76c486c3f321659ff8.ctex"
+uid="uid://ewscuvm0w4yy"
+path="res://.godot/imported/corridore_90.png-10911627977ff021e8e4f6d3bee00c22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/space/corridore_straight.png"
-dest_files=["res://.godot/imported/corridore_straight.png-86c0377ad9593c76c486c3f321659ff8.ctex"]
+source_file="res://level_data/space_ship/corridore_90.png"
+dest_files=["res://.godot/imported/corridore_90.png-10911627977ff021e8e4f6d3bee00c22.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

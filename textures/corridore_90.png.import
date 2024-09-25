@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnlnaka230866"
-path="res://.godot/imported/corridore_straight.png-86c0377ad9593c76c486c3f321659ff8.ctex"
+uid="uid://crmmgaj1urt3s"
+path="res://.godot/imported/corridore_90.png-82aaa20e2fff75497c9d18b817d691ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/space/corridore_straight.png"
-dest_files=["res://.godot/imported/corridore_straight.png-86c0377ad9593c76c486c3f321659ff8.ctex"]
+source_file="res://textures/corridore_90.png"
+dest_files=["res://.godot/imported/corridore_90.png-82aaa20e2fff75497c9d18b817d691ff.ctex"]
 
 [params]
 
