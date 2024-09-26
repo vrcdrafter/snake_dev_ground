@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://satlc5y2mhc4"]
+[gd_scene load_steps=42 format=3 uid="uid://satlc5y2mhc4"]
 
 [ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_g3ej3"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="2_nyle0"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://crmmgaj1urt3s" path="res://textures/corridore_90.png" id="6_fl5ot"]
 [ext_resource type="PackedScene" uid="uid://cttmnlxwbspd8" path="res://Scenes/key.tscn" id="7_utyel"]
 [ext_resource type="Texture2D" uid="uid://5db3ibvc4wq2" path="res://textures/key.png" id="8_dufyw"]
+[ext_resource type="Texture2D" uid="uid://2btfwu8x1idn" path="res://textures/space/corridore_tee.png" id="8_visna"]
 [ext_resource type="Script" path="res://Scenes/key_ui.gd" id="9_wkv83"]
 [ext_resource type="Texture2D" uid="uid://brjxnm8olabin" path="res://textures/exit.png" id="10_g8jos"]
 [ext_resource type="Script" path="res://Scenes/level_exit.gd" id="11_22eye"]
@@ -34,6 +35,10 @@ albedo_texture = ExtResource("6_fl5ot")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ibdm8"]
 shading_mode = 0
 albedo_texture = ExtResource("6_fl5ot")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0owwm"]
+shading_mode = 0
+albedo_texture = ExtResource("8_visna")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_eudyw"]
 
@@ -158,6 +163,7 @@ material = SubResource("StandardMaterial3D_ibdm8")
 transform = Transform3D(-3, 0, -2.62268e-07, 0, 3, 0, 2.62268e-07, 0, -3, -11.0386, 0, -14.4548)
 use_collision = true
 mesh = ExtResource("5_ci0uq")
+material = SubResource("StandardMaterial3D_0owwm")
 
 [node name="key_1" parent="." instance=ExtResource("7_utyel")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -26.8019, -0.806633, 42.1887)
