@@ -1,22 +1,32 @@
 # Blender 4.2.0 MTL File: 'corridore_90.blend'
 # www.blender.org
 
-newmtl base
+newmtl Material
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.007668 0.017914 0.800424
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl base.002
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
-Ni 1.450000
+Ni 1.500000
 d 1.000000
 illum 2
-map_Kd C:/Users/mhawley/Desktop/github_stuff/snek_run/textures/corridore_90.png
+map_Kd corridore_90.png
 
 newmtl lights
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
 Ks 0.500000 0.500000 0.500000
-Ke 1.000000 1.000000 1.000000
+Ke 1.000000 0.959498 0.909306
 Ni 1.500000
 d 1.000000
 illum 2
