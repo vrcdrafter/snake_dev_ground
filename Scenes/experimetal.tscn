@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=4 uid="uid://d1dsqa25kwwv6"]
+[gd_scene load_steps=12 format=4 uid="uid://d1dsqa25kwwv6"]
 
 [ext_resource type="Script" path="res://Scenes/controller.gd" id="1_h0tpo"]
+[ext_resource type="Texture2D" uid="uid://blgrwafq568nm" path="res://textures/snake_boss.png" id="2_jadog"]
 [ext_resource type="Texture2D" uid="uid://cdx12ux7lt816" path="res://level_data/snake_hefty_snake_boss.png" id="2_uxicw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ipe6r"]
@@ -18,6 +19,10 @@ _data = {
 }
 point_count = 14
 up_vector_enabled = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1oem"]
+shading_mode = 0
+albedo_texture = ExtResource("2_jadog")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pn4ot"]
 resource_name = "Material.001"
@@ -381,6 +386,7 @@ bones/29/rotation = Quaternion(0, -5.96047e-08, -1.87157e-28, 1)
 bones/29/scale = Vector3(1, 1, 1)
 
 [node name="Cube_001" type="MeshInstance3D" parent="snake_hefty/Armature/Skeleton3D"]
+material_override = SubResource("StandardMaterial3D_i1oem")
 extra_cull_margin = 30.0
 mesh = SubResource("ArrayMesh_82l4x")
 skin = SubResource("Skin_0lft4")

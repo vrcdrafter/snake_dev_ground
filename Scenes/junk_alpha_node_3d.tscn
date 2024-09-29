@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://82ytafdxv6fa"]
+
+[ext_resource type="Texture2D" uid="uid://bslhfwde5bml" path="res://textures/test_transparent.png" id="1_st2ws"]
+[ext_resource type="ArrayMesh" uid="uid://bcyn8ft53fwed" path="res://level_data/space_ship/sumac.obj" id="2_w4gmy"]
+[ext_resource type="Texture2D" uid="uid://j0e8hg3tvpsn" path="res://textures/sumac_leaves.png" id="3_derxv"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_pythf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xg17x"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("1_st2ws")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ts5d"]
+shading_mode = 0
+albedo_color = Color(0.28125, 0.148579, 0.0887791, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cood0"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("3_derxv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_40ehx"]
+shading_mode = 0
+albedo_color = Color(0.355469, 0.115894, 0.105283, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_pythf")
+surface_material_override/0 = SubResource("StandardMaterial3D_xg17x")
+
+[node name="Sumac" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.263097, 0, 0.260365)
+mesh = ExtResource("2_w4gmy")
+surface_material_override/0 = SubResource("StandardMaterial3D_0ts5d")
+surface_material_override/1 = SubResource("StandardMaterial3D_cood0")
+surface_material_override/2 = SubResource("StandardMaterial3D_40ehx")

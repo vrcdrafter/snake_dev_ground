@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blgrwafq568nm"
-path="res://.godot/imported/snake_boss.png-cd3c0cedd8b7c524ce660a14476c441b.ctex"
+uid="uid://j0e8hg3tvpsn"
+path.s3tc="res://.godot/imported/sumac_leaves.png-359b69ca7d7c94010a47b1d277a6da99.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://textures/snake_boss.png"
-dest_files=["res://.godot/imported/snake_boss.png-cd3c0cedd8b7c524ce660a14476c441b.ctex"]
+source_file="res://textures/sumac_leaves.png"
+dest_files=["res://.godot/imported/sumac_leaves.png-359b69ca7d7c94010a47b1d277a6da99.s3tc.ctex"]
 
 [params]
 
-compress/mode=3
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

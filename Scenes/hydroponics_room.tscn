@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch3oig037f16n"]
+
+[ext_resource type="ArrayMesh" uid="uid://bqed6d1l4ne3a" path="res://level_data/space_ship/large_room.obj" id="1_qavhk"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_qavhk")
