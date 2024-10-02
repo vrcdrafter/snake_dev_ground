@@ -244,14 +244,14 @@ up_vector_enabled = false
 specular_mode = 2
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(1.91, 4.41, 3.15)
-uv1_offset = Vector3(-101377, 0, 0)
+uv1_offset = Vector3(-101392, 0, 0)
 uv1_triplanar_sharpness = 2.73209
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xquqc"]
 albedo_color = Color(0.801126, 0.850845, 1, 1)
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(30, 30, 30)
-uv1_offset = Vector3(-0.0415084, -0.0909783, 0)
+uv1_offset = Vector3(0.0999893, 0.00146642, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_wapur"]
 
@@ -259,7 +259,7 @@ uv1_offset = Vector3(-0.0415084, -0.0909783, 0)
 albedo_color = Color(0.801126, 0.850845, 1, 1)
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(10, 10, 10)
-uv1_offset = Vector3(-0.0415084, -0.0909783, 0)
+uv1_offset = Vector3(0.0999893, 0.00146642, 0)
 
 [sub_resource type="Curve3D" id="Curve3D_wblql"]
 bake_interval = 34.85
@@ -664,7 +664,7 @@ path_joined = false
 script = ExtResource("17_blljb")
 
 [node name="pool" type="MeshInstance3D" parent="water_effects"]
-transform = Transform3D(141.01, 0, 0, 0, -5.89313e-06, 0.964475, 0, -134.819, -4.21585e-08, 0, -6.30415, 68.2271)
+transform = Transform3D(141.01, 0, 0, 0, -5.89313e-06, 0.964475, 0, -134.819, -4.21585e-08, 0, -6.29, 68.2271)
 material_override = SubResource("StandardMaterial3D_xquqc")
 mesh = SubResource("QuadMesh_wapur")
 script = ExtResource("14_84msn")
@@ -673,7 +673,7 @@ script = ExtResource("14_84msn")
 transform = Transform3D(15, 0, 0, 0, -4.63996e-07, 10.615, 0, -10.615, -4.63996e-07, 57.0119, 17.8241, 12.217)
 
 [node name="pool2" type="MeshInstance3D" parent="water_effects/pool2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.30415, 4.44089e-16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.29, 4.44089e-16)
 material_override = SubResource("StandardMaterial3D_5r7mk")
 mesh = SubResource("QuadMesh_wapur")
 skeleton = NodePath("../..")
