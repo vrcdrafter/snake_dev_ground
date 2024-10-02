@@ -244,14 +244,14 @@ up_vector_enabled = false
 specular_mode = 2
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(1.91, 4.41, 3.15)
-uv1_offset = Vector3(-100577, 0, 0)
+uv1_offset = Vector3(-101377, 0, 0)
 uv1_triplanar_sharpness = 2.73209
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xquqc"]
 albedo_color = Color(0.801126, 0.850845, 1, 1)
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(30, 30, 30)
-uv1_offset = Vector3(-0.0586753, 0.0809766, 0)
+uv1_offset = Vector3(-0.0415084, -0.0909783, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_wapur"]
 
@@ -259,7 +259,7 @@ uv1_offset = Vector3(-0.0586753, 0.0809766, 0)
 albedo_color = Color(0.801126, 0.850845, 1, 1)
 albedo_texture = ExtResource("16_dowux")
 uv1_scale = Vector3(10, 10, 10)
-uv1_offset = Vector3(-0.0586753, 0.0809766, 0)
+uv1_offset = Vector3(-0.0415084, -0.0909783, 0)
 
 [sub_resource type="Curve3D" id="Curve3D_wblql"]
 bake_interval = 34.85
@@ -664,7 +664,7 @@ path_joined = false
 script = ExtResource("17_blljb")
 
 [node name="pool" type="MeshInstance3D" parent="water_effects"]
-transform = Transform3D(141.01, 0, 0, 0, -5.89313e-06, 0.964475, 0, -134.819, -4.21585e-08, 0, -6.30587, 68.2271)
+transform = Transform3D(141.01, 0, 0, 0, -5.89313e-06, 0.964475, 0, -134.819, -4.21585e-08, 0, -6.30415, 68.2271)
 material_override = SubResource("StandardMaterial3D_xquqc")
 mesh = SubResource("QuadMesh_wapur")
 script = ExtResource("14_84msn")
@@ -673,7 +673,7 @@ script = ExtResource("14_84msn")
 transform = Transform3D(15, 0, 0, 0, -4.63996e-07, 10.615, 0, -10.615, -4.63996e-07, 57.0119, 17.8241, 12.217)
 
 [node name="pool2" type="MeshInstance3D" parent="water_effects/pool2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.30587, 4.44089e-16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.30415, 4.44089e-16)
 material_override = SubResource("StandardMaterial3D_5r7mk")
 mesh = SubResource("QuadMesh_wapur")
 skeleton = NodePath("../..")
@@ -796,6 +796,7 @@ offset_bottom = 40.0
 script = ExtResource("19_yhpu3")
 
 [node name="TextureRect" type="TextureRect" parent="shader_load"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -809,6 +810,7 @@ expand_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="shader_load"]
 auto_translate_mode = 1
+visible = false
 layout_mode = 0
 offset_left = 245.0
 offset_top = 103.0
@@ -821,8 +823,10 @@ show_percentage = false
 
 [node name="player_start_position" type="Marker3D" parent="shader_load"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2433, 4.02539, -85.9115)
+visible = false
 
 [node name="Label" type="Label" parent="shader_load"]
+visible = false
 layout_mode = 0
 offset_left = 302.0
 offset_top = 217.0
@@ -832,6 +836,7 @@ text = "LOADING SHADERS  SORRY "
 label_settings = SubResource("LabelSettings_vco7h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="shader_load"]
+visible = false
 position = Vector2(126, 559)
 scale = Vector2(5.96875, 5.5)
 sprite_frames = SubResource("SpriteFrames_m26rn")
@@ -840,9 +845,11 @@ script = ExtResource("24_p4xeq")
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(0.965953, 0, 0.258718, 0, 1, 0, -0.258718, 0, 0.965953, 12.1656, 24.4171, -9.46707)
+visible = false
 
 [node name="accelerator" type="Area3D" parent="Node3D"]
 transform = Transform3D(1, 0, -1.49012e-08, 0, 1, 0, 1.49012e-08, 0, 1, 0, 0, 0)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator"]
@@ -856,6 +863,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator2" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.986632, 0, 0.162964, -0.0500801, 0.951611, 0.303199, -0.155079, -0.307307, 0.938889, -0.0536289, -0.0997791, -4.73206)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator2"]
@@ -869,6 +877,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator3" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.986632, 0, 0.162964, -0.0500801, 0.951611, 0.303199, -0.155079, -0.307307, 0.938889, -0.336602, -0.0433121, -4.55721)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator3"]
@@ -882,6 +891,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator4" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.839515, -0.0246758, 0.542775, -0.166971, 0.938912, 0.30094, -0.517044, -0.343272, 0.784111, -1.27468, -1.56636, -9.22717)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator4"]
@@ -895,6 +905,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator5" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.839515, -0.0246758, 0.542775, -0.166971, 0.938912, 0.30094, -0.517044, -0.343272, 0.784111, -3.6661, -2.89228, -12.6819)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator5"]
@@ -908,6 +919,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator6" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.697952, -0.0246758, 0.715719, -0.229655, 0.938912, 0.256325, -0.678322, -0.343272, 0.649649, -6.2719, -4.29242, -16.3242)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator6"]
@@ -921,6 +933,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator7" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.523125, -0.137525, 0.841087, -0.31363, 0.886576, 0.340029, -0.79245, -0.441668, 0.420658, -9.56275, -5.47099, -19.3113)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator7"]
@@ -934,6 +947,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator8" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.38256, -0.137525, 0.913638, -0.36376, 0.886576, 0.285766, -0.849309, -0.441668, 0.289142, -13.4486, -7.04196, -21.2548)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator8"]
@@ -947,6 +961,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator9" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.164904, -0.326498, 0.930702, -0.0949401, 0.944493, 0.314514, -0.98173, -0.0364961, -0.186749, -18.0277, -8.42343, -22.602)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator9"]
@@ -960,6 +975,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator10" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.491455, -0.0858646, 0.86666, -0.11346, 0.992959, 0.0340383, -0.863481, -0.081603, -0.497737, -22.8016, -9.88856, -21.4588)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator10"]
@@ -973,6 +989,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator11" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.788144, -0.0858646, 0.609472, -0.117801, 0.992959, -0.0124429, -0.604113, -0.081603, -0.79271, -26.8346, -10.0509, -19.1908)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator11"]
@@ -986,6 +1003,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator12" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.979647, -0.0544461, -0.193203, -0.06358, 0.997118, 0.0413905, 0.190392, 0.0528318, -0.980285, -29.5381, -10.004, -15.3654)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator12"]
@@ -999,6 +1017,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator13" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.915195, -0.0346643, -0.401517, -0.0709923, 0.994581, 0.0759501, 0.396709, 0.0980137, -0.912697, -28.6142, -10.1978, -10.7564)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator13"]
@@ -1012,6 +1031,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator14" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.854748, 0.0758283, -0.513474, 0.00563588, 0.990569, 0.136903, 0.519012, 0.114123, -0.847114, -26.5397, -10.5607, -6.52623)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator14"]
@@ -1025,6 +1045,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator15" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.854748, 0.120777, -0.504795, 0.00563588, 0.974653, 0.223651, 0.519012, 0.18832, -0.833764, -24.2095, -11.182, -2.68192)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator15"]
@@ -1038,6 +1059,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator16" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.954874, 0.0489549, -0.29295, -0.0162976, 0.976201, 0.216255, 0.296565, 0.211271, -0.931351, -21.8062, -12.3558, 1.32793)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator16"]
@@ -1051,6 +1073,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator17" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.802984, -0.166793, 0.572187, 0.16426, 0.860929, 0.481478, -0.572919, 0.480606, -0.663914, -20.5122, -13.6178, 5.44407)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator17"]
@@ -1064,6 +1087,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator18" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.650693, -0.417478, 0.63428, -0.0422642, 0.85392, 0.518686, -0.758164, 0.310698, -0.573284, -23.1219, -15.8138, 8.47216)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator18"]
@@ -1077,6 +1101,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator19" type="Area3D" parent="Node3D"]
 transform = Transform3D(-0.139922, -0.417478, 0.897849, 0.277432, 0.85392, 0.440288, -0.950502, 0.310698, -0.00366046, -25.4443, -18.3473, 11.2309)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator19"]
@@ -1090,6 +1115,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator20" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.810703, -0.0900049, 0.578498, -0.0553157, 0.971917, 0.228733, -0.582839, -0.217434, 0.782956, -28.5228, -19.458, 9.42176)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator20"]
@@ -1103,6 +1129,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator21" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.810703, -0.0900049, 0.578498, -0.0553157, 0.971917, 0.228733, -0.582839, -0.217434, 0.782956, -31.1696, -20.5045, 5.83948)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator21"]
@@ -1116,6 +1143,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator22" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.741363, -0.0900049, 0.665041, -0.080402, 0.971917, 0.221166, -0.66627, -0.217434, 0.713306, -33.73, -21.4518, 2.36803)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator22"]
@@ -1129,6 +1157,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator23" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.546595, -0.0900049, 0.832546, -0.134298, 0.971917, 0.193243, -0.826558, -0.217434, 0.519157, -36.3422, -22.4033, -0.80348)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator23"]
@@ -1142,6 +1171,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="accelerator24" type="Area3D" parent="Node3D"]
 transform = Transform3D(0.16625, -0.218649, 0.961537, -0.200596, 0.947219, 0.250077, -0.965465, -0.234455, 0.113615, -39.3002, -23.2122, -3.02458)
+visible = false
 script = ExtResource("20_4fpx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/accelerator24"]
@@ -1574,6 +1604,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="Node3D3" type="Node3D" parent="."]
 transform = Transform3D(0.965953, 0, 0.258718, 0, 1, 0, -0.258718, 0, 0.965953, 12.1656, 24.4171, -9.46707)
+visible = false
 
 [node name="accelerator" type="Area3D" parent="Node3D3"]
 transform = Transform3D(0.183488, 0, 0.983022, 0, 1, 0, -0.983022, 0, 0.183488, 5.76486, -10.1431, 21.4955)
