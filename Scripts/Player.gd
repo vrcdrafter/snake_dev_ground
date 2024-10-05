@@ -25,6 +25,9 @@ var snakes_around_you :int = 0
 # for seeding the sine wave for heavier ensarement snap back
 var time = 1.1
 var timer_oneshot :bool = true
+var direction :Vector3
+var can_play_walk :bool = false
+var audio_toggle :bool = false
 
 func _ready():
 	camera = $rotation_helper/Camera3D
@@ -38,6 +41,10 @@ func _ready():
 		emit_signal("remove_mouse")
 		print("should be removing the enable mouse button AAAAAAAAsDDD")
 		emit_signal("snakes_go")
+		
+	$AudioStreamPlayer3D.play()
+	$AudioStreamPlayer3D.stream_paused = true
+	$AudioStreamPlayer3D.pitch_scale = .8
 		
 		
 	
@@ -79,11 +86,12 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with a custom keymap depending on your control scheme. These strings default to the arrow keys layout.
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * accel * delta
+	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * accel * delta
 	if Input.is_key_pressed(KEY_SHIFT):
 		direction = direction * SPRINT_MULT
+		$AudioStreamPlayer3D.pitch_scale = 1.2
 	else:
-		pass
+		$AudioStreamPlayer3D.pitch_scale = .8
 
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -91,7 +99,11 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	if direction.length() > 0 and can_play_walk:
+		$AudioStreamPlayer3D.stream_paused = false
+	else:
+		$AudioStreamPlayer3D.stream_paused = true
+		
 	move_and_slide()
 	
 	if ensnared:
@@ -160,6 +172,11 @@ func remake_connections():
 	timer_handle.connect("timeout",timer_callable)
 	game_over_button_handle.connect("pressed",reset_level)
 	
+	# walking audio connection 
+	var audio_handle :Area3D = get_node("../sounds/corridore_sound")
+	var walk_callable :Callable = Callable(self, "audio_function")
+	audio_handle.body_entered.connect(_on_body_entered)
+
 
 
 func _on_camper_area_reconnect_snakes() -> void:
@@ -177,3 +194,15 @@ func setup_level():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+
+
+func _on_body_entered(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		if audio_toggle:
+			print("turn off the audio for feet")
+			can_play_walk = false
+			audio_toggle = false
+		else:
+			can_play_walk = true
+			audio_toggle = true
