@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://d1dsqa25kwwv6"]
+[gd_scene load_steps=13 format=4 uid="uid://d1dsqa25kwwv6"]
 
 [ext_resource type="Script" path="res://Scenes/controller.gd" id="1_h0tpo"]
 [ext_resource type="Texture2D" uid="uid://blgrwafq568nm" path="res://textures/snake_boss.png" id="2_jadog"]
 [ext_resource type="Texture2D" uid="uid://cdx12ux7lt816" path="res://level_data/snake_hefty_snake_boss.png" id="2_uxicw"]
+[ext_resource type="Script" path="res://Scripts/junk_throw_away_mesh_color.gd" id="4_r3uth"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ipe6r"]
 
@@ -22,6 +23,7 @@ up_vector_enabled = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1oem"]
 shading_mode = 0
+albedo_color = Color(1, 0.927655, 0.912654, 1)
 albedo_texture = ExtResource("2_jadog")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pn4ot"]
@@ -390,3 +392,4 @@ material_override = SubResource("StandardMaterial3D_i1oem")
 extra_cull_margin = 30.0
 mesh = SubResource("ArrayMesh_82l4x")
 skin = SubResource("Skin_0lft4")
+script = ExtResource("4_r3uth")

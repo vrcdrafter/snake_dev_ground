@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5xyi7n6pfs1p"]
+
+[ext_resource type="Script" path="res://Scripts/Junk_experimental_lerp.gd" id="1_pmtjr"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_1dyvx"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_5mppm"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_pmtjr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_1dyvx")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.34378, 0, 0)
+mesh = SubResource("PrismMesh_5mppm")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.34378, 0, 0)
+mesh = SubResource("PrismMesh_5mppm")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.13)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.345265, 0.938505, 0, -0.938505, 0.345265, 0, 5.60704, -3.19686)

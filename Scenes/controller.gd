@@ -39,6 +39,8 @@ var patrol_objects :Array[MeshInstance3D]
 var snake_state:String = "player_seeking"
 var pick_new_object :bool = false
 
+signal state_change
+
 func _ready() -> void:
 	# get all the partrol objects
 	for child in get_node("../../idle_objects").get_children():
@@ -171,12 +173,13 @@ func _physics_process(delta: float) -> void:
 	if !_ensnared and (snake_to_player > 16.0) and not (snake_state == "patrol"):
 		print("should be patrolling")
 		snake_state = "patrol"
+		emit_signal("state_change")
 		pick_new_object = true
 	
-	if (snake_to_player < 5) :
+	if (snake_to_player < 5) and not (snake_state == "player_seeking"):
 		
 		snake_state = "player_seeking"
-	
+		emit_signal("state_change")
 	if running_on_track:
 		var all_point :PackedVector3Array = curve.get_baked_points()
 		#self.global_position = all_point[all_point.size()-1]

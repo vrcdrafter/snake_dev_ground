@@ -767,6 +767,7 @@ text = "RESTART"
 
 [node name="head" parent="dynamic_snake" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62603, 0.480133, -29.0619)
+visible = true
 
 [node name="sounds" type="Node3D" parent="."]
 
