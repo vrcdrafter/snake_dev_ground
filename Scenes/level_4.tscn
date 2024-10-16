@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=4 uid="uid://satlc5y2mhc4"]
+[gd_scene load_steps=58 format=4 uid="uid://satlc5y2mhc4"]
 
 [ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_g3ej3"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="2_nyle0"]
@@ -17,7 +17,6 @@
 [ext_resource type="Script" path="res://Scenes/level_exit.gd" id="11_22eye"]
 [ext_resource type="AudioStream" uid="uid://dcgl5vwym86it" path="res://sounds/zapsplat_household_door_handle_try_open_locked_001_10218.mp3" id="12_s50wr"]
 [ext_resource type="Script" path="res://Scripts/snake_teleport.gd" id="13_uul2o"]
-[ext_resource type="PackedScene" uid="uid://bfo34niu4we43" path="res://Scenes/space_snake.tscn" id="14_vw6qm"]
 [ext_resource type="PackedScene" uid="uid://d1dsqa25kwwv6" path="res://Scenes/experimetal.tscn" id="20_sfhvi"]
 [ext_resource type="PackedScene" uid="uid://82ytafdxv6fa" path="res://Scenes/junk_alpha_node_3d.tscn" id="21_0bdv4"]
 [ext_resource type="Script" path="res://Scripts/shader_load.gd" id="22_5orbs"]
@@ -686,9 +685,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.3266, 0, 0)
 [node name="Reset_snake_position_6" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9459, 0, 25.9718)
 
-[node name="Snake" parent="." instance=ExtResource("14_vw6qm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21986, -1, 0)
-
 [node name="shader_load" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -767,7 +763,6 @@ text = "RESTART"
 
 [node name="head" parent="dynamic_snake" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62603, 0.480133, -29.0619)
-visible = true
 
 [node name="sounds" type="Node3D" parent="."]
 

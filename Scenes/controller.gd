@@ -128,20 +128,7 @@ func _process(delta: float) -> void:
 		running_on_track =false
 		halt = false
 
-	if not running_on_track and not halt:
 
-		follower(delta)
-	elif running_on_track and not halt:
-		var segment_positions :Array[float]
-		var segment_follow_path :Array[PathFollow3D]
-		for i in bone_numbers:
-			segment_follow_path.append(get_node("../Path3D/"+ "path" + str(i)))
-		for i in bone_numbers:
-			segment_follow_path[i].progress += 8 *delta
-	else:
-		_ensnared = true
-		pass # meaning dont move at all 
-		
 
 
 	
@@ -194,7 +181,20 @@ func _physics_process(delta: float) -> void:
 		velocity = new_velocity
 		move_and_slide()
 	
-	
+	if not running_on_track and not halt:
+
+		follower(delta)
+	elif running_on_track and not halt:
+		var segment_positions :Array[float]
+		var segment_follow_path :Array[PathFollow3D]
+		for i in bone_numbers:
+			segment_follow_path.append(get_node("../Path3D/"+ "path" + str(i)))
+		for i in bone_numbers:
+			segment_follow_path[i].progress += 8 *delta
+	else:
+		_ensnared = true
+		pass # meaning dont move at all 
+		
 	# move them bones 
 	
 		
@@ -208,15 +208,14 @@ func follower(delta):
 			body_segment_pimitived[i].look_at(global_position)
 			
 			if ((global_position - body_segment_pimitived[i].global_position).length() > bone_length):
-				body_segment_pimitived[i].global_position += (global_position - body_segment_pimitived[i].global_position) * delta * SPEED
-			if ((global_position - body_segment_pimitived[i].global_position).length() < bone_length + .1):
-				body_segment_pimitived[i].global_position -= (global_position - body_segment_pimitived[i].global_position) * delta * SPEED
+				#body_segment_pimitived[i].global_position += (global_position - body_segment_pimitived[i].global_position) * delta * SPEED
+				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(global_position,delta * SPEED)
+
 		else:
 			body_segment_pimitived[i].look_at(body_segment_pimitived[i-1].global_position)
 			if ((body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position).length() > bone_length):
-				body_segment_pimitived[i].global_position += (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * SPEED
-			if ((body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position).length() < bone_length + .1):
-				body_segment_pimitived[i].global_position -= (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * SPEED
+				#body_segment_pimitived[i].global_position += (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * SPEED
+				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(body_segment_pimitived[i-1].global_position,delta * SPEED)
 
 func calc_length():
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()

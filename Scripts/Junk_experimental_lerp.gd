@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 
 
 	$MeshInstance3D2.look_at($MeshInstance3D.global_position)
-	print(($MeshInstance3D.global_position - $MeshInstance3D2.global_position).length())
+
 	if ($MeshInstance3D.global_position - $MeshInstance3D2.global_position).length() > 1:
 		
 		$MeshInstance3D2.global_position = $MeshInstance3D2.global_position.lerp($MeshInstance3D.global_position,delta *4 )
