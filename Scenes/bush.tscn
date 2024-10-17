@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbw8vm8biefsf"]
+
+[ext_resource type="ArrayMesh" uid="uid://bsgaq5c3reojt" path="res://level_data/space_ship/bush.obj" id="1_emkjn"]
+[ext_resource type="Material" uid="uid://dwlilfxgqodh6" path="res://Materials/bushes.tres" id="2_o2774"]
+
+[node name="bush" type="Node3D"]
+
+[node name="Bush" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_emkjn")
+surface_material_override/0 = ExtResource("2_o2774")
+surface_material_override/1 = ExtResource("2_o2774")
+surface_material_override/2 = ExtResource("2_o2774")
+surface_material_override/3 = ExtResource("2_o2774")
+surface_material_override/4 = ExtResource("2_o2774")
+surface_material_override/5 = ExtResource("2_o2774")
+surface_material_override/6 = ExtResource("2_o2774")

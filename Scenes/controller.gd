@@ -155,7 +155,7 @@ func _physics_process(delta: float) -> void:
 			pick_new_object = false
 	# end decision process for snake ^^^^^^^^^^
 	var snake_to_player :float = (get_node("../../Player").global_position - global_position).length()
-	$Label.text = str(snake_to_player)
+
 
 	if !_ensnared and (snake_to_player > 16.0) and not (snake_state == "patrol"):
 		print("should be patrolling")
