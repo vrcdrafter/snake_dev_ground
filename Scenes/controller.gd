@@ -41,11 +41,16 @@ var pick_new_object :bool = false
 
 signal state_change
 
+# snake wave stuff
+var time :float = 0
+var snake_wavyness :float = 1
+var wave_thing :float = 0
+
 func _ready() -> void:
 	# get all the partrol objects
 	for child in get_node("../../idle_objects").get_children():
 		patrol_objects.append(child)
-	
+	time = randf() * 10
 	path = get_node("../Path3D")
 	var new_curve :Curve3D = Curve3D.new()
 	var curve_resource :Curve3D = load("res://Resources/perfect_ensnarement_2.tres")
@@ -134,6 +139,9 @@ func _process(delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	
+	#wavy stuff
+	time += delta
+	wave_thing = (sin(time * 2)*snake_wavyness)
 	# main decision tree logic ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	if snake_state == "player_seeking":
@@ -158,7 +166,7 @@ func _physics_process(delta: float) -> void:
 
 
 	if !_ensnared and (snake_to_player > 16.0) and not (snake_state == "patrol"):
-		print("should be patrolling")
+		
 		snake_state = "patrol"
 		emit_signal("state_change")
 		pick_new_object = true
@@ -178,7 +186,15 @@ func _physics_process(delta: float) -> void:
 		self.look_at(next_location)
 		var new_velocity = (next_location - current_location).normalized() * SNAKE_SPEED
 		
-		velocity = new_velocity
+		# run new velocty through wave algorithme 
+		if new_velocity.length() != 0:
+			var perpendicular :Vector3 = Vector3(new_velocity.z/new_velocity.length(),new_velocity.y,-new_velocity.x/new_velocity.length())
+			var waving_perpendicular :Vector3 = perpendicular.normalized() * wave_thing
+			
+			velocity = new_velocity + waving_perpendicular
+		else:
+			velocity = new_velocity
+
 		move_and_slide()
 	
 	if not running_on_track and not halt:

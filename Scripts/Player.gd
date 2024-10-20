@@ -172,10 +172,12 @@ func remake_connections():
 	timer_handle.connect("timeout",timer_callable)
 	game_over_button_handle.connect("pressed",reset_level)
 	
+
 	# walking audio connection 
-	var audio_handle :Area3D = get_node("../sounds/corridore_sound")
-	var walk_callable :Callable = Callable(self, "audio_function")
-	audio_handle.body_entered.connect(_on_body_entered)
+	if GlobalVars.next_level == "res://Scenes/level_4.tscn":
+		var audio_handle :Area3D = get_node("../sounds/corridore_sound")
+		var walk_callable :Callable = Callable(self, "audio_function")
+		audio_handle.body_entered.connect(_on_body_entered)
 
 
 

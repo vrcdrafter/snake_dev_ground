@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://duc1v08n58cui"]
+
+[ext_resource type="Script" path="res://junk_perpendicular.gd" id="1_np5e3"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="RayCast3D2" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(-0.520109, 0, -0.8541)
+script = ExtResource("1_np5e3")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(1.675, 0, -1.02)
