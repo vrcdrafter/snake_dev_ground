@@ -147,7 +147,6 @@ bind/29/pose = Transform3D(0, 1, 7.58967e-07, -1, -1.89462e-15, -9.8624e-22, 0, 
 [node name="dynamic_snake" type="Node3D"]
 
 [node name="head" type="CharacterBody3D" parent="." groups=["snake"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.607729)
 visible = false
 collision_layer = 0
 collision_mask = 0

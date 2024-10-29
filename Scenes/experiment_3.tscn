@@ -45,7 +45,10 @@ emission_texture = ExtResource("10_xdehe")
 script = ExtResource("1_dbafg")
 
 [node name="dynamic_snake" parent="." instance=ExtResource("2_hc5r1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
+
+[node name="head" parent="dynamic_snake" index="0"]
+visible = true
 
 [node name="Label2" type="Label" parent="dynamic_snake/head" index="3"]
 offset_top = 38.0
@@ -53,6 +56,7 @@ offset_right = 40.0
 offset_bottom = 61.0
 
 [node name="NavRegion" type="NavigationRegion3D" parent="."]
+visible = false
 navigation_mesh = SubResource("NavigationMesh_g8pah")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="NavRegion"]

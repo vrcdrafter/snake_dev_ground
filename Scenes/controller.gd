@@ -119,7 +119,7 @@ func _process(delta: float) -> void:
 
 	
 	var target_postion = target.global_position
-	var head_positopnm = global_position
+	var head_positopnm = position
 	
 	if (target.global_position - global_position).length() < 2 and not running_on_track :
 
@@ -222,11 +222,11 @@ func follower(delta):
 	for i in range(body_segment_pimitived.size()):
 		
 		if i == 0: # meaning its the first piece  
-			body_segment_pimitived[i].look_at(global_position)
+			body_segment_pimitived[i].look_at(position)
 			
-			if ((global_position - body_segment_pimitived[i].global_position).length() > bone_length):
+			if ((position - body_segment_pimitived[i].global_position).length() > bone_length):
 				#body_segment_pimitived[i].global_position += (global_position - body_segment_pimitived[i].global_position) * delta * SPEED
-				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(global_position,delta * SPEED)
+				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(position,delta * SPEED)
 
 		else:
 			body_segment_pimitived[i].look_at(body_segment_pimitived[i-1].global_position)
