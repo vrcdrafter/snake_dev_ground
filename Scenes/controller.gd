@@ -118,10 +118,11 @@ func _process(delta: float) -> void:
 	# This just controls acceleration. Don't touch it.
 
 	
-
+	var target_postion = target.global_position
+	var head_positopnm = global_position
 	
 	if (target.global_position - global_position).length() < 2 and not running_on_track :
-			
+
 			make_ensnarement_curve() # jsut make track one 
 			move_segments_to_path()
 			running_on_track = true

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bvhl2okumo3wj"
+path="res://.godot/imported/space_box.obj-9382853270383a2ea90b64e5c40df189.mesh"
+
+[deps]
+
+files=["res://.godot/imported/space_box.obj-9382853270383a2ea90b64e5c40df189.mesh"]
+
+source_file="res://level_data/space_box.obj"
+dest_files=["res://.godot/imported/space_box.obj-9382853270383a2ea90b64e5c40df189.mesh", "res://.godot/imported/space_box.obj-9382853270383a2ea90b64e5c40df189.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

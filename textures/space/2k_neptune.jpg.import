@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ewscuvm0w4yy"
-path.s3tc="res://.godot/imported/corridore_90.png-10911627977ff021e8e4f6d3bee00c22.s3tc.ctex"
+uid="uid://dj4exa7ysud64"
+path.s3tc="res://.godot/imported/2k_neptune.jpg-46ee5b54b64fdb8e0651e6a35858966c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://level_data/space_ship/corridore_90.png"
-dest_files=["res://.godot/imported/corridore_90.png-10911627977ff021e8e4f6d3bee00c22.s3tc.ctex"]
+source_file="res://textures/space/2k_neptune.jpg"
+dest_files=["res://.godot/imported/2k_neptune.jpg-46ee5b54b64fdb8e0651e6a35858966c.s3tc.ctex"]
 
 [params]
 

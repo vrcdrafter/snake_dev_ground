@@ -175,6 +175,7 @@ func remake_connections():
 
 	# walking audio connection 
 	if GlobalVars.next_level == "res://Scenes/level_4.tscn":
+		print("your in level 4")
 		var audio_handle :Area3D = get_node("../sounds/corridore_sound")
 		var walk_callable :Callable = Callable(self, "audio_function")
 		audio_handle.body_entered.connect(_on_body_entered)

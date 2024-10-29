@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ewscuvm0w4yy"
-path.s3tc="res://.godot/imported/corridore_90.png-10911627977ff021e8e4f6d3bee00c22.s3tc.ctex"
+uid="uid://dvv3myv4b75qt"
+path.s3tc="res://.godot/imported/Designer.jpeg-6a55cd74a410305dd0ee49393839e1aa.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://level_data/space_ship/corridore_90.png"
-dest_files=["res://.godot/imported/corridore_90.png-10911627977ff021e8e4f6d3bee00c22.s3tc.ctex"]
+source_file="res://textures/space/Designer.jpeg"
+dest_files=["res://.godot/imported/Designer.jpeg-6a55cd74a410305dd0ee49393839e1aa.s3tc.ctex"]
 
 [params]
 
