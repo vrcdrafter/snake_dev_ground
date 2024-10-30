@@ -52,7 +52,7 @@ func _ready() -> void:
 		patrol_objects.append(child)
 	time = randf() * 10
 	path = get_node("../Path3D")
-	path.global_position = global_position - Vector3(-14,0,0)
+	path.global_position = Vector3(0,0,0) + Vector3(-14,0,0,)
 	var new_curve :Curve3D = Curve3D.new()
 	var curve_resource :Curve3D = load("res://Resources/perfect_ensnarement_2.tres")
 	var resource_points :PackedVector3Array = curve_resource.get_baked_points()
@@ -251,11 +251,11 @@ func make_ensnarement_curve():
 	# hard part , want to force a concatenation 
 	# get head direction 
 	var head_direction :Vector3 = self.transform.basis.z.normalized()
-	var point_ahead =  ((head_direction * -2 ) + global_position)# putting it 2 meters away, assuming target is 2 meters away 
+	var point_ahead =  ((head_direction * -2 ) + global_position - Vector3(-14,0,0))# putting it 2 meters away, assuming target is 2 meters away 
 	curve.add_point(point_ahead)
 	# add points to current curve , no rotation yet
 	for i in ensnarement_points.size():
-		curve.add_point(ensnarement_points[i] + point_ahead)
+		curve.add_point(ensnarement_points[i]) 
 
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
