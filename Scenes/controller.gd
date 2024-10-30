@@ -52,6 +52,7 @@ func _ready() -> void:
 		patrol_objects.append(child)
 	time = randf() * 10
 	path = get_node("../Path3D")
+	path.global_position = global_position - Vector3(-14,0,0)
 	var new_curve :Curve3D = Curve3D.new()
 	var curve_resource :Curve3D = load("res://Resources/perfect_ensnarement_2.tres")
 	var resource_points :PackedVector3Array = curve_resource.get_baked_points()
@@ -242,7 +243,7 @@ func make_ensnarement_curve():
 	# first make curve for all points where snake is at that moment 
 	var points :Array[Vector3] 
 	for i in range(body_segment_pimitived.size()):
-		points.append(body_segment_pimitived[i].global_position)
+		points.append(body_segment_pimitived[i].global_position) 
 	curve.clear_points()
 	points.pop_front() # have no idea why I have to do this 
 	for i in points.size():
@@ -281,11 +282,6 @@ func move_segments_back_normal():
 		rotate_heper[i].global_position = tri_pos
 		get_node("..").add_child(rotate_heper[i])
 		
-func take_measurment_setup(delta): # takes a measurement of all the tri meshs
-	var main_follow_path :PathFollow3D = get_node("../Path3D/PathFollow3D")
-	var bone_positions :Array[float]
-	var tiney_measurment_box :Area3D = get_node("../Path3D/PathFollow3D/Area3D")
-	var colission_tiney_box :CollisionShape3D = get_node("../Path3D/PathFollow3D/Area3D/CollisionShape3D")
 	
 func override_skeleton():
 	for i in bone_numbers:

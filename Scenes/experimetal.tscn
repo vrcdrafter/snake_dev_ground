@@ -11,14 +11,12 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea0iy"]
 albedo_color = Color(0.27177, 1, 0.241704, 1)
 
-[sub_resource type="Curve3D" id="Curve3D_rcx5l"]
-bake_interval = 12.39
+[sub_resource type="Curve3D" id="Curve3D_8lg0j"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.0201335, 0.117653, -0.130546, 0, 0, 0, 0, 0, 0, 1.1173, 0.540602, -0.397727, 0, 0, 0, 0, 0, 0, 0.545627, 0.446542, 0.853498, 0, 0, 0, 0, 0, 0, -0.645746, 0.145264, 0.882882, 0, 0, 0, 0, 0, 0, -1.34638, 0.0438995, -0.327524, 0, 0, 0, 0, 0, 0, -0.508054, 0.0102363, -1.37753, 0, 0, 0, 0, 0, 0, 0.209638, 0.421478, -1.34854, 0, 0, 0, 0, 0, 0, 0.665179, 0.430589, -0.960164, 0, 0, 0, 0, 0, 0, 0.964553, 0.482887, 0.0657632, 0, 0, 0, 0, 0, 0, 0.84999, 0.859403, 0.529673, 0, 0, 0, 0, 0, 0, -0.964442, 0.758192, 0.281918, 0, 0, 0, 0, 0, 0, 0.106638, 0.73901, -0.751949, 0, 0, 0, 0, 0, 0, 0.875122, 0.594718, 0.590455, 0, 0, 0, 0, 0, 0, -0.592758, 0.335409, 0.644821),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0)
 }
-point_count = 14
-up_vector_enabled = false
+point_count = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1oem"]
 shading_mode = 0
@@ -163,7 +161,7 @@ mesh = SubResource("PrismMesh_n3l2d")
 surface_material_override/0 = SubResource("StandardMaterial3D_ea0iy")
 
 [node name="Path3D" type="Path3D" parent="."]
-curve = SubResource("Curve3D_rcx5l")
+curve = SubResource("Curve3D_8lg0j")
 
 [node name="snake_hefty" type="Node3D" parent="."]
 
