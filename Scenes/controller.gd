@@ -263,6 +263,7 @@ func move_segments_to_path():
 	for i in bone_numbers:
 		follow_path_array.append(PathFollow3D.new())
 		follow_path_array[i].name = "path" + str(i)
+
 		get_node("../Path3D").add_child(follow_path_array[i])
 	
 	# move each segment into array 
