@@ -45,18 +45,22 @@ emission_texture = ExtResource("10_xdehe")
 script = ExtResource("1_dbafg")
 
 [node name="dynamic_snake" parent="." instance=ExtResource("2_hc5r1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
-
-[node name="head" parent="dynamic_snake" index="0"]
-visible = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.89575, 0)
 
 [node name="Label2" type="Label" parent="dynamic_snake/head" index="3"]
 offset_top = 38.0
 offset_right = 40.0
 offset_bottom = 61.0
 
+[node name="dynamic_snake2" parent="." instance=ExtResource("2_hc5r1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.89575, -7.17712)
+
+[node name="Label2" type="Label" parent="dynamic_snake2/head" index="3"]
+offset_top = 38.0
+offset_right = 40.0
+offset_bottom = 61.0
+
 [node name="NavRegion" type="NavigationRegion3D" parent="."]
-visible = false
 navigation_mesh = SubResource("NavigationMesh_g8pah")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="NavRegion"]
@@ -72,7 +76,6 @@ collision_layer = 3
 environment = SubResource("Environment_wpbe3")
 
 [node name="idle_objects" type="Node3D" parent="."]
-visible = false
 
 [node name="cube1" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3497, 0.999507, 34.3061)
@@ -335,6 +338,7 @@ text = "RESTART"
 [connection signal="button_down" from="menu/Button2" to="." method="_on_button_2_button_down"]
 
 [editable path="dynamic_snake"]
+[editable path="dynamic_snake2"]
 [editable path="key_1"]
 [editable path="key_2"]
 [editable path="key_3"]

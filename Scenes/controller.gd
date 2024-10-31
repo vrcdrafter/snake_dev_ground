@@ -46,13 +46,17 @@ var time :float = 0
 var snake_wavyness :float = 1
 var wave_thing :float = 0
 
+var parent_basis :Transform3D
+
 func _ready() -> void:
 	# get all the partrol objects
+	var parent_node :Node3D = get_parent()
+	parent_basis = parent_node.global_transform
+	
 	for child in get_node("../../idle_objects").get_children():
 		patrol_objects.append(child)
 	time = randf() * 10
 	path = get_node("../Path3D")
-	path.global_position = Vector3(0,0,0) + Vector3(-14,0,0,)
 	var new_curve :Curve3D = Curve3D.new()
 	var curve_resource :Curve3D = load("res://Resources/perfect_ensnarement_2.tres")
 	var resource_points :PackedVector3Array = curve_resource.get_baked_points()
@@ -120,7 +124,7 @@ func _process(delta: float) -> void:
 
 	
 	var target_postion = target.global_position
-	var head_positopnm = position
+	var head_positopnm = global_position
 	
 	if (target.global_position - global_position).length() < 2 and not running_on_track :
 
@@ -223,11 +227,11 @@ func follower(delta):
 	for i in range(body_segment_pimitived.size()):
 		
 		if i == 0: # meaning its the first piece  
-			body_segment_pimitived[i].look_at(position)
+			body_segment_pimitived[i].look_at(global_position)
 			
-			if ((position - body_segment_pimitived[i].global_position).length() > bone_length):
+			if ((global_position - body_segment_pimitived[i].global_position).length() > bone_length):
 				#body_segment_pimitived[i].global_position += (global_position - body_segment_pimitived[i].global_position) * delta * SPEED
-				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(position,delta * SPEED)
+				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(global_position,delta * SPEED)
 
 		else:
 			body_segment_pimitived[i].look_at(body_segment_pimitived[i-1].global_position)
@@ -243,7 +247,7 @@ func make_ensnarement_curve():
 	# first make curve for all points where snake is at that moment 
 	var points :Array[Vector3] 
 	for i in range(body_segment_pimitived.size()):
-		points.append(body_segment_pimitived[i].global_position) 
+		points.append(body_segment_pimitived[i].global_position - parent_basis.origin)
 	curve.clear_points()
 	points.pop_front() # have no idea why I have to do this 
 	for i in points.size():
@@ -251,11 +255,11 @@ func make_ensnarement_curve():
 	# hard part , want to force a concatenation 
 	# get head direction 
 	var head_direction :Vector3 = self.transform.basis.z.normalized()
-	var point_ahead =  ((head_direction * -2 ) + global_position - Vector3(-14,0,0))# putting it 2 meters away, assuming target is 2 meters away 
-	curve.add_point(point_ahead)
+	var point_ahead =  ((head_direction * -2 ) + global_position)# putting it 2 meters away, assuming target is 2 meters away 
+	#curve.add_point(point_ahead)
 	# add points to current curve , no rotation yet
 	for i in ensnarement_points.size():
-		curve.add_point(ensnarement_points[i]) 
+		curve.add_point(ensnarement_points[i] + point_ahead)
 
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
@@ -263,7 +267,6 @@ func move_segments_to_path():
 	for i in bone_numbers:
 		follow_path_array.append(PathFollow3D.new())
 		follow_path_array[i].name = "path" + str(i)
-
 		get_node("../Path3D").add_child(follow_path_array[i])
 	
 	# move each segment into array 
@@ -277,16 +280,22 @@ func move_segments_to_path():
 
 func move_segments_back_normal():
 	for i in bone_numbers:
-		var tri_pos :Vector3 = rotate_heper[i].global_position
+		var tri_pos :Vector3 = rotate_heper[i].global_position - parent_basis.origin
 		get_node("../Path3D/"+ "path" + str(i) ).remove_child(rotate_heper[i])
 		get_node("../Path3D").remove_child(follow_path_array[i])
 		rotate_heper[i].global_position = tri_pos
 		get_node("..").add_child(rotate_heper[i])
 		
+func take_measurment_setup(delta): # takes a measurement of all the tri meshs
+	var main_follow_path :PathFollow3D = get_node("../Path3D/PathFollow3D")
+	var bone_positions :Array[float]
+	var tiney_measurment_box :Area3D = get_node("../Path3D/PathFollow3D/Area3D")
+	var colission_tiney_box :CollisionShape3D = get_node("../Path3D/PathFollow3D/Area3D/CollisionShape3D")
 	
 func override_skeleton():
 	for i in bone_numbers:
 		var transform = tri_array[-i+bone_numbers-1].get_global_transform()
+		transform.origin = transform.origin - parent_basis.origin
 		skeleton.set_bone_global_pose_override(i, transform, 1, true)
 		skeleton.set_bone_pose_rotation(i, tri_array[-i+bone_numbers-1].global_transform.basis.get_rotation_quaternion())
 		
