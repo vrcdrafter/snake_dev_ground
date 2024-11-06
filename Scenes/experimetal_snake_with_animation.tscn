@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6vhwtfixsw0p"]
+
+[ext_resource type="Script" path="res://Scenes/controller_snake_w_animation.gd" id="1_0ubir"]
+[ext_resource type="PackedScene" uid="uid://bsvqbkdsib7fy" path="res://level_data/snake_hefty_animated.glb" id="2_l1avo"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ipe6r"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_n3l2d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea0iy"]
+albedo_color = Color(0.27177, 1, 0.241704, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_8lg0j"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0)
+}
+point_count = 1
+
+[node name="dynamic_snake" type="Node3D"]
+
+[node name="head" type="CharacterBody3D" parent="." groups=["snake"]]
+visible = false
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_0ubir")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="head"]
+shape = SubResource("SphereShape3D_ipe6r")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="head"]
+target_desired_distance = 2.82
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="head"]
+mesh = SubResource("PrismMesh_n3l2d")
+surface_material_override/0 = SubResource("StandardMaterial3D_ea0iy")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_8lg0j")
+
+[node name="snake_hefty_animated" parent="." instance=ExtResource("2_l1avo")]
+
+[node name="Skeleton3D" parent="snake_hefty_animated/Armature_001" index="0"]
+bones/0/position = Vector3(0.192387, 2.36507, -2.73113)
+bones/0/rotation = Quaternion(-0.477127, -0.477127, 0.490418, 0.551534)
+bones/1/rotation = Quaternion(0.138395, -3.67318e-09, 0.170158, 0.97565)
+bones/2/rotation = Quaternion(0.240654, -1.46259e-08, 0.333768, 0.911419)
+bones/3/rotation = Quaternion(0.0898594, -3.12966e-07, 0.221799, 0.970943)
+bones/4/rotation = Quaternion(-0.591938, -7.06444e-08, 0.201261, 0.780451)
+bones/5/rotation = Quaternion(-0.226473, 4.45969e-08, 0.101643, 0.9687)
+bones/6/rotation = Quaternion(0.0290685, 3.5277e-08, 0.0344054, 0.998985)
+bones/7/rotation = Quaternion(0.0233996, -7.14821e-09, 0.0423599, 0.998828)
+bones/8/rotation = Quaternion(0.0294143, 8.27745e-09, 0.0621802, 0.997631)
+bones/9/rotation = Quaternion(0.0669183, -4.91328e-08, 0.158885, 0.985027)
+bones/10/rotation = Quaternion(0.166845, 6.94402e-08, 0.41636, 0.89376)
+bones/11/rotation = Quaternion(0.0922024, 4.84005e-09, 0.204729, 0.974467)
+bones/12/rotation = Quaternion(0.0766715, -6.72422e-09, 0.0966152, 0.992364)
+bones/13/rotation = Quaternion(0.151689, -9.33286e-09, 0.188368, 0.970313)
+bones/14/rotation = Quaternion(0.239514, 3.35517e-08, 0.291768, 0.926016)
+bones/15/rotation = Quaternion(0.157809, -7.10341e-08, 0.186388, 0.969719)
+bones/16/rotation = Quaternion(0.102184, 2.65419e-08, 0.115345, 0.988056)
+bones/17/rotation = Quaternion(0.0721449, -9.57909e-09, 0.078251, 0.99432)
+bones/18/rotation = Quaternion(0.0773484, -1.51849e-07, 0.0841964, 0.993443)
+bones/19/rotation = Quaternion(0.0340143, 3.71457e-08, 0.0651705, 0.997294)
+bones/20/rotation = Quaternion(-0.00823047, -1.47573e-08, 0.151219, 0.988466)
+bones/21/rotation = Quaternion(-0.0538516, 1.06509e-07, 0.670807, 0.739675)
+bones/22/rotation = Quaternion(-0.0383276, -3.61128e-08, 0.322372, 0.945837)
+bones/23/rotation = Quaternion(-0.0178675, 2.61623e-08, 0.0648151, 0.997737)
+bones/24/rotation = Quaternion(-0.0215879, -4.66656e-09, 0.0449008, 0.998758)
+bones/25/rotation = Quaternion(-0.0349195, -7.11648e-10, 0.0516104, 0.998057)
+bones/26/rotation = Quaternion(-0.177353, -7.10394e-08, 0.198183, 0.963986)
+bones/27/rotation = Quaternion(-0.202618, 3.81404e-08, 0.227189, 0.952539)
+bones/28/rotation = Quaternion(0.123304, -5.07506e-08, -0.0653613, 0.990214)
+bones/29/rotation = Quaternion(0.135107, 0.0027954, 0.531928, 0.835937)
+
+[editable path="snake_hefty_animated"]

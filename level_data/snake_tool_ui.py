@@ -10,6 +10,8 @@ class HelloWorldOperator(bpy.types.Operator):
     def execute(self, context):
         print("Hello World")
         return {'FINISHED'}
+    
+
 
 
 class VIEW3D_PT_my_custom_panel(bpy.types.Panel):  # class naming convention ‘CATEGORY_PT_name’
@@ -26,9 +28,9 @@ class VIEW3D_PT_my_custom_panel(bpy.types.Panel):  # class naming convention ‘
         row = self.layout.row()
         row.operator("wm.constrain_bones_spline", text="Constrain BONES")
         row = self.layout.row()
-        row.operator("mesh.primitive_ico_sphere_add", text="Apply constraints")
+        row.operator("wm.remove_constraint", text="remove constraints")
         row = self.layout.row()
-        row.operator("object.shade_smooth", text="Shade Smooth")
+        row.operator("wm.apply_constraint", text="Apply Constraints")
 
 
 def register():

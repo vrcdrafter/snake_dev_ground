@@ -1,11 +1,11 @@
 [gd_scene load_steps=19 format=3 uid="uid://e0olfir68i4m"]
 
 [ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_dbafg"]
-[ext_resource type="PackedScene" uid="uid://d1dsqa25kwwv6" path="res://Scenes/experimetal.tscn" id="2_hc5r1"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_dlol5"]
 [ext_resource type="Texture2D" uid="uid://5db3ibvc4wq2" path="res://textures/key.png" id="5_p6ije"]
 [ext_resource type="Script" path="res://Scenes/key_ui.gd" id="6_oi4ed"]
 [ext_resource type="PackedScene" uid="uid://cttmnlxwbspd8" path="res://Scenes/key.tscn" id="7_orb0i"]
+[ext_resource type="PackedScene" uid="uid://c6vhwtfixsw0p" path="res://Scenes/experimetal_snake_with_animation.tscn" id="10_wa5mw"]
 [ext_resource type="Texture2D" uid="uid://brjxnm8olabin" path="res://textures/exit.png" id="10_xdehe"]
 [ext_resource type="Script" path="res://Scenes/level_exit.gd" id="11_gjk3q"]
 [ext_resource type="AudioStream" uid="uid://dcgl5vwym86it" path="res://sounds/zapsplat_household_door_handle_try_open_locked_001_10218.mp3" id="12_crs8j"]
@@ -44,22 +44,6 @@ emission_texture = ExtResource("10_xdehe")
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_dbafg")
 
-[node name="dynamic_snake" parent="." instance=ExtResource("2_hc5r1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.89575, 0)
-
-[node name="Label2" type="Label" parent="dynamic_snake/head" index="3"]
-offset_top = 38.0
-offset_right = 40.0
-offset_bottom = 61.0
-
-[node name="dynamic_snake2" parent="." instance=ExtResource("2_hc5r1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.89575, -7.17712)
-
-[node name="Label2" type="Label" parent="dynamic_snake2/head" index="3"]
-offset_top = 38.0
-offset_right = 40.0
-offset_bottom = 61.0
-
 [node name="NavRegion" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_g8pah")
 
@@ -68,8 +52,44 @@ transform = Transform3D(90.7158, 0, 0, 0, 2.5, 0, 0, 0, 126.348, 0, -0.231797, 0
 use_collision = true
 mesh = SubResource("BoxMesh_muwqh")
 
+[node name="dynamic_snake3" parent="." instance=ExtResource("10_wa5mw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3109, 1.5182, -3.5838)
+
+[node name="Skeleton3D" parent="dynamic_snake3/snake_hefty_animated/Armature_001" index="0"]
+bones/0/position = Vector3(0.0250516, 2.35752, -2.64652)
+bones/0/rotation = Quaternion(-0.480371, -0.48037, 0.486797, 0.549106)
+bones/1/rotation = Quaternion(0.113021, 3.80191e-09, 0.164694, 0.979848)
+bones/2/rotation = Quaternion(0.209411, 1.63484e-08, 0.354056, 0.911478)
+bones/3/rotation = Quaternion(0.0637195, -3.15871e-07, 0.246356, 0.967083)
+bones/4/rotation = Quaternion(-0.62498, -6.7587e-08, 0.118082, 0.771659)
+bones/5/rotation = Quaternion(-0.169612, 6.67598e-08, 0.0629341, 0.983499)
+bones/6/rotation = Quaternion(0.0250011, -5.82682e-11, 0.0381058, 0.998961)
+bones/7/rotation = Quaternion(0.0187639, 3.70044e-09, 0.0441223, 0.99885)
+bones/8/rotation = Quaternion(0.0214801, -2.80066e-08, 0.065653, 0.997611)
+bones/9/rotation = Quaternion(0.0450488, 9.92338e-09, 0.163954, 0.985439)
+bones/10/rotation = Quaternion(0.110258, -8.32037e-09, 0.431266, 0.895462)
+bones/11/rotation = Quaternion(0.0661827, 3.39808e-08, 0.221295, 0.972959)
+bones/12/rotation = Quaternion(0.0632214, 1.14959e-08, 0.105436, 0.992414)
+bones/13/rotation = Quaternion(0.124256, 1.055e-08, 0.204039, 0.971045)
+bones/14/rotation = Quaternion(0.199804, 2.81701e-08, 0.321186, 0.925699)
+bones/15/rotation = Quaternion(0.133755, -2.21063e-08, 0.207838, 0.968975)
+bones/16/rotation = Quaternion(0.0861259, 8.9536e-09, 0.126993, 0.988157)
+bones/17/rotation = Quaternion(0.0625113, 5.22251e-08, 0.0877204, 0.994182)
+bones/18/rotation = Quaternion(0.0656081, -1.29593e-07, 0.0926155, 0.993538)
+bones/19/rotation = Quaternion(0.0285131, 1.86796e-08, 0.069766, 0.997156)
+bones/20/rotation = Quaternion(-0.0200607, -1.4116e-08, 0.14213, 0.989645)
+bones/21/rotation = Quaternion(-0.112091, 5.60715e-08, 0.673303, 0.73082)
+bones/22/rotation = Quaternion(-0.066734, -5.72705e-08, 0.325494, 0.943186)
+bones/23/rotation = Quaternion(-0.0215573, -9.44976e-09, 0.0615454, 0.997871)
+bones/24/rotation = Quaternion(-0.0235337, 1.12482e-08, 0.0442172, 0.998745)
+bones/25/rotation = Quaternion(-0.039978, -2.45009e-08, 0.0527312, 0.997808)
+bones/26/rotation = Quaternion(-0.207859, -7.60105e-08, 0.20841, 0.955699)
+bones/27/rotation = Quaternion(-0.207822, -3.89074e-08, 0.200129, 0.957475)
+bones/28/rotation = Quaternion(0.0506189, -1.83665e-08, -0.0285962, 0.998309)
+bones/29/rotation = Quaternion(-0.0691188, 0.00297989, 0.447423, 0.891642)
+
 [node name="Player" parent="." instance=ExtResource("3_dlol5")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, 0)
+transform = Transform3D(0.944857, 0, 0.327482, 0, 1, 0, -0.327482, 0, 0.944857, 28.5447, 3, 10.733)
 collision_layer = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -337,8 +357,8 @@ text = "RESTART"
 [connection signal="button_down" from="menu/Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="menu/Button2" to="." method="_on_button_2_button_down"]
 
-[editable path="dynamic_snake"]
-[editable path="dynamic_snake2"]
+[editable path="dynamic_snake3"]
+[editable path="dynamic_snake3/snake_hefty_animated"]
 [editable path="key_1"]
 [editable path="key_2"]
 [editable path="key_3"]

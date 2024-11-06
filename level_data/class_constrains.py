@@ -1,0 +1,31 @@
+import bpy
+
+class WM_OT_HelloWorld(bpy.types.Operator):
+    bl_idname = "wm.constrain_bones_spline"
+    bl_label = "Minimal Operator"
+
+    def execute(self, context):
+        # Report "Hello World" to the Console
+        
+        bones = bpy.context.object.pose.bones
+        i = 0 
+        for bone in bones:
+            
+            bpy.context.object.data.bones.active = bone.bone
+            bone.bone.select = True
+            bpy.ops.pose.constraint_add(type='COPY_TRANSFORMS')
+            print(bones[i].name)
+            bpy.context.object.pose.bones[bones[i].name].constraints["Copy Transforms"].target = bpy.data.objects["Armature"]
+            bpy.context.object.pose.bones[bones[i].name].constraints["Copy Transforms"].subtarget = bones[i].name
+            i += 1
+        self.report({'INFO'}, "Hello World")
+        return {'FINISHED'}
+
+
+
+bpy.utils.register_class(WM_OT_HelloWorld)
+
+# test call the operator
+#bpy.ops.wm.constrain_bones_spline()
+
+bpy.ops.wm.constrain_bones_spline()
