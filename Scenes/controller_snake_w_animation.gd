@@ -318,6 +318,6 @@ func give_snake_speed():
 func move_triangles_to_bones(tris :Array[Node3D]):
 	for i in bone_numbers:
 		
-		tris[i].transform = skeleton.get_bone_global_pose(i)
+		tris[i].transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
 	
 	
