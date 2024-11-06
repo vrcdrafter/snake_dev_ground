@@ -49,6 +49,8 @@ var wave_thing :float = 0
 
 var parent_basis :Transform3D
 
+@onready var animation_stuff :AnimationPlayer = get_node("../snake_hefty_animated/AnimationPlayer")
+
 func _ready() -> void:
 	# get all the partrol objects
 	var parent_node :Node3D = get_parent()
@@ -106,6 +108,9 @@ func _ready() -> void:
 		tri_array[i].add_child(area_array[i])
 		area_array[i].add_child(Segment_colission_array[i])
 	# get first ensarement data loaded 
+	
+	# start up animations 
+	animation_stuff.play("Armature_001Action_002")
 
 func _process(delta: float) -> void:
 	
@@ -139,6 +144,7 @@ func _process(delta: float) -> void:
 		move_segments_back_normal()
 		running_on_track =false
 		halt = false
+		
 
 
 
@@ -179,14 +185,16 @@ func _physics_process(delta: float) -> void:
 	if idle_animation:
 		snake_state = "idle_anim"
 	else:
-		if !_ensnared and (snake_to_player > 16.0) and not (snake_state == "patrol"):
-			
+		
+		if !_ensnared and (snake_to_player > 13.0) and (snake_state != "patrol"):
+			animation_stuff.stop()
+			print("go into patrol")
 			snake_state = "patrol"
 			emit_signal("state_change")
 			pick_new_object = true
-		
-		if (snake_to_player < 5) and not (snake_state == "player_seeking"):
 			
+		if (snake_to_player < 5) and not (snake_state == "player_seeking"):
+			animation_stuff.stop()
 			snake_state = "player_seeking"
 			emit_signal("state_change")
 		
@@ -224,9 +232,11 @@ func _physics_process(delta: float) -> void:
 			segment_follow_path.append(get_node("../Path3D/"+ "path" + str(i)))
 		for i in bone_numbers:
 			segment_follow_path[i].progress += 8 *delta
+	
+	elif snake_state == "idle_anim":
+		pass # meaning your not ensnared yet and your not chasing or in patrol 
 	else:
 		_ensnared = true
-		pass # meaning dont move at all 
 		
 	# move them bones 
 	
