@@ -53,7 +53,10 @@ use_collision = true
 mesh = SubResource("BoxMesh_muwqh")
 
 [node name="dynamic_snake3" parent="." instance=ExtResource("10_wa5mw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3109, 1.5182, -3.5838)
+transform = Transform3D(0.462136, 0, -0.886809, 0, 1, 0, 0.886809, 0, 0.462136, 29.3109, 1.5182, -3.5838)
+
+[node name="Cube_002" parent="dynamic_snake3/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
+surface_material_override/0 = null
 
 [node name="Player" parent="." instance=ExtResource("3_dlol5")]
 transform = Transform3D(0.944857, 0, 0.327482, 0, 1, 0, -0.327482, 0, 0.944857, 28.5447, 3, 10.733)
@@ -325,7 +328,6 @@ text = "RESTART"
 [connection signal="button_down" from="menu/Button2" to="." method="_on_button_2_button_down"]
 
 [editable path="dynamic_snake3"]
-[editable path="dynamic_snake3/snake_hefty_animated"]
 [editable path="key_1"]
 [editable path="key_2"]
 [editable path="key_3"]

@@ -38,7 +38,7 @@ var patrol_objects :Array[MeshInstance3D]
 
 var snake_state:String = "player_seeking"
 var pick_new_object :bool = false
-@export var idle_animation :bool = true # makes the snake idle at beginning with some aninmation
+@export var idle_animation :bool = false # makes the snake idle at beginning with some aninmation
 
 signal state_change
 
@@ -50,6 +50,10 @@ var wave_thing :float = 0
 var parent_basis :Transform3D
 
 @onready var animation_stuff :AnimationPlayer = get_node("../snake_hefty_animated/AnimationPlayer")
+# used for moving the snake if there is a odd rotation 
+@onready var head_position_marker :Marker3D = get_node("../snake_hefty_animated/Armature_001/Skeleton3D/BoneAttachment3D/Marker3D") 
+var head_position_1 :Vector3
+var animation_repositioned :bool = false
 
 func _ready() -> void:
 	# get all the partrol objects
@@ -108,11 +112,22 @@ func _ready() -> void:
 		tri_array[i].add_child(area_array[i])
 		area_array[i].add_child(Segment_colission_array[i])
 	# get first ensarement data loaded 
-	
+	# rotate animations automatically also translations position because moving rotations on animations affects that too 
+	rotate_animations(animation_stuff)
+	head_position_1 = head_position_marker.global_position
 	# start up animations 
-	animation_stuff.play("Armature_001Action_002")
+	animation_stuff.advance(randf())
+	animation_stuff.speed_scale = randf_range(.5,1)
+	animation_stuff.play("typing_2_001")
 
 func _process(delta: float) -> void:
+	
+	# before you do anything , start up animation briefly and to a cartesian position move because the keys are modified
+	var head_position_2 = head_position_marker.global_position
+	
+	if animation_stuff.is_playing() and not animation_repositioned:
+		get_parent().position = head_position_1 - head_position_2
+		animation_repositioned = true
 	
 	if tris_ready != true:
 	# get all Node 3d's (triangles) into an array .
@@ -282,7 +297,7 @@ func make_ensnarement_curve():
 	#curve.add_point(point_ahead)
 	# add points to current curve , no rotation yet
 	for i in ensnarement_points.size():
-		curve.add_point(ensnarement_points[i] + point_ahead)
+		curve.add_point(ensnarement_points[i] + point_ahead) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
 
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
@@ -319,6 +334,7 @@ func override_skeleton():
 	for i in bone_numbers:
 		var transform = tri_array[-i+bone_numbers-1].get_global_transform()
 		transform.origin = transform.origin - parent_basis.origin
+		
 		skeleton.set_bone_global_pose_override(i, transform, 1, true)
 		skeleton.set_bone_pose_rotation(i, tri_array[-i+bone_numbers-1].global_transform.basis.get_rotation_quaternion())
 		
@@ -331,3 +347,18 @@ func move_triangles_to_bones(tris :Array[Node3D]):
 		tris[i].transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
 	
 	
+func rotate_animations(anim_player :AnimationPlayer):
+	var anim_library :AnimationLibrary = anim_player.get_animation_library("")
+	var animation_list :Array[StringName] =  anim_library.get_animation_list()
+	print(animation_list)
+	var anim_to_alter :Animation = anim_library.get_animation(animation_list[1])
+
+	var local_quat_of_parent_node :Quaternion = self.get_quaternion()
+	# wite a for loop 
+	for i in anim_to_alter.track_get_key_count(1):
+		var key_quat :Quaternion = anim_to_alter.track_get_key_value(1,i-1)
+		var rotated_quat :Quaternion = (local_quat_of_parent_node.normalized()  * key_quat.normalized()).normalized()
+		anim_to_alter.track_set_key_value(1,i-1,rotated_quat)
+	
+	get_parent().rotation = Vector3(0,0,0)
+	# make all the animations unique 

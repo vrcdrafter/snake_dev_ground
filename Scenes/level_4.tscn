@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://satlc5y2mhc4"]
+[gd_scene load_steps=67 format=4 uid="uid://satlc5y2mhc4"]
 
 [ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_g3ej3"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="2_nyle0"]
@@ -27,6 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://b0q17tfh4h5yf" path="res://sounds/zapsplat_science_fiction_roomtone_quiet_empty_airy_int_drone_42783.mp3" id="24_m3b20"]
 [ext_resource type="Script" path="res://Scripts/animated_sprite_2d.gd" id="24_x05tn"]
 [ext_resource type="Script" path="res://Scripts/audio_stream_player_3d.gd" id="25_jq2au"]
+[ext_resource type="PackedScene" uid="uid://c6vhwtfixsw0p" path="res://Scenes/experimetal_snake_with_animation.tscn" id="25_wfb3u"]
 [ext_resource type="AudioStream" uid="uid://cwyw6o5pxcb4" path="res://sounds/zapsplat_nature_rainforest_evening_cicada_insects_birds_distant_echos_28312.mp3" id="25_xfx7e"]
 [ext_resource type="Script" path="res://Scripts/corriore_sound.gd" id="26_44gpo"]
 [ext_resource type="Material" uid="uid://cxhs8unfr1yh2" path="res://Materials/fuzzy.tres" id="28_1xjoy"]
@@ -228,7 +229,7 @@ uv1_offset = Vector3(0.765, 0.185, 0)
 script = ExtResource("1_g3ej3")
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("2_nyle0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.28448, 0.699524, -42.8247)
+transform = Transform3D(-0.119426, 0, -0.992843, 0, 1, 0, 0.992843, 0, -0.119426, 35.1032, -0.419178, -49.8317)
 collision_layer = 3
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -683,7 +684,7 @@ step = 0.0
 show_percentage = false
 
 [node name="player_start_position" type="Marker3D" parent="shader_load"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.50733, -0.159267, -39.7112)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5241, -0.159267, -50.691)
 
 [node name="Label" type="Label" parent="shader_load"]
 layout_mode = 0
@@ -739,6 +740,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62603, -3.73575, -17.6184)
 
 [node name="head" parent="dynamic_snake3" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62603, -3.49473, -64.1861)
+
+[node name="dynamic_snake4" parent="." instance=ExtResource("25_wfb3u")]
+transform = Transform3D(0.0589754, 0, 0.998259, 0, 1, 0, -0.998259, 0, 0.0589754, 54.1533, -2.50584, -52.0093)
+
+[node name="dynamic_snake5" parent="." instance=ExtResource("25_wfb3u")]
+transform = Transform3D(0.0589754, 0, 0.998259, 0, 1, 0, -0.998259, 0, 0.0589754, 54.1533, -2.50584, -46.9668)
 
 [node name="sounds" type="Node3D" parent="."]
 
