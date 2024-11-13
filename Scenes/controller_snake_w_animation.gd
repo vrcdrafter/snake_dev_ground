@@ -38,7 +38,7 @@ var patrol_objects :Array[MeshInstance3D]
 
 var snake_state:String = "player_seeking"
 var pick_new_object :bool = false
-@export var idle_animation :bool = false # makes the snake idle at beginning with some aninmation
+@export var idle_animation :bool = true # makes the snake idle at beginning with some aninmation
 
 signal state_change
 
@@ -126,7 +126,7 @@ func _process(delta: float) -> void:
 	var head_position_2 = head_position_marker.global_position
 	
 	if animation_stuff.is_playing() and not animation_repositioned:
-		get_parent().position = head_position_1 - head_position_2
+		#get_parent().position = head_position_1 - head_position_2
 		animation_repositioned = true
 	
 	if tris_ready != true:
@@ -307,6 +307,7 @@ func make_ensnarement_curve():
 		var moved_point_ahead :Vector3 = get_global_curve_point_pos(point_ahead,get_parent())
 		var universal_transform = parent_basis.origin
 		var magic_numver :Vector3 = target.global_position - universal_transform
+		magic_numver.y = 0
 		curve.add_point((moved_curve_point2 + magic_numver) - universal_transform) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
 
 func move_segments_to_path():
@@ -361,13 +362,15 @@ func rotate_animations(anim_player :AnimationPlayer):
 	var anim_library :AnimationLibrary = anim_player.get_animation_library("")
 	var animation_list :Array[StringName] =  anim_library.get_animation_list()
 	print(animation_list)
+	var parent_node :Node3D = get_parent()
 	var anim_to_alter :Animation = anim_library.get_animation(animation_list[1])
-
-	var local_quat_of_parent_node :Quaternion = self.get_quaternion()
+	var override_quat :Quaternion = Quaternion.from_euler(Vector3(0,-90,0))
+	var local_quat_of_parent_node :Quaternion = get_parent().get_quaternion()
+	var alterned_quat_for_no_damn_reason :Quaternion = Quaternion.from_euler(Vector3(0,0,0) + parent_node.rotation_degrees)
 	# wite a for loop 
 	for i in anim_to_alter.track_get_key_count(1):
 		var key_quat :Quaternion = anim_to_alter.track_get_key_value(1,i-1)
-		var rotated_quat :Quaternion = (local_quat_of_parent_node.normalized()  * key_quat.normalized()).normalized()
+		var rotated_quat :Quaternion = (alterned_quat_for_no_damn_reason.normalized()  * key_quat.normalized()).normalized()
 		anim_to_alter.track_set_key_value(1,i-1,rotated_quat)
 	
 	get_parent().rotation = Vector3(0,0,0)

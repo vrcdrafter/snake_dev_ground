@@ -650,7 +650,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.121, 0, 20.4136)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.3266, 0, 0)
 
 [node name="Reset_snake_position_6" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9459, 0, 25.9718)
+transform = Transform3D(0.292372, 0, 0.956305, 0, 1, 0, -0.956305, 0, 0.292372, -13.9459, 0, 25.9718)
 
 [node name="shader_load" type="Control" parent="."]
 layout_mode = 3
@@ -745,7 +745,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62603, -3.49473, -64.1861)
 transform = Transform3D(0.0589754, 0, 0.998259, 0, 1, 0, -0.998259, 0, 0.0589754, 54.1533, -2.50584, -52.0093)
 
 [node name="dynamic_snake5" parent="." instance=ExtResource("25_wfb3u")]
-transform = Transform3D(0.0589754, 0, 0.998259, 0, 1, 0, -0.998259, 0, 0.0589754, 54.1533, -2.50584, -46.9668)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 54.1533, -2.50584, -46.9668)
+rotation_edit_mode = 1
+
+[node name="Cube_002" parent="dynamic_snake5/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
+surface_material_override/0 = null
+
+[node name="BoneAttachment3D" parent="dynamic_snake5/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
+transform = Transform3D(0.3621, 0.0159679, -0.932002, 0.866756, 0.3621, 0.342954, 0.342954, -0.932002, 0.117276, 0.929837, 2.69126, -2.56242)
 
 [node name="sounds" type="Node3D" parent="."]
 
@@ -861,3 +868,4 @@ material = SubResource("StandardMaterial3D_wfb3u")
 [editable path="dynamic_snake"]
 [editable path="dynamic_snake2"]
 [editable path="dynamic_snake3"]
+[editable path="dynamic_snake5"]
