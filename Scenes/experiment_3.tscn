@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://e0olfir68i4m"]
+[gd_scene load_steps=20 format=3 uid="uid://e0olfir68i4m"]
 
 [ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_dbafg"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_dlol5"]
@@ -41,6 +41,8 @@ emission_texture = ExtResource("10_xdehe")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tb5fe"]
 
+[sub_resource type="PrismMesh" id="PrismMesh_p80ne"]
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_dbafg")
 
@@ -58,8 +60,11 @@ transform = Transform3D(0.462136, 0, -0.886809, 0, 1, 0, 0.886809, 0, 0.462136, 
 [node name="Cube_002" parent="dynamic_snake3/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
 surface_material_override/0 = null
 
+[node name="BoneAttachment3D" parent="dynamic_snake3/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
+transform = Transform3D(0.3621, 0.0159679, -0.932002, 0.866756, 0.3621, 0.342954, 0.342954, -0.932002, 0.117276, 0.929837, 2.69126, -2.56242)
+
 [node name="Player" parent="." instance=ExtResource("3_dlol5")]
-transform = Transform3D(0.944857, 0, 0.327482, 0, 1, 0, -0.327482, 0, 0.944857, 28.5447, 3, 10.733)
+transform = Transform3D(0.944857, 0, 0.327482, 0, 1, 0, -0.327482, 0, 0.944857, 30.2063, 3, 10.8234)
 collision_layer = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -320,6 +325,10 @@ offset_top = 247.0
 offset_right = 807.0
 offset_bottom = 362.0
 text = "RESTART"
+
+[node name="diagnostic_shape" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.2309, 1.88311, -3.53552)
+mesh = SubResource("PrismMesh_p80ne")
 
 [connection signal="timeout" from="Game_over_timer" to="Player" method="_on_game_over_timer_timeout"]
 [connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]

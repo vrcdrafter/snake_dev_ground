@@ -75,8 +75,8 @@ func _ready() -> void:
 	curve = path.curve
 	curve.up_vector_enabled = false # because I said so 
 	ensnarement_points = curve.get_baked_points()
-	for i in range(ensnarement_points.size()):
-		ensnarement_points[i] = path.to_local(ensnarement_points[i])
+	#for i in range(ensnarement_points.size()):
+	#	ensnarement_points[i] = path.to_local(ensnarement_points[i])
 		# get bone lenghts 
 	bone_length = calc_length()
 
@@ -283,6 +283,7 @@ func calc_length():
 	
 func make_ensnarement_curve():
 	# first make curve for all points where snake is at that moment 
+ 
 	var points :Array[Vector3] 
 	for i in range(body_segment_pimitived.size()):
 		points.append(body_segment_pimitived[i].global_position - parent_basis.origin)
@@ -294,10 +295,19 @@ func make_ensnarement_curve():
 	# get head direction 
 	var head_direction :Vector3 = self.transform.basis.z.normalized()
 	var point_ahead =  ((head_direction * -2 ) + global_position)# putting it 2 meters away, assuming target is 2 meters away 
+	#var point_ahead = head_position_marker.global_position
 	#curve.add_point(point_ahead)
 	# add points to current curve , no rotation yet
 	for i in ensnarement_points.size():
-		curve.add_point(ensnarement_points[i] + point_ahead) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
+		var parent_thing :Node3D= get_node("..")
+		print("really whats the angle here ", parent_thing.rotation.y)
+		#var moved_curve_point2 :Vector3 = get_global_curve_point_pos(ensnarement_points[i],get_parent())
+		var moved_curve_point :Vector3 = ensnarement_points[i]
+		var moved_curve_point2 :Vector3 = get_global_curve_point_pos(ensnarement_points[i], get_parent())
+		var moved_point_ahead :Vector3 = get_global_curve_point_pos(point_ahead,get_parent())
+		var universal_transform = parent_basis.origin
+		var magic_numver :Vector3 = target.global_position - universal_transform
+		curve.add_point((moved_curve_point2 + magic_numver) - universal_transform) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
 
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
@@ -362,3 +372,10 @@ func rotate_animations(anim_player :AnimationPlayer):
 	
 	get_parent().rotation = Vector3(0,0,0)
 	# make all the animations unique 
+	
+	
+func get_global_curve_point_pos(curve_point :Vector3, moved_and_rotated_object :Node3D) -> Vector3:
+	var rotation_local = moved_and_rotated_object.rotation_degrees.y
+	print("rotation local ", rotation_local)
+	var xformed_point = curve_point.rotated(Vector3(0,1,0),deg_to_rad(rotation_local)) + moved_and_rotated_object.global_position
+	return xformed_point

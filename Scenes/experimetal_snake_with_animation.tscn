@@ -809,7 +809,7 @@ skin = SubResource("Skin_t1goq")
 surface_material_override/0 = SubResource("StandardMaterial3D_xei8w")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="snake_hefty_animated/Armature_001/Skeleton3D"]
-transform = Transform3D(0.3621, 0.0159679, -0.932003, 0.866756, 0.3621, 0.342954, 0.342954, -0.932003, 0.117276, 0.929837, 2.69126, -2.56242)
+transform = Transform3D(0.3621, 0.0159679, -0.932002, 0.866756, 0.3621, 0.342954, 0.342954, -0.932002, 0.117276, 0.929837, 2.69126, -2.56242)
 bone_name = "head"
 bone_idx = 0
 
