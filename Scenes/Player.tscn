@@ -1,9 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgpjxoygnvyy4"]
+[gd_scene load_steps=6 format=3 uid="uid://dgpjxoygnvyy4"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_1fhis"]
 [ext_resource type="AudioStream" uid="uid://cuyxmyq2gsq54" path="res://sounds/walk.wav" id="2_q4r38"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_euj4i"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kyqiw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gntrk"]
+albedo_color = Color(0.386197, 0.380789, 1, 1)
 
 [node name="Player" type="CharacterBody3D"]
 disable_mode = 2
@@ -12,6 +17,10 @@ script = ExtResource("1_1fhis")
 
 [node name="body" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_euj4i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body"]
+mesh = SubResource("CapsuleMesh_kyqiw")
+surface_material_override/0 = SubResource("StandardMaterial3D_gntrk")
 
 [node name="rotation_helper" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
