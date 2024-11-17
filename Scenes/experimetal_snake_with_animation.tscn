@@ -1,8 +1,8 @@
-[gd_scene load_steps=15 format=4 uid="uid://c6vhwtfixsw0p"]
+[gd_scene load_steps=14 format=4 uid="uid://c6vhwtfixsw0p"]
 
 [ext_resource type="Script" path="res://Scenes/controller_snake_w_animation.gd" id="1_0ubir"]
 [ext_resource type="Texture2D" uid="uid://b7n5bmjlshc0s" path="res://level_data/snake_hefty_animated_snake_boss.png" id="1_lbexb"]
-[ext_resource type="Texture2D" uid="uid://blgrwafq568nm" path="res://textures/snake_boss.png" id="2_hxwq1"]
+[ext_resource type="Material" uid="uid://dfjj2ephomx7d" path="res://Materials/experimetal_snake_with_animation.tres" id="2_lbexb"]
 [ext_resource type="Curve3D" uid="uid://dy3s7d0bh1khi" path="res://Resources/perfect_ensnarement_2.tres" id="4_lbexb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48hys"]
@@ -124,10 +124,6 @@ bind/28/pose = Transform3D(0, 1, 6.39758e-07, -1, -1.89462e-15, -9.8624e-22, 0, 
 bind/29/name = &"Bone.029"
 bind/29/bone = -1
 bind/29/pose = Transform3D(0, 1, 6.39758e-07, -1, -1.89462e-15, -9.8624e-22, 0, -6.39758e-07, 1, 6.86386e-13, -14.5, 1.07288e-06)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xei8w"]
-shading_mode = 0
-albedo_texture = ExtResource("2_hxwq1")
 
 [sub_resource type="Animation" id="Animation_2qku5"]
 resource_name = "typing_2_001"
@@ -574,8 +570,8 @@ tracks/30/keys = PackedFloat32Array(0, 1, -0.022028, 0.00183021, -0.166658, 0.98
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pqpr3"]
 _data = {
-&"TYPING": SubResource("Animation_uoeib"),
-&"typing_2_001": SubResource("Animation_2qku5")
+&"typing_2_001": SubResource("Animation_2qku5"),
+&"TYPING": SubResource("Animation_uoeib")
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ipe6r"]
@@ -806,7 +802,7 @@ bones/29/scale = Vector3(1, 1, 1)
 [node name="Cube_002" type="MeshInstance3D" parent="snake_hefty_animated/Armature_001/Skeleton3D"]
 mesh = SubResource("ArrayMesh_h5533")
 skin = SubResource("Skin_t1goq")
-surface_material_override/0 = SubResource("StandardMaterial3D_xei8w")
+surface_material_override/0 = ExtResource("2_lbexb")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="snake_hefty_animated/Armature_001/Skeleton3D"]
 transform = Transform3D(0.3621, 0.0159679, -0.932002, 0.866756, 0.3621, 0.342954, 0.342954, -0.932002, 0.117276, 0.929837, 2.69126, -2.56242)

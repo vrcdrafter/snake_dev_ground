@@ -38,8 +38,8 @@ var patrol_objects :Array[MeshInstance3D]
 
 var snake_state:String = "player_seeking"
 var pick_new_object :bool = false
-@export var idle_animation :bool = false # makes the snake idle at beginning with some aninmation
-
+@export var idle_animation :bool = true # makes the snake idle at beginning with some aninmation
+@export var magic_number :Vector3
 signal state_change
 
 # snake wave stuff
@@ -54,11 +54,13 @@ var parent_basis :Transform3D
 @onready var head_position_marker :Marker3D = get_node("../snake_hefty_animated/Armature_001/Skeleton3D/BoneAttachment3D/Marker3D") 
 var head_position_1 :Vector3
 var animation_repositioned :bool = false
+var parent_rotation_deg :float = 0.0 
 
 func _ready() -> void:
 	# get all the partrol objects
 	var parent_node :Node3D = get_parent()
 	parent_basis = parent_node.global_transform
+	parent_rotation_deg = parent_node.rotation_degrees.y
 	
 	for child in get_node("../../idle_objects").get_children():
 		patrol_objects.append(child)
@@ -101,7 +103,7 @@ func _ready() -> void:
 		tri_array[i].name = "body"+str(i)
 		tri_array[i].rotate_y(deg_to_rad(90))
 		tri_array[i].rotate_x(deg_to_rad(90))
-		#tri_array[i].hide()
+		tri_array[i].hide()
 		
 		rotate_heper[i].add_child.call_deferred(tri_array[i])
 		
@@ -114,11 +116,11 @@ func _ready() -> void:
 	# get first ensarement data loaded 
 	# rotate animations automatically also translations position because moving rotations on animations affects that too 
 	head_position_1 = head_position_marker.global_position
-	#rotate_animations(animation_stuff)
+
 
 	# start up animations 
-	#animation_stuff.advance(randf())
-	#animation_stuff.speed_scale = randf_range(.5,1)
+	animation_stuff.advance(randf())
+	animation_stuff.speed_scale = randf_range(.5,1)
 	animation_stuff.play("typing_2_001")
 
 func _process(delta: float) -> void:
@@ -144,9 +146,6 @@ func _process(delta: float) -> void:
 
 		tris_ready = true
 
-	# This just controls acceleration. Don't touch it.
-
-	
 	var target_postion = target.global_position
 	var head_positopnm = global_position
 	
@@ -206,7 +205,7 @@ func _physics_process(delta: float) -> void:
 		
 		if !_ensnared and (snake_to_player > 13.0) and (snake_state != "patrol"):
 			animation_stuff.stop()
-			print("go into patrol")
+
 			snake_state = "patrol"
 			emit_signal("state_change")
 			pick_new_object = true
@@ -290,29 +289,18 @@ func make_ensnarement_curve():
 	var points :Array[Vector3] 
 	for i in range(body_segment_pimitived.size()):
 		var parent_node :Node3D = get_parent()
-		points.append((body_segment_pimitived[i].global_position - parent_node.global_position).rotated(Vector3(0,1,0),deg_to_rad(-110)))
+		points.append((body_segment_pimitived[i].global_position - parent_node.global_position).rotated(Vector3(0,1,0),deg_to_rad(parent_rotation_deg * -1)))
 	curve.clear_points()
 	points.pop_front() # have no idea why I have to do this 
 	for i in points.size():
-		curve.add_point(points[(points.size()-1)-i]) # add the points in reverse
-	# hard part , want to force a concatenation 
-	# get head direction 
-	var head_direction :Vector3 = self.transform.basis.z.normalized()
-	var point_ahead =  ((head_direction * -2 ) + global_position)# putting it 2 meters away, assuming target is 2 meters away 
-	#var point_ahead = head_position_marker.global_position
-	#curve.add_point(point_ahead)
+		curve.add_point(points[(points.size()-1)-i]) # add the points in revers
 	# add points to current curve , no rotation yet
 	for i in ensnarement_points.size():
 		var parent_thing :Node3D= get_node("..")
-		print("really whats the angle here ", parent_thing.rotation.y)
-		#var moved_curve_point2 :Vector3 = get_global_curve_point_pos(ensnarement_points[i],get_parent())
-		var moved_curve_point :Vector3 = ensnarement_points[i]
-		var moved_curve_point2 :Vector3 = get_global_curve_point_pos(ensnarement_points[i], get_parent())
-		var moved_point_ahead :Vector3 = get_global_curve_point_pos(point_ahead,get_parent())
-		var universal_transform = parent_basis.origin
-		var magic_numver :Vector3 = target.global_position - universal_transform
-		magic_numver.y = 0
-		curve.add_point((moved_curve_point2 + magic_numver) - universal_transform) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
+		var magic_numver :Vector3 = target.global_position - parent_thing.global_position
+		#magic_numver.y = target.global_position.y - 4
+
+		curve.add_point((ensnarement_points[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(parent_rotation_deg * -1)) + Vector3(0,-.7,0)) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
 
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
@@ -333,7 +321,7 @@ func move_segments_to_path():
 
 func move_segments_back_normal():
 	for i in bone_numbers:
-		var tri_pos :Vector3 = rotate_heper[i].global_position - parent_basis.origin
+		var tri_pos :Vector3 = rotate_heper[i].get_parent().position
 		get_node("../Path3D/"+ "path" + str(i) ).remove_child(rotate_heper[i])
 		get_node("../Path3D").remove_child(follow_path_array[i])
 		rotate_heper[i].global_position = tri_pos
@@ -342,7 +330,7 @@ func move_segments_back_normal():
 
 	 
 func override_skeleton():
-	skeleton.rotation_degrees = Vector3(0,-110,0)
+	skeleton.rotation_degrees = Vector3(0,parent_rotation_deg * -1,0)  # i am not sure why i need to make this a -1 yet
 	for i in bone_numbers:
 		var transform = tri_array[-i+bone_numbers-1].get_global_transform()
 		transform.origin = transform.origin - parent_basis.origin
@@ -359,28 +347,3 @@ func move_triangles_to_bones(tris :Array[Node3D]):
 		tris[i].transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
 	
 	
-func rotate_animations(anim_player :AnimationPlayer):
-	var anim_library :AnimationLibrary = anim_player.get_animation_library("")
-	var animation_list :Array[StringName] =  anim_library.get_animation_list()
-	print(animation_list)
-	var parent_node :Node3D = get_parent()
-	var anim_to_alter :Animation = anim_library.get_animation(animation_list[1])
-	var override_quat :Quaternion = Quaternion.from_euler(Vector3(0,-90,0))
-	var local_quat_of_parent_node :Quaternion = get_parent().get_quaternion()
-	var alterned_quat_for_no_damn_reason :Quaternion = Quaternion.from_euler(Vector3(0,180,0) + parent_node.rotation_degrees)
-	# wite a for loop 
-	for i in anim_to_alter.track_get_key_count(1):
-		var key_quat :Quaternion = anim_to_alter.track_get_key_value(1,i-1)
-		var rotated_quat :Quaternion = (local_quat_of_parent_node.normalized()  * key_quat.normalized()).normalized()
-		anim_to_alter.track_set_key_value(1,i-1,rotated_quat)
-	
-	get_parent().rotation = Vector3(0,0,0)
-	# make all the animations unique 
-	
-	
-func get_global_curve_point_pos(curve_point :Vector3, moved_and_rotated_object :Node3D) -> Vector3:
-	var rotation_local = moved_and_rotated_object.rotation_degrees.y
-
-	print("rotation local ", rotation_local)
-	var xformed_point = curve_point.rotated(Vector3(0,1,0),deg_to_rad(110))  + Vector3(-15,0,-30.5)
-	return xformed_point
