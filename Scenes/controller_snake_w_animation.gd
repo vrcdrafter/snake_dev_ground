@@ -56,6 +56,8 @@ var head_position_1 :Vector3
 var animation_repositioned :bool = false
 var parent_rotation_deg :float = 0.0 
 
+var snake_to_player :float 
+
 func _ready() -> void:
 	# get all the partrol objects
 	var parent_node :Node3D = get_parent()
@@ -127,6 +129,9 @@ func _process(delta: float) -> void:
 	
 	# before you do anything , start up animation briefly and to a cartesian position move because the keys are modified
 
+	if (snake_to_player < 5) and not (snake_state == "player_seeking"):
+		idle_animation = false
+
 	
 	if animation_stuff.is_playing() and not animation_repositioned:
 		var head_position_2 = head_position_marker.global_position
@@ -196,7 +201,7 @@ func _physics_process(delta: float) -> void:
 			target = next_target
 			pick_new_object = false
 	# end decision process for snake ^^^^^^^^^^
-	var snake_to_player :float = (get_node("../../Player").global_position - global_position).length()
+	snake_to_player = (get_node("../../Player").global_position - global_position).length()
 
 	# beginning of snakes decisions tree -------------------------------------------
 	if idle_animation:
