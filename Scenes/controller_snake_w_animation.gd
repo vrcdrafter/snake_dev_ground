@@ -58,6 +58,8 @@ var parent_rotation_deg :float = 0.0
 
 var snake_to_player :float 
 
+var one_shot_transition_key :bool = true
+
 func _ready() -> void:
 	# get all the partrol objects
 	var parent_node :Node3D = get_parent()
@@ -266,6 +268,8 @@ func _physics_process(delta: float) -> void:
 		move_triangles_to_bones(rotate_heper)
 	else:
 		override_skeleton()
+		
+
 
 
 func follower(delta):
@@ -352,3 +356,49 @@ func move_triangles_to_bones(tris :Array[Node3D]):
 		tris[i].transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
 	
 	
+	
+func make_transition_key(anim_player :AnimationPlayer, Skel :Skeleton3D):
+	var transition_animation :Animation = Animation.new()
+	var animation_libary :AnimationLibrary = anim_player.get_animation_library("")
+	
+	var number_of_bones :int= Skel.get_bone_count()
+	print("found this many bones",number_of_bones)
+	for i in number_of_bones:
+		if Skel.get_bone_name(i) == "head":
+			print(" its a head bone ")
+			transition_animation.add_track(Animation.TYPE_ROTATION_3D,0)
+			transition_animation.add_track(Animation.TYPE_POSITION_3D,1)
+			transition_animation.track_set_path(0,"Armature_001/Skeleton3D:head")
+			transition_animation.track_set_path(1,"Armature_001/Skeleton3D:head")
+			var head_rotation :Quaternion = Skel.get_bone_global_pose(0).basis.get_rotation_quaternion()
+			var head_posi :Vector3 = Skel.get_bone_global_pose(0).origin
+			print("quat", head_rotation)
+			transition_animation.rotation_track_insert_key(0,0.0,head_rotation)
+			transition_animation.position_track_insert_key(1,0.0,head_posi)
+			Skel.get_bone_global_pose(i)
+		else:
+			transition_animation.add_track(Animation.TYPE_ROTATION_3D,i+1)
+			
+			transition_animation.track_set_path(i+1,"Armature_001/Skeleton3D:" + Skel.get_bone_name(i))
+			
+			var bone_rotation :Quaternion = Skel.get_bone_pose_rotation(i+1)
+			transition_animation.rotation_track_insert_key(i+1,0.0,bone_rotation)
+			print("Armature_001/Skeleton3D:" + Skel.get_bone_name(i+1) + " had rotatoion " + str(bone_rotation))
+
+	
+	animation_libary.add_animation("transition_animation",transition_animation)
+	print(animation_libary.get_animation_list())
+	print(transition_animation.get_track_count())
+	animation_libary.resource_name = "test"
+	print("the name is ",animation_libary.resource_name)
+	var save_result = ResourceSaver.save(animation_libary,"res://" + animation_libary.resource_name + ".tres") # save the animation so I can dink with it . 
+	print(save_result)
+
+
+
+func _on_skeleton_3d_pose_updated() -> void:
+	var skeleton_stuff_temp :Skeleton3D = get_node("../snake_hefty_animated/Armature_001/Skeleton3D")
+	var animation_stuff_temp :AnimationPlayer = get_node("../snake_hefty_animated/AnimationPlayer")
+	if one_shot_transition_key:
+		make_transition_key(animation_stuff_temp,skeleton_stuff_temp)
+		one_shot_transition_key = false

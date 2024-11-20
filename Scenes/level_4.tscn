@@ -778,6 +778,9 @@ bones/27/rotation = Quaternion(0.0779408, -1.70644e-08, -0.169853, 0.982382)
 bones/28/rotation = Quaternion(-0.335355, 8.16922e-09, 0.236088, 0.912031)
 bones/29/rotation = Quaternion(-0.105787, 0.00293893, 0.37888, 0.919375)
 
+[node name="Cube_002" parent="dynamic_snake5/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
+surface_material_override/0 = null
+
 [node name="BoneAttachment3D" parent="dynamic_snake5/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
 transform = Transform3D(0.142924, 0.0303402, -0.989268, 0.978933, 0.142924, 0.145814, 0.145814, -0.989268, -0.00927365, 0.522521, 1.56723, -2.74722)
 
@@ -818,6 +821,9 @@ bones/27/rotation = Quaternion(0.0779408, -1.70644e-08, -0.169853, 0.982382)
 bones/28/rotation = Quaternion(-0.335355, 8.16922e-09, 0.236088, 0.912031)
 bones/29/rotation = Quaternion(-0.105787, 0.00293893, 0.37888, 0.919375)
 
+[node name="Cube_002" parent="dynamic_snake6/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
+surface_material_override/0 = null
+
 [node name="BoneAttachment3D" parent="dynamic_snake6/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
 transform = Transform3D(0.142924, 0.0303402, -0.989268, 0.978933, 0.142924, 0.145814, 0.145814, -0.989268, -0.00927365, 0.522521, 1.56723, -2.74722)
 
@@ -857,6 +863,9 @@ bones/26/rotation = Quaternion(0.0222304, 1.01089e-07, 0.00380833, 0.999746)
 bones/27/rotation = Quaternion(0.0779408, -1.70644e-08, -0.169853, 0.982382)
 bones/28/rotation = Quaternion(-0.335355, 8.16922e-09, 0.236088, 0.912031)
 bones/29/rotation = Quaternion(-0.105787, 0.00293893, 0.37888, 0.919375)
+
+[node name="Cube_002" parent="dynamic_snake7/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
+surface_material_override/0 = null
 
 [node name="BoneAttachment3D" parent="dynamic_snake7/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
 transform = Transform3D(0.142924, 0.0303402, -0.989268, 0.978933, 0.142924, 0.145814, 0.145814, -0.989268, -0.00927365, 0.522521, 1.56723, -2.74722)

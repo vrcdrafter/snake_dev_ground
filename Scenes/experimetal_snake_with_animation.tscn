@@ -570,8 +570,8 @@ tracks/30/keys = PackedFloat32Array(0, 1, -0.022028, 0.00183021, -0.166658, 0.98
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pqpr3"]
 _data = {
-&"typing_2_001": SubResource("Animation_2qku5"),
-&"TYPING": SubResource("Animation_uoeib")
+&"TYPING": SubResource("Animation_uoeib"),
+&"typing_2_001": SubResource("Animation_2qku5")
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ipe6r"]
@@ -834,3 +834,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ea0iy")
 
 [node name="Path3D" type="Path3D" parent="."]
 curve = ExtResource("4_lbexb")
+
+[connection signal="pose_updated" from="snake_hefty_animated/Armature_001/Skeleton3D" to="head" method="_on_skeleton_3d_pose_updated"]
