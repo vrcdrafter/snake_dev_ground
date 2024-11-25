@@ -1,22 +1,223 @@
-[gd_scene load_steps=23 format=3 uid="uid://e0olfir68i4m"]
+[gd_resource type="AnimationLibrary" load_steps=4 format=3 uid="uid://bb58iesdeh2hu"]
 
-[ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_dbafg"]
-[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_dlol5"]
-[ext_resource type="AnimationLibrary" uid="uid://bb58iesdeh2hu" path="res://test.tres" id="3_wa5mw"]
-[ext_resource type="Texture2D" uid="uid://5db3ibvc4wq2" path="res://textures/key.png" id="5_p6ije"]
-[ext_resource type="Script" path="res://Scenes/key_ui.gd" id="6_oi4ed"]
-[ext_resource type="PackedScene" uid="uid://cttmnlxwbspd8" path="res://Scenes/key.tscn" id="7_orb0i"]
-[ext_resource type="PackedScene" uid="uid://c6vhwtfixsw0p" path="res://Scenes/experimetal_snake_with_animation.tscn" id="10_wa5mw"]
-[ext_resource type="Texture2D" uid="uid://brjxnm8olabin" path="res://textures/exit.png" id="10_xdehe"]
-[ext_resource type="Script" path="res://Scenes/level_exit.gd" id="11_gjk3q"]
-[ext_resource type="AudioStream" uid="uid://dcgl5vwym86it" path="res://sounds/zapsplat_household_door_handle_try_open_locked_001_10218.mp3" id="12_crs8j"]
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_g8pah"]
-vertices = PackedVector3Array(-44.8579, 1.5182, -62.6739, -44.8579, 1.5182, 62.6261, 44.8421, 1.5182, 62.6261, 44.8421, 1.5182, -62.6739)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-cell_size = 0.1
-
-[sub_resource type="BoxMesh" id="BoxMesh_muwqh"]
+[sub_resource type="Animation" id="Animation_rwyx4"]
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature_001/Skeleton3D:head")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.320606, -0.279257, 0.682507, 0.594484)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature_001/Skeleton3D:head")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array()
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature_001/Skeleton3D:Bone.001")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.47, 0.855, 1)
+tracks/3/type = "position_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Armature_001/Skeleton3D:Bone.002")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.253505, 0.651691, 1.52235)
+tracks/4/type = "position_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Armature_001/Skeleton3D:Bone.003")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0.168447, 0.531385, 1.95071)
+tracks/5/type = "position_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Armature_001/Skeleton3D:Bone.004")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.125481, 0.439276, 2.39976)
+tracks/6/type = "position_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Armature_001/Skeleton3D:Bone.005")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0.0951129, 0.350966, 2.86908)
+tracks/7/type = "position_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Armature_001/Skeleton3D:Bone.006")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0.0676748, 0.256566, 3.32883)
+tracks/8/type = "position_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Armature_001/Skeleton3D:Bone.007")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0.0351674, 0.134685, 3.76871)
+tracks/9/type = "position_3d"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Armature_001/Skeleton3D:Bone.008")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0, 0, 4)
+tracks/10/type = "position_3d"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Armature_001/Skeleton3D:Bone.009")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0, 0, 3.8)
+tracks/11/type = "position_3d"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Armature_001/Skeleton3D:Bone.010")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 0, 0, 3.6)
+tracks/12/type = "position_3d"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Armature_001/Skeleton3D:Bone.011")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0, 0, 3.4)
+tracks/13/type = "position_3d"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Armature_001/Skeleton3D:Bone.012")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, 0, 0, 3.2)
+tracks/14/type = "position_3d"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Armature_001/Skeleton3D:Bone.013")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = PackedFloat32Array(0, 1, 0, 0, 3)
+tracks/15/type = "position_3d"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Armature_001/Skeleton3D:Bone.014")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = PackedFloat32Array(0, 1, 0, 0, 2.8)
+tracks/16/type = "position_3d"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Armature_001/Skeleton3D:Bone.015")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = PackedFloat32Array(0, 1, 0, 0, 2.6)
+tracks/17/type = "position_3d"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Armature_001/Skeleton3D:Bone.016")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = PackedFloat32Array(0, 1, 0, 0, 2.4)
+tracks/18/type = "position_3d"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Armature_001/Skeleton3D:Bone.017")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = PackedFloat32Array(0, 1, 0, 0, 2.2)
+tracks/19/type = "position_3d"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Armature_001/Skeleton3D:Bone.018")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = PackedFloat32Array(0, 1, 0, 0, 2)
+tracks/20/type = "position_3d"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Armature_001/Skeleton3D:Bone.019")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = PackedFloat32Array(0, 1, 0, 0, 1.8)
+tracks/21/type = "position_3d"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("Armature_001/Skeleton3D:Bone.020")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = PackedFloat32Array(0, 1, 0, 0, 1.6)
+tracks/22/type = "position_3d"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Armature_001/Skeleton3D:Bone.021")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = PackedFloat32Array(0, 1, 0, 0, 1.4)
+tracks/23/type = "position_3d"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("Armature_001/Skeleton3D:Bone.022")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = PackedFloat32Array(0, 1, 0, 0, 1.2)
+tracks/24/type = "position_3d"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("Armature_001/Skeleton3D:Bone.023")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = PackedFloat32Array(0, 1, 0, 0, 1)
+tracks/25/type = "position_3d"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("Armature_001/Skeleton3D:Bone.024")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = PackedFloat32Array(0, 1, 0, 0, 0.8)
+tracks/26/type = "position_3d"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("Armature_001/Skeleton3D:Bone.025")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = PackedFloat32Array(0, 1, 0, 0, 0.6)
+tracks/27/type = "position_3d"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("Armature_001/Skeleton3D:Bone.026")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = PackedFloat32Array(0, 1, 0, 0, 0.4)
+tracks/28/type = "position_3d"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("Armature_001/Skeleton3D:Bone.027")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = PackedFloat32Array(0, 1, 0, 0, 0.2)
+tracks/29/type = "position_3d"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("Armature_001/Skeleton3D:Bone.028")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/30/type = "position_3d"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("Armature_001/Skeleton3D:Bone.029")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/keys = PackedFloat32Array(0, 1, 0, 0, 0)
 
 [sub_resource type="Animation" id="Animation_uoeib"]
 resource_name = "TYPING"
@@ -461,315 +662,10 @@ tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = PackedFloat32Array(0, 1, -0.105787, 0.00293893, 0.37888, 0.919375, 0.0333333, 1, -0.0957051, 0.002933, 0.380787, 0.919692, 0.0666667, 1, -0.0727208, 0.00291841, 0.385171, 0.919971, 0.1, 1, -0.0390306, 0.00289428, 0.391501, 0.919345, 0.133333, 1, 0.00305286, 0.00285953, 0.399187, 0.91686, 0.166667, 1, 0.0510687, 0.0028136, 0.407671, 0.911695, 0.2, 1, 0.101665, 0.00275796, 0.416866, 0.903261, 0.233333, 1, 0.149999, 0.0026977, 0.42607, 0.892164, 0.266667, 1, 0.193424, 0.00263746, 0.435366, 0.879225, 0.3, 1, 0.229508, 0.00258278, 0.44503, 0.865603, 0.333333, 1, 0.256032, 0.00253965, 0.455471, 0.852635, 0.366667, 1, 0.265763, 0.00252288, 0.467813, 0.84292, 0.4, 1, 0.258265, 0.00253962, 0.482206, 0.83712, 0.433333, 1, 0.233942, 0.00259019, 0.498307, 0.834838, 0.466667, 1, 0.194449, 0.00266863, 0.515162, 0.83474, 0.5, 1, 0.142886, 0.00276382, 0.531427, 0.834962, 0.566667, 1, 0.0222013, 0.00295532, 0.555967, 0.830903, 0.6, 1, -0.0342487, 0.00302989, 0.563147, 0.825641, 0.633333, 1, -0.0825209, 0.00308613, 0.56729, 0.819367, 0.666667, 1, -0.118798, 0.00312383, 0.569176, 0.813582, 0.7, 1, -0.132369, 0.00313694, 0.569576, 0.811204, 0.733333, 1, -0.131993, 0.00313588, 0.567616, 0.812638, 0.766667, 1, -0.122486, 0.00312491, 0.562407, 0.817732, 0.8, 1, -0.106623, 0.00310567, 0.553557, 0.825952, 0.833333, 1, -0.085164, 0.00307775, 0.541271, 0.836519, 0.866667, 1, -0.0578746, 0.00303911, 0.525128, 0.849048, 0.9, 1, -0.0275261, 0.00299208, 0.5065, 0.861796, 0.933333, 1, 0.00488495, 0.00293714, 0.485824, 0.874038, 1, 1, 0.0716844, 0.00280849, 0.440658, 0.894804, 1.03333, 1, 0.102911, 0.00274111, 0.418338, 0.902438, 1.06667, 1, 0.131027, 0.00267635, 0.397564, 0.908167, 1.1, 1, 0.155155, 0.00261755, 0.3792, 0.91221, 1.13333, 1, 0.174482, 0.00256809, 0.364102, 0.914866, 1.16667, 1, 0.188251, 0.0025313, 0.353087, 0.916452, 1.2, 1, 0.193123, 0.0025171, 0.348991, 0.917007, 1.23333, 1, 0.189383, 0.00252183, 0.348643, 0.91792, 1.26667, 1, 0.177133, 0.00254322, 0.350435, 0.919681, 1.3, 1, 0.157049, 0.00257822, 0.353368, 0.922204, 1.33333, 1, 0.130403, 0.00262331, 0.35708, 0.924923, 1.36667, 1, 0.0977352, 0.00267618, 0.361308, 0.927306, 1.4, 1, 0.0626887, 0.00272961, 0.365415, 0.928727, 1.43333, 1, 0.0268012, 0.00278082, 0.369156, 0.928977, 1.46667, 1, -0.00836931, 0.00282754, 0.372366, 0.928044, 1.5, 1, -0.0412623, 0.00286812, 0.374957, 0.926119, 1.53333, 1, -0.0681595, 0.00289906, 0.37678, 0.923787, 1.56667, 1, -0.0884552, 0.00292106, 0.377978, 0.921575, 1.6, 1, -0.100815, 0.00293389, 0.378632, 0.920036, 1.625, 1, -0.105787, 0.00293893, 0.37888, 0.919375)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pqpr3"]
+[resource]
+resource_name = "test"
 _data = {
+&"transition_animation": SubResource("Animation_rwyx4"),
 &"TYPING": SubResource("Animation_uoeib"),
 &"typing_2_001": SubResource("Animation_2qku5")
 }
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h55fm"]
-
-[sub_resource type="Sky" id="Sky_3i8d2"]
-sky_material = SubResource("ProceduralSkyMaterial_h55fm")
-
-[sub_resource type="Environment" id="Environment_wpbe3"]
-background_mode = 2
-background_energy_multiplier = 0.5
-sky = SubResource("Sky_3i8d2")
-ambient_light_energy = 1.23
-reflected_light_source = 2
-
-[sub_resource type="BoxMesh" id="BoxMesh_txush"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_74opj"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqvcg"]
-albedo_texture = ExtResource("10_xdehe")
-emission_enabled = true
-emission_energy_multiplier = 1.1
-emission_texture = ExtResource("10_xdehe")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_tb5fe"]
-
-[node name="Node3D" type="Node3D"]
-script = ExtResource("1_dbafg")
-
-[node name="NavRegion" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_g8pah")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="NavRegion"]
-transform = Transform3D(90.7158, 0, 0, 0, 2.5, 0, 0, 0, 126.348, 0, -0.231797, 0)
-use_collision = true
-mesh = SubResource("BoxMesh_muwqh")
-
-[node name="dynamic_snake3" parent="." instance=ExtResource("10_wa5mw")]
-
-[node name="Skeleton3D" parent="dynamic_snake3/snake_hefty_animated/Armature_001" index="0"]
-modifier_callback_mode_process = 0
-
-[node name="Cube_002" parent="dynamic_snake3/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
-surface_material_override/0 = null
-
-[node name="BoneAttachment3D" parent="dynamic_snake3/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
-transform = Transform3D(0.3621, 0.0159679, -0.932002, 0.866756, 0.3621, 0.342954, 0.342954, -0.932002, 0.117276, 0.929837, 2.69126, -2.56242)
-
-[node name="AnimationPlayer" parent="dynamic_snake3/snake_hefty_animated" index="1"]
-libraries = {
-&"": SubResource("AnimationLibrary_pqpr3"),
-&"test": ExtResource("3_wa5mw")
-}
-
-[node name="Player" parent="." instance=ExtResource("3_dlol5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0585, 3, 9.06823)
-collision_layer = 3
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_wpbe3")
-
-[node name="idle_objects" type="Node3D" parent="."]
-
-[node name="cube1" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, 47.8888)
-mesh = SubResource("BoxMesh_txush")
-
-[node name="cube2" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, 40.9843)
-mesh = SubResource("BoxMesh_txush")
-
-[node name="key1" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.1)
-position = Vector2(980, 94)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_p6ije")
-script = ExtResource("6_oi4ed")
-
-[node name="key2" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.1)
-position = Vector2(980, 185)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_p6ije")
-script = ExtResource("6_oi4ed")
-
-[node name="key3" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.1)
-position = Vector2(979, 268)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_p6ije")
-script = ExtResource("6_oi4ed")
-
-[node name="Control" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_left = 493.0
-offset_top = 238.0
-offset_right = 533.0
-offset_bottom = 278.0
-
-[node name="Button" type="Button" parent="Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -1.85
-anchor_top = 0.1125
-anchor_right = 2.85
-anchor_bottom = 0.8875
-grow_horizontal = 2
-grow_vertical = 2
-text = "game over play again ? "
-
-[node name="Game_over_timer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 5.0
-
-[node name="lights" type="Node3D" parent="."]
-
-[node name="SpotLight3D2" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 33.2426, 24.5076, 14.0552)
-light_energy = 11.633
-light_bake_mode = 1
-shadow_bias = 1.347
-shadow_normal_bias = 0.401
-shadow_transmittance_bias = -0.142
-shadow_opacity = 0.86
-shadow_blur = 0.042
-spot_range = 37.5927
-spot_attenuation = 0.170755
-spot_angle = 42.2129
-
-[node name="SpotLight3D3" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -2.19176, 24.6392, -57.201)
-light_energy = 11.633
-light_bake_mode = 1
-shadow_bias = 1.347
-shadow_normal_bias = 0.401
-shadow_transmittance_bias = -0.142
-shadow_opacity = 0.86
-shadow_blur = 0.042
-spot_range = 44.426
-spot_attenuation = 0.170755
-spot_angle = 42.2129
-
-[node name="SpotLight3D4" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -18.3899, 11.707, -27.8667)
-light_energy = 11.633
-light_bake_mode = 1
-shadow_bias = 1.347
-shadow_normal_bias = 0.401
-shadow_transmittance_bias = -0.142
-shadow_opacity = 0.86
-shadow_blur = 0.042
-spot_range = 44.426
-spot_attenuation = 0.170755
-spot_angle = 42.2129
-
-[node name="SpotLight3D5" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -41.2577, 20.9349, -11.7136)
-light_energy = 11.633
-light_bake_mode = 1
-shadow_bias = 1.347
-shadow_normal_bias = 0.401
-shadow_transmittance_bias = -0.142
-shadow_opacity = 0.86
-shadow_blur = 0.042
-spot_range = 44.426
-spot_attenuation = 0.170755
-spot_angle = 42.2129
-
-[node name="SpotLight3D6" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -20.1571, 15.715, 8.72342)
-light_energy = 11.633
-light_bake_mode = 1
-shadow_bias = 1.347
-shadow_normal_bias = 0.401
-shadow_transmittance_bias = -0.142
-shadow_opacity = 0.86
-shadow_blur = 0.042
-spot_range = 44.426
-spot_attenuation = 0.170755
-spot_angle = 42.2129
-
-[node name="SpotLight3D7" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 3.42398, 23.7957, 28.4676)
-light_energy = 11.633
-light_bake_mode = 1
-shadow_bias = 1.347
-shadow_normal_bias = 0.401
-shadow_transmittance_bias = -0.142
-shadow_opacity = 0.86
-shadow_blur = 0.042
-spot_range = 44.426
-spot_attenuation = 0.170755
-spot_angle = 42.2129
-
-[node name="SpotLight3D8" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 21.9447, 14.9389, 7.87686)
-light_energy = 11.633
-light_bake_mode = 1
-shadow_bias = 1.347
-shadow_normal_bias = 0.401
-shadow_transmittance_bias = -0.142
-shadow_opacity = 0.86
-shadow_blur = 0.042
-spot_range = 44.426
-spot_attenuation = 0.170755
-spot_angle = 42.2129
-
-[node name="SpotLight3D9" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 37.1059, 20.8251, -11.3036)
-light_energy = 11.633
-light_indirect_energy = 1.099
-light_bake_mode = 1
-shadow_bias = 1.347
-shadow_normal_bias = 0.401
-shadow_transmittance_bias = -0.142
-shadow_opacity = 0.86
-shadow_blur = 0.042
-spot_range = 44.426
-spot_attenuation = 0.170755
-spot_angle = 42.2129
-
-[node name="key_1" parent="." instance=ExtResource("7_orb0i")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -44.1101, 1.8351, -11.2281)
-
-[node name="Sprite3D" parent="key_1" index="0"]
-transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
-
-[node name="key_2" parent="." instance=ExtResource("7_orb0i")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 18.2305, 1.07402, 18.0838)
-
-[node name="Sprite3D" parent="key_2" index="0"]
-transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
-
-[node name="key_3" parent="." instance=ExtResource("7_orb0i")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 14.0702, 1.8351, -30.3022)
-
-[node name="Sprite3D" parent="key_3" index="0"]
-transform = Transform3D(0.994642, 0, 0.125595, 0, 1, 0, -0.125595, 0, 0.994642, 0, 0, 0)
-
-[node name="level_exit" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.931421, -0.74373, 0.0272977, 0.00953376, -0.0076969, -2.65067, 1.03645, 0.668436, -0.000149627, 26.1994, 2.72954, -39.6856)
-mesh = SubResource("PlaneMesh_74opj")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_eqvcg")
-script = ExtResource("11_gjk3q")
-
-[node name="Area3D" type="Area3D" parent="level_exit"]
-transform = Transform3D(1, 0, 9.8953e-10, 0, 1, -1.21508e-09, 2.54659e-11, -1.24601e-10, 1, 9.53674e-07, 0, 0.43684)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level_exit/Area3D"]
-shape = SubResource("BoxShape3D_tb5fe")
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="level_exit"]
-stream = ExtResource("12_crs8j")
-
-[node name="Label" type="Label" parent="."]
-auto_translate_mode = 1
-offset_left = 1067.0
-offset_top = 12.0
-offset_right = 1151.0
-offset_bottom = 48.0
-text = "FRAME_R"
-
-[node name="FRAMES" type="Label" parent="."]
-auto_translate_mode = 1
-offset_left = 1069.0
-offset_top = 35.0
-offset_right = 1153.0
-offset_bottom = 71.0
-text = "FRAME_R"
-
-[node name="menu" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Button" type="Button" parent="menu"]
-layout_mode = 0
-offset_left = 280.0
-offset_top = 96.0
-offset_right = 812.0
-offset_bottom = 221.0
-text = "MAIN_MENU
-"
-
-[node name="Button2" type="Button" parent="menu"]
-layout_mode = 0
-offset_left = 281.0
-offset_top = 247.0
-offset_right = 807.0
-offset_bottom = 362.0
-text = "RESTART"
-
-[connection signal="timeout" from="Game_over_timer" to="Player" method="_on_game_over_timer_timeout"]
-[connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]
-[connection signal="finished" from="level_exit/AudioStreamPlayer3D" to="level_exit" method="_on_audio_stream_player_3d_finished"]
-[connection signal="button_down" from="menu/Button" to="." method="_on_button_button_down"]
-[connection signal="button_down" from="menu/Button2" to="." method="_on_button_2_button_down"]
-
-[editable path="dynamic_snake3"]
-[editable path="Player"]
-[editable path="key_1"]
-[editable path="key_2"]
-[editable path="key_3"]

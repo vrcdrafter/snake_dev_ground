@@ -38,7 +38,7 @@ var patrol_objects :Array[MeshInstance3D]
 
 var snake_state:String = "player_seeking"
 var pick_new_object :bool = false
-@export var idle_animation :bool = true # makes the snake idle at beginning with some aninmation
+@export var idle_animation :bool = false # makes the snake idle at beginning with some aninmation
 @export var magic_number :Vector3
 signal state_change
 
@@ -58,7 +58,7 @@ var parent_rotation_deg :float = 0.0
 
 var snake_to_player :float 
 
-var one_shot_transition_key :bool = true
+var one_shot_transition_key :bool = false
 
 func _ready() -> void:
 	# get all the partrol objects
@@ -169,9 +169,10 @@ func _process(delta: float) -> void:
 		running_on_track =false
 		halt = false
 		
-
-
-
+func _input(event: InputEvent) -> void:
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		await _make_curve_from_animation(animation_stuff,skeleton)
 
 	
 func _physics_process(delta: float) -> void:
@@ -374,16 +375,17 @@ func make_transition_key(anim_player :AnimationPlayer, Skel :Skeleton3D):
 			var head_posi :Vector3 = Skel.get_bone_global_pose(0).origin
 			print("quat", head_rotation)
 			transition_animation.rotation_track_insert_key(0,0.0,head_rotation)
-			transition_animation.position_track_insert_key(1,0.0,head_posi)
+			#transition_animation.position_track_insert_key(1,0.0,head_posi)
 			Skel.get_bone_global_pose(i)
 		else:
-			transition_animation.add_track(Animation.TYPE_ROTATION_3D,i+1)
+			transition_animation.add_track(Animation.TYPE_POSITION_3D,i+1)
 			
 			transition_animation.track_set_path(i+1,"Armature_001/Skeleton3D:" + Skel.get_bone_name(i))
-			
-			var bone_rotation :Quaternion = Skel.get_bone_pose_rotation(i+1)
-			transition_animation.rotation_track_insert_key(i+1,0.0,bone_rotation)
-			print("Armature_001/Skeleton3D:" + Skel.get_bone_name(i+1) + " had rotatoion " + str(bone_rotation))
+			var bone_transform = Skel.get_bone_global_pose(i+1).origin
+			var bone_rotation :Quaternion = Skel.get_bone_global_pose_override(i+1).basis.get_rotation_quaternion()
+			#transition_animation.rotation_track_insert_key(i+1,0.0,bone_rotation)
+			transition_animation.position_track_insert_key(i+1,0.0,bone_transform)
+			print("Armature_001/Skeleton3D:" + Skel.get_bone_name(i+1) + " had rotatoion " + str(bone_transform))
 
 	
 	animation_libary.add_animation("transition_animation",transition_animation)
@@ -402,3 +404,18 @@ func _on_skeleton_3d_pose_updated() -> void:
 	if one_shot_transition_key:
 		make_transition_key(animation_stuff_temp,skeleton_stuff_temp)
 		one_shot_transition_key = false
+
+
+func _make_curve_from_animation(whole_lib :AnimationPlayer, snake_skeleton :Skeleton3D) -> Curve3D:
+	var anim_library :AnimationLibrary = whole_lib.get_animation_library("")
+	whole_lib.play("TYPING")
+	whole_lib.advance(0)
+	#whole_lib.seek(0.0,true,false)
+	var curve_new :Curve3D = Curve3D.new()
+	for i in snake_skeleton.get_bone_count():
+		var bone_position :Vector3 = snake_skeleton.get_bone_global_pose(i).origin
+		curve_new.add_point(bone_position)
+	curve_new.resource_name = "transition_curve"
+	var save_result = ResourceSaver.save(curve_new,"res://" + curve_new.resource_name + ".tres")
+	return curve_new
+	
