@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://e0olfir68i4m"]
+[gd_scene load_steps=24 format=3 uid="uid://e0olfir68i4m"]
 
 [ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_dbafg"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_dlol5"]
@@ -481,6 +481,8 @@ reflected_light_source = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_txush"]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_wa5mw"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_74opj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqvcg"]
@@ -503,6 +505,7 @@ use_collision = true
 mesh = SubResource("BoxMesh_muwqh")
 
 [node name="dynamic_snake3" parent="." instance=ExtResource("10_wa5mw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.42826, 0)
 
 [node name="Skeleton3D" parent="dynamic_snake3/snake_hefty_animated/Armature_001" index="0"]
 modifier_callback_mode_process = 0
@@ -511,7 +514,7 @@ modifier_callback_mode_process = 0
 surface_material_override/0 = null
 
 [node name="BoneAttachment3D" parent="dynamic_snake3/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
-transform = Transform3D(0.3621, 0.0159679, -0.932002, 0.866756, 0.3621, 0.342954, 0.342954, -0.932002, 0.117276, 0.929837, 2.69126, -2.56242)
+transform = Transform3D(0.142924, 0.0303402, -0.989268, 0.978933, 0.142924, 0.145814, 0.145814, -0.989268, -0.00927365, 0.522521, 1.56723, -2.74722)
 
 [node name="AnimationPlayer" parent="dynamic_snake3/snake_hefty_animated" index="1"]
 libraries = {
@@ -529,12 +532,16 @@ environment = SubResource("Environment_wpbe3")
 [node name="idle_objects" type="Node3D" parent="."]
 
 [node name="cube1" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, 47.8888)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2926, 1, -14.0115)
 mesh = SubResource("BoxMesh_txush")
 
 [node name="cube2" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, 40.9843)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.6939, 1, 5.50576)
 mesh = SubResource("BoxMesh_txush")
+
+[node name="chair" type="MeshInstance3D" parent="idle_objects" groups=["chair"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3167, 2.02191, 0)
+mesh = SubResource("CylinderMesh_wa5mw")
 
 [node name="key1" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.1)
@@ -610,7 +617,7 @@ spot_attenuation = 0.170755
 spot_angle = 42.2129
 
 [node name="SpotLight3D4" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -18.3899, 11.707, -27.8667)
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -9.36492, 18.4428, -27.8667)
 light_energy = 11.633
 light_bake_mode = 1
 shadow_bias = 1.347
@@ -623,7 +630,7 @@ spot_attenuation = 0.170755
 spot_angle = 42.2129
 
 [node name="SpotLight3D5" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -41.2577, 20.9349, -11.7136)
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -28.4017, 20.9349, -11.7136)
 light_energy = 11.633
 light_bake_mode = 1
 shadow_bias = 1.347
@@ -649,7 +656,7 @@ spot_attenuation = 0.170755
 spot_angle = 42.2129
 
 [node name="SpotLight3D7" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 3.42398, 23.7957, 28.4676)
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 3.42398, 23.7957, -9.38663)
 light_energy = 11.633
 light_bake_mode = 1
 shadow_bias = 1.347

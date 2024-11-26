@@ -21,6 +21,7 @@ var tris_ready :bool = false
 var path :Path3D 
 var curve :Curve3D
 var ensnarement_points :PackedVector3Array
+var animation_transiton_point :PackedVector3Array
 var rotate_heper :Array[Node3D]
 var tri_array :Array[MeshInstance3D]
 var area_array :Array[Area3D]
@@ -38,7 +39,7 @@ var patrol_objects :Array[MeshInstance3D]
 
 var snake_state:String = "player_seeking"
 var pick_new_object :bool = false
-@export var idle_animation :bool = false # makes the snake idle at beginning with some aninmation
+@export var idle_animation :bool = true # makes the snake idle at beginning with some aninmation
 @export var magic_number :Vector3
 signal state_change
 
@@ -67,7 +68,10 @@ func _ready() -> void:
 	parent_rotation_deg = parent_node.rotation_degrees.y
 	
 	for child in get_node("../../idle_objects").get_children():
+		
 		patrol_objects.append(child)
+
+	
 	time = randf() * 10
 	path = get_node("../Path3D")
 	var new_curve :Curve3D = Curve3D.new()
@@ -81,9 +85,16 @@ func _ready() -> void:
 	curve = path.curve
 	curve.up_vector_enabled = false # because I said so 
 	ensnarement_points = curve.get_baked_points()
-	#for i in range(ensnarement_points.size()):
-	#	ensnarement_points[i] = path.to_local(ensnarement_points[i])
-		# get bone lenghts 
+
+	# make a curve just for going into idle animations , have array ready 
+	var curve_transition :Curve3D = Curve3D.new()
+	var curve_seet_transition :Curve3D = load("res://transition_curve.tres")
+	var resource_points_transition :PackedVector3Array = curve_seet_transition.get_baked_points()
+	for i in resource_points_transition.size():
+		curve_transition.add_point(resource_points_transition[i])
+	animation_transiton_point = curve_seet_transition.get_baked_points()
+	# end of transiton curve stuff
+	
 	bone_length = calc_length()
 
 	bone_numbers = skeleton.get_bone_count()
@@ -157,11 +168,14 @@ func _process(delta: float) -> void:
 	var head_positopnm = global_position
 	
 	if (target.global_position - global_position).length() < 2 and not running_on_track and not snake_state == "idle_anim":
-
-			make_ensnarement_curve() # jsut make track one 
+			if snake_state == "going_to_idle":
+				make_ensnarement_curve(animation_transiton_point)
+			else:
+				make_ensnarement_curve(ensnarement_points) # jsut make track one 
+				emit_signal("ensnared")
 			move_segments_to_path()
 			running_on_track = true
-			emit_signal("ensnared")
+			
 	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .99:
 		halt = true
 	if (target.global_position - global_position).length() >3 and running_on_track : # this will be continue chase , relace with other condition 
@@ -169,10 +183,7 @@ func _process(delta: float) -> void:
 		running_on_track =false
 		halt = false
 		
-func _input(event: InputEvent) -> void:
-	
-	if Input.is_action_just_pressed("ui_accept"):
-		await _make_curve_from_animation(animation_stuff,skeleton)
+
 
 	
 func _physics_process(delta: float) -> void:
@@ -197,12 +208,20 @@ func _physics_process(delta: float) -> void:
 			
 		if pick_new_object: 
 			# to make sure the next target is different 
-			var next_target = patrol_objects.pick_random()
+			var next_target :MeshInstance3D = patrol_objects.pick_random()
 			# if the next target is the same keep picking new target
 			while next_target == target:
 				next_target = patrol_objects.pick_random()
 			target = next_target
+
+			if target.is_in_group("chair"):
+				print("found a chair")
+				snake_state = "going_to_idle"
 			pick_new_object = false
+			
+
+			
+		
 	# end decision process for snake ^^^^^^^^^^
 	snake_to_player = (get_node("../../Player").global_position - global_position).length()
 
@@ -211,7 +230,7 @@ func _physics_process(delta: float) -> void:
 		snake_state = "idle_anim"
 	else:
 		
-		if !_ensnared and (snake_to_player > 13.0) and (snake_state != "patrol"):
+		if !_ensnared and (snake_to_player > 13.0) and (snake_state != "patrol") and (snake_state != "going_to_idle"):
 			animation_stuff.stop()
 
 			snake_state = "patrol"
@@ -224,10 +243,8 @@ func _physics_process(delta: float) -> void:
 			emit_signal("state_change")
 		
 	# end  of snakes decisions tree ------------------------------------------
-	if running_on_track:
-		var all_point :PackedVector3Array = curve.get_baked_points()
-		#self.global_position = all_point[all_point.size()-1]
-	elif snake_state == "idle_anim":
+
+	if snake_state == "idle_anim":
 		pass # specifically so green triangle. 
 	else:
 		var current_location = global_transform.origin
@@ -247,8 +264,7 @@ func _physics_process(delta: float) -> void:
 
 		move_and_slide()
 	
-	if not running_on_track and not halt and not(snake_state == "idle_anim"):
-
+	if not running_on_track and not halt and not(snake_state == "idle_anim") :
 		follower(delta)
 	elif running_on_track and not halt:
 		var segment_positions :Array[float]
@@ -268,6 +284,7 @@ func _physics_process(delta: float) -> void:
 	if snake_state == "idle_anim":
 		move_triangles_to_bones(rotate_heper)
 	else:
+
 		override_skeleton()
 		
 
@@ -293,7 +310,7 @@ func calc_length():
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
 	return bone_length
 	
-func make_ensnarement_curve():
+func make_ensnarement_curve(ensnarement_data :PackedVector3Array):
 	# first make curve for all points where snake is at that moment 
  
 	var points :Array[Vector3] 
@@ -305,12 +322,12 @@ func make_ensnarement_curve():
 	for i in points.size():
 		curve.add_point(points[(points.size()-1)-i]) # add the points in revers
 	# add points to current curve , no rotation yet
-	for i in ensnarement_points.size():
+	for i in ensnarement_data.size():
 		var parent_thing :Node3D= get_node("..")
 		var magic_numver :Vector3 = target.global_position - parent_thing.global_position
 		#magic_numver.y = target.global_position.y - 4
 
-		curve.add_point((ensnarement_points[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(parent_rotation_deg * -1)) + Vector3(0,-.7,0)) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
+		curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(parent_rotation_deg * -1)) + Vector3(0,-.7,0)) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
 
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
@@ -357,65 +374,4 @@ func move_triangles_to_bones(tris :Array[Node3D]):
 		tris[i].transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
 	
 	
-	
-func make_transition_key(anim_player :AnimationPlayer, Skel :Skeleton3D):
-	var transition_animation :Animation = Animation.new()
-	var animation_libary :AnimationLibrary = anim_player.get_animation_library("")
-	
-	var number_of_bones :int= Skel.get_bone_count()
-	print("found this many bones",number_of_bones)
-	for i in number_of_bones:
-		if Skel.get_bone_name(i) == "head":
-			print(" its a head bone ")
-			transition_animation.add_track(Animation.TYPE_ROTATION_3D,0)
-			transition_animation.add_track(Animation.TYPE_POSITION_3D,1)
-			transition_animation.track_set_path(0,"Armature_001/Skeleton3D:head")
-			transition_animation.track_set_path(1,"Armature_001/Skeleton3D:head")
-			var head_rotation :Quaternion = Skel.get_bone_global_pose(0).basis.get_rotation_quaternion()
-			var head_posi :Vector3 = Skel.get_bone_global_pose(0).origin
-			print("quat", head_rotation)
-			transition_animation.rotation_track_insert_key(0,0.0,head_rotation)
-			#transition_animation.position_track_insert_key(1,0.0,head_posi)
-			Skel.get_bone_global_pose(i)
-		else:
-			transition_animation.add_track(Animation.TYPE_POSITION_3D,i+1)
-			
-			transition_animation.track_set_path(i+1,"Armature_001/Skeleton3D:" + Skel.get_bone_name(i))
-			var bone_transform = Skel.get_bone_global_pose(i+1).origin
-			var bone_rotation :Quaternion = Skel.get_bone_global_pose_override(i+1).basis.get_rotation_quaternion()
-			#transition_animation.rotation_track_insert_key(i+1,0.0,bone_rotation)
-			transition_animation.position_track_insert_key(i+1,0.0,bone_transform)
-			print("Armature_001/Skeleton3D:" + Skel.get_bone_name(i+1) + " had rotatoion " + str(bone_transform))
-
-	
-	animation_libary.add_animation("transition_animation",transition_animation)
-	print(animation_libary.get_animation_list())
-	print(transition_animation.get_track_count())
-	animation_libary.resource_name = "test"
-	print("the name is ",animation_libary.resource_name)
-	var save_result = ResourceSaver.save(animation_libary,"res://" + animation_libary.resource_name + ".tres") # save the animation so I can dink with it . 
-	print(save_result)
-
-
-
-func _on_skeleton_3d_pose_updated() -> void:
-	var skeleton_stuff_temp :Skeleton3D = get_node("../snake_hefty_animated/Armature_001/Skeleton3D")
-	var animation_stuff_temp :AnimationPlayer = get_node("../snake_hefty_animated/AnimationPlayer")
-	if one_shot_transition_key:
-		make_transition_key(animation_stuff_temp,skeleton_stuff_temp)
-		one_shot_transition_key = false
-
-
-func _make_curve_from_animation(whole_lib :AnimationPlayer, snake_skeleton :Skeleton3D) -> Curve3D:
-	var anim_library :AnimationLibrary = whole_lib.get_animation_library("")
-	whole_lib.play("TYPING")
-	whole_lib.advance(0)
-	#whole_lib.seek(0.0,true,false)
-	var curve_new :Curve3D = Curve3D.new()
-	for i in snake_skeleton.get_bone_count():
-		var bone_position :Vector3 = snake_skeleton.get_bone_global_pose(i).origin
-		curve_new.add_point(bone_position)
-	curve_new.resource_name = "transition_curve"
-	var save_result = ResourceSaver.save(curve_new,"res://" + curve_new.resource_name + ".tres")
-	return curve_new
 	
