@@ -39,7 +39,7 @@ var patrol_objects :Array[MeshInstance3D]
 
 var snake_state:String = "player_seeking"
 var pick_new_object :bool = false
-@export var idle_animation :bool = true # makes the snake idle at beginning with some aninmation
+@export var idle_animation :bool = false # makes the snake idle at beginning with some aninmation
 @export var magic_number :Vector3
 signal state_change
 
@@ -62,6 +62,8 @@ var snake_to_player :float
 var one_shot_transition_key :bool = false
 
 func _ready() -> void:
+	
+	
 	# get all the partrol objects
 	var parent_node :Node3D = get_parent()
 	parent_basis = parent_node.global_transform
@@ -169,7 +171,9 @@ func _process(delta: float) -> void:
 	
 	if (target.global_position - global_position).length() < 2 and not running_on_track and not snake_state == "idle_anim":
 			if snake_state == "going_to_idle":
-				make_ensnarement_curve(animation_transiton_point)
+				var head_position = animation_transiton_point[0]
+				head_position.y = 0
+				make_ensnarement_curve(shift_rotate_points(animation_transiton_point,0,head_position))
 			else:
 				make_ensnarement_curve(ensnarement_points) # jsut make track one 
 				emit_signal("ensnared")
@@ -178,6 +182,14 @@ func _process(delta: float) -> void:
 			
 	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .99:
 		halt = true
+		if snake_state == "going_to_idle" and not idle_animation:
+			skeleton.clear_bones_global_pose_override()
+			animation_stuff.play("typing_2_001")
+			idle_animation = true
+			var head_position = animation_transiton_point[animation_transiton_point.size() - 1]
+			var animation_offset_when_playing :Vector3 = target.global_position
+			get_parent().global_position = target.global_position - head_position
+			
 	if (target.global_position - global_position).length() >3 and running_on_track : # this will be continue chase , relace with other condition 
 		move_segments_back_normal()
 		running_on_track =false
@@ -373,5 +385,9 @@ func move_triangles_to_bones(tris :Array[Node3D]):
 		
 		tris[i].transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
 	
-	
+func shift_rotate_points(points :PackedVector3Array, angle_deg :float, offset :Vector3):
+	var new_points :PackedVector3Array
+	for i in points.size():
+		new_points.append(points[i].rotated(Vector3(0,1,0),deg_to_rad(angle_deg)) - offset)
+	return new_points
 	
