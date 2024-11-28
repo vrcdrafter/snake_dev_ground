@@ -463,8 +463,8 @@ tracks/30/keys = PackedFloat32Array(0, 1, -0.022028, 0.00183021, -0.166658, 0.98
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pqpr3"]
 _data = {
-&"TYPING": SubResource("Animation_uoeib"),
-&"typing_2_001": SubResource("Animation_2qku5")
+&"typing_2_001": SubResource("Animation_2qku5"),
+&"TYPING": SubResource("Animation_uoeib")
 }
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h55fm"]
@@ -551,9 +551,15 @@ libraries = {
 &"test": ExtResource("3_wa5mw")
 }
 
+[node name="head" parent="dynamic_snake3" index="1"]
+visible = true
+
 [node name="Player" parent="." instance=ExtResource("3_dlol5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0585, 3, 9.06823)
 collision_layer = 3
+
+[node name="Camera3D" parent="Player/rotation_helper" index="0"]
+current = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wpbe3")
@@ -789,6 +795,9 @@ offset_top = 247.0
 offset_right = 807.0
 offset_bottom = 362.0
 text = "RESTART"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0189532, 0.99982, 0, -0.99982, -0.0189532, 0, 11.9644, 0)
 
 [connection signal="timeout" from="Game_over_timer" to="Player" method="_on_game_over_timer_timeout"]
 [connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]

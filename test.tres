@@ -665,7 +665,7 @@ tracks/30/keys = PackedFloat32Array(0, 1, 0, 0, 0)
 [resource]
 resource_name = "test"
 _data = {
-&"transition_animation": SubResource("Animation_rwyx4"),
+&"typing_2_001": SubResource("Animation_2qku5"),
 &"TYPING": SubResource("Animation_uoeib"),
-&"typing_2_001": SubResource("Animation_2qku5")
+&"transition_animation": SubResource("Animation_rwyx4")
 }

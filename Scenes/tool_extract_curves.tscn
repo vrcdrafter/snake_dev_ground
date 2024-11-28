@@ -567,8 +567,8 @@ tracks/30/keys = PackedFloat32Array(0, 1, -0.022028, 0.00183021, -0.166658, 0.98
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pqpr3"]
 _data = {
-&"TYPING": SubResource("Animation_uoeib"),
-&"typing_2_001": SubResource("Animation_2qku5")
+&"typing_2_001": SubResource("Animation_2qku5"),
+&"TYPING": SubResource("Animation_uoeib")
 }
 
 [node name="Node3D" type="Node3D"]

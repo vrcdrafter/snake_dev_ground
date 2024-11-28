@@ -13,7 +13,7 @@ var bone_numbers :int = 0
 @onready var nav : NavigationAgent3D = $NavigationAgent3D
 signal ensnared 
 @export var target : Node3D
-var body_segment_pimitived :Array[Node3D] = []
+
 @onready var donut = get_node("../donut")
 @onready var skeleton :Skeleton3D = get_node("../snake_hefty_animated/Armature_001/Skeleton3D")
 var tris_ready :bool = false
@@ -61,10 +61,14 @@ var snake_to_player :float
 
 var one_shot_transition_key :bool = false
 
+var old_position_snake_for_idle :Vector3   # this is important for restoring the positon of the snake because the animaitons are always relative 
+
 func _ready() -> void:
 	
 	
 	# get all the partrol objects
+	# these 3 lines below are what keeps the snake oriented properly if you rotate and translate
+	# the parent node 
 	var parent_node :Node3D = get_parent()
 	parent_basis = parent_node.global_transform
 	parent_rotation_deg = parent_node.rotation_degrees.y
@@ -151,31 +155,27 @@ func _process(delta: float) -> void:
 	if animation_stuff.is_playing() and not animation_repositioned:
 		var head_position_2 = head_position_marker.global_position
 		var model_move :Vector3 = head_position_1 - head_position_2
-		#get_parent().global_position += model_move
 		animation_repositioned = true
 	
 	if tris_ready != true:
 	# get all Node 3d's (triangles) into an array .
 		var all_nodes :Array[Node] = get_node("..").get_children()
 
-		for i in range(all_nodes.size()):
-			if all_nodes[i].name.contains("rotate"):
-				body_segment_pimitived.append(all_nodes[i])
 
+		rotate_heper
 			
 
 		tris_ready = true
 
-	var target_postion = target.global_position
-	var head_positopnm = global_position
+
 	
 	if (target.global_position - global_position).length() < 2 and not running_on_track and not snake_state == "idle_anim":
 			if snake_state == "going_to_idle":
 				var head_position = animation_transiton_point[0]
 				head_position.y = 0
-				make_ensnarement_curve(shift_rotate_points(animation_transiton_point,0,head_position))
+				make_ensnarement_curve(shift_rotate_points(animation_transiton_point,0,head_position),rotate_heper)
 			else:
-				make_ensnarement_curve(ensnarement_points) # jsut make track one 
+				make_ensnarement_curve(ensnarement_points,rotate_heper) # jsut make track one 
 				emit_signal("ensnared")
 			move_segments_to_path()
 			running_on_track = true
@@ -183,12 +183,22 @@ func _process(delta: float) -> void:
 	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .99:
 		halt = true
 		if snake_state == "going_to_idle" and not idle_animation:
+			
+			# so there is allot that has to happen here , clear bones , play anim , offset the animation , 
 			skeleton.clear_bones_global_pose_override()
 			animation_stuff.play("typing_2_001")
 			idle_animation = true
 			var head_position = animation_transiton_point[animation_transiton_point.size() - 1]
-			var animation_offset_when_playing :Vector3 = target.global_position
-			get_parent().global_position = target.global_position - head_position
+			var parent_node :Node3D = get_parent()
+			old_position_snake_for_idle = parent_node.global_position # we use this later to go back into slither 
+			parent_node.global_position = target.global_position - head_position
+			# need to move actual follower head ( green triangle as well ) 
+			global_position = target.global_position - head_position
+			# remember these are the two lines that keep the snake all oriented during these movements . 
+			parent_basis = parent_node.global_transform
+			parent_rotation_deg = parent_node.rotation_degrees.y
+			# move the curve as well 
+			path.curve.clear_points()
 			
 	if (target.global_position - global_position).length() >3 and running_on_track : # this will be continue chase , relace with other condition 
 		move_segments_back_normal()
@@ -231,8 +241,6 @@ func _physics_process(delta: float) -> void:
 				snake_state = "going_to_idle"
 			pick_new_object = false
 			
-
-			
 		
 	# end decision process for snake ^^^^^^^^^^
 	snake_to_player = (get_node("../../Player").global_position - global_position).length()
@@ -240,6 +248,7 @@ func _physics_process(delta: float) -> void:
 	# beginning of snakes decisions tree -------------------------------------------
 	if idle_animation:
 		snake_state = "idle_anim"
+		
 	else:
 		
 		if !_ensnared and (snake_to_player > 13.0) and (snake_state != "patrol") and (snake_state != "going_to_idle"):
@@ -250,6 +259,14 @@ func _physics_process(delta: float) -> void:
 			pick_new_object = true
 			
 		if (snake_to_player < 5) and not (snake_state == "player_seeking"):
+			if snake_state == "idle_anim":
+				var parent_node = get_parent()
+				parent_node.global_position = old_position_snake_for_idle
+
+				# remember these are the two lines that keep the snake all oriented during these movements . 
+				parent_basis = parent_node.global_transform
+				parent_rotation_deg = parent_node.rotation_degrees.y
+			
 			animation_stuff.stop()
 			snake_state = "player_seeking"
 			emit_signal("state_change")
@@ -277,7 +294,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 	
 	if not running_on_track and not halt and not(snake_state == "idle_anim") :
-		follower(delta)
+		follower(delta,rotate_heper)
 	elif running_on_track and not halt:
 		var segment_positions :Array[float]
 		var segment_follow_path :Array[PathFollow3D]
@@ -294,35 +311,32 @@ func _physics_process(delta: float) -> void:
 	# move them bones 
 	
 	if snake_state == "idle_anim":
-		move_triangles_to_bones(rotate_heper)
+		#move_triangles_to_bones(rotate_heper)  # there is a problem here 
+		pass
+		
 	else:
 
 		override_skeleton()
-		
 
 
 
-func follower(delta):
+func follower(delta :float, body_segment_pimitived :Array[Node3D]):
 	for i in range(body_segment_pimitived.size()):
 		
 		if i == 0: # meaning its the first piece  
 			body_segment_pimitived[i].look_at(global_position)
-			
 			if ((global_position - body_segment_pimitived[i].global_position).length() > bone_length):
-				#body_segment_pimitived[i].global_position += (global_position - body_segment_pimitived[i].global_position) * delta * SPEED
 				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(global_position,delta * SPEED)
-
 		else:
 			body_segment_pimitived[i].look_at(body_segment_pimitived[i-1].global_position)
 			if ((body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position).length() > bone_length):
-				#body_segment_pimitived[i].global_position += (body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position) * delta * SPEED
 				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(body_segment_pimitived[i-1].global_position,delta * SPEED)
 
 func calc_length():
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
 	return bone_length
 	
-func make_ensnarement_curve(ensnarement_data :PackedVector3Array):
+func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_pimitived :Array[Node3D]):
 	# first make curve for all points where snake is at that moment 
  
 	var points :Array[Vector3] 
@@ -354,8 +368,6 @@ func move_segments_to_path():
 		get_node("..").remove_child(rotate_heper[i])
 		rotate_heper[i].global_position = Vector3(0,0,0)
 		get_node("../Path3D/"+ "path" + str(i) ).add_child(rotate_heper[i])
-		#zero it all out 
-		
 		get_node("../Path3D/"+ "path" + str(i)).set_progress(i*bone_length*1.1)
 
 func move_segments_back_normal():
@@ -368,22 +380,31 @@ func move_segments_back_normal():
 		
 
 	 
-func override_skeleton():
+func override_skeleton(): # need to changet this for two cases , one for ensnarement , one for chasing , right now only looks right for chasing !!!!!!!!!!!
 	skeleton.rotation_degrees = Vector3(0,parent_rotation_deg * -1,0)  # i am not sure why i need to make this a -1 yet
-	for i in bone_numbers:
-		var transform = tri_array[-i+bone_numbers-1].get_global_transform()
-		transform.origin = transform.origin - parent_basis.origin
-		
-		skeleton.set_bone_global_pose_override(i, transform, 1, true)
-		skeleton.set_bone_pose_rotation(i, tri_array[-i+bone_numbers-1].global_transform.basis.get_rotation_quaternion())
-		
+	if running_on_track:
+		for i in bone_numbers:
+			var transform = tri_array[-i+bone_numbers-1].get_global_transform()
+			transform.origin = transform.origin - parent_basis.origin
+			
+			skeleton.set_bone_global_pose_override(i, transform, 1, true)
+			skeleton.set_bone_pose_rotation(i, tri_array[-i+bone_numbers-1].global_transform.basis.get_rotation_quaternion())
+	else:
+		for i in bone_numbers:
+			var transform = tri_array[i].get_global_transform()
+			transform.origin = transform.origin - parent_basis.origin
+			
+			skeleton.set_bone_global_pose_override(i, transform, 1, true)
+			skeleton.set_bone_pose_rotation(i, tri_array[i].global_transform.basis.get_rotation_quaternion())
+
 func give_snake_speed():
 	SNAKE_SPEED = 3
 	
 func move_triangles_to_bones(tris :Array[Node3D]):
 	for i in bone_numbers:
 		
-		tris[i].transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
+		tris[i].global_transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
+		tris[i].global_position = tris[i].global_position  # may need to comment this out 
 	
 func shift_rotate_points(points :PackedVector3Array, angle_deg :float, offset :Vector3):
 	var new_points :PackedVector3Array
