@@ -62,7 +62,7 @@ var snake_to_player :float
 var one_shot_transition_key :bool = false
 
 var old_position_snake_for_idle :Vector3   # this is important for restoring the positon of the snake because the animaitons are always relative 
-
+var old_position_snake_for_idle_head :Vector3
 func _ready() -> void:
 	
 	
@@ -262,7 +262,7 @@ func _physics_process(delta: float) -> void:
 			if snake_state == "idle_anim":
 				var parent_node = get_parent()
 				parent_node.global_position = old_position_snake_for_idle
-
+				global_position = target.global_position 
 				# remember these are the two lines that keep the snake all oriented during these movements . 
 				parent_basis = parent_node.global_transform
 				parent_rotation_deg = parent_node.rotation_degrees.y
@@ -304,6 +304,8 @@ func _physics_process(delta: float) -> void:
 			segment_follow_path[i].progress += 8 *delta
 	
 	elif snake_state == "idle_anim":
+		pass # meaning your not ensnared yet and your not chasing or in patrol 
+	elif snake_state == "player_seeking":
 		pass # meaning your not ensnared yet and your not chasing or in patrol 
 	else:
 		_ensnared = true

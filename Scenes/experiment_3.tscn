@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://e0olfir68i4m"]
+[gd_scene load_steps=24 format=3 uid="uid://e0olfir68i4m"]
 
 [ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_dbafg"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_dlol5"]
@@ -481,6 +481,8 @@ reflected_light_source = 2
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wa5mw"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_wa5mw"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_74opj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqvcg"]
@@ -551,9 +553,6 @@ libraries = {
 &"test": ExtResource("3_wa5mw")
 }
 
-[node name="head" parent="dynamic_snake3" index="1"]
-visible = true
-
 [node name="Player" parent="." instance=ExtResource("3_dlol5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0585, 3, 9.06823)
 collision_layer = 3
@@ -569,6 +568,14 @@ environment = SubResource("Environment_wpbe3")
 [node name="chair" type="MeshInstance3D" parent="idle_objects" groups=["chair"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3167, 2.02191, 0)
 mesh = SubResource("CylinderMesh_wa5mw")
+
+[node name="cube1" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.33173, 3.66732, -20.3332)
+mesh = SubResource("BoxMesh_wa5mw")
+
+[node name="cube2" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2448, 3.14155, -0.374751)
+mesh = SubResource("BoxMesh_wa5mw")
 
 [node name="key1" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.1)
