@@ -373,12 +373,19 @@ func move_segments_to_path():
 		get_node("../Path3D/"+ "path" + str(i)).set_progress(i*bone_length*1.1)
 
 func move_segments_back_normal():
+	var tri_pos :Array[Vector3] 
 	for i in bone_numbers:
-		var tri_pos :Vector3 = rotate_heper[i].get_parent().position
+		tri_pos.append(rotate_heper[i].get_parent().position)
 		get_node("../Path3D/"+ "path" + str(i) ).remove_child(rotate_heper[i])
 		get_node("../Path3D").remove_child(follow_path_array[i])
-		rotate_heper[i].global_position = tri_pos
-		get_node("..").add_child(rotate_heper[i])
+
+	for i in bone_numbers:
+		var reverse_num :int = -i + rotate_heper.size() -1
+		# check is there is a parent 
+		if rotate_heper[reverse_num].get_parent():
+			rotate_heper[reverse_num].get_parent().remove_child(rotate_heper[reverse_num])
+		rotate_heper[reverse_num].global_position = tri_pos[i]
+		get_node("..").add_child(rotate_heper[reverse_num]) # problem is here . 
 		
 
 	 
