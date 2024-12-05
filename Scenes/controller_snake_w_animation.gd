@@ -15,7 +15,7 @@ signal ensnared
 @export var target : Node3D
 
 @onready var donut = get_node("../donut")
-@onready var skeleton :Skeleton3D = get_node("../snake_hefty_animated/Armature_001/Skeleton3D")
+
 var tris_ready :bool = false
 # curve stuff
 var path :Path3D 
@@ -47,12 +47,12 @@ signal state_change
 var time :float = 0
 var snake_wavyness :float = 1
 var wave_thing :float = 0
-
+var skeleton :Skeleton3D
 var parent_basis :Transform3D
 
-@onready var animation_stuff :AnimationPlayer = get_node("../snake_hefty_animated/AnimationPlayer")
+var animation_stuff :AnimationPlayer 
 # used for moving the snake if there is a odd rotation 
-@onready var head_position_marker :Marker3D = get_node("../snake_hefty_animated/Armature_001/Skeleton3D/BoneAttachment3D/Marker3D") 
+var head_position_marker :Marker3D 
 var head_position_1 :Vector3
 var animation_repositioned :bool = false
 var parent_rotation_deg :float = 0.0 
@@ -64,8 +64,19 @@ var one_shot_transition_key :bool = false
 var old_position_snake_for_idle :Vector3   # this is important for restoring the positon of the snake because the animaitons are always relative 
 var old_position_snake_for_idle_head :Vector3
 func _ready() -> void:
-	
-	
+	# find the snake in the tree 
+	var snake_node :Node3D = get_parent().find_child("sn*")
+	var name = snake_node.name
+	skeleton = snake_node.find_child("Skeleton3D",true,true)
+	var skeleton_name = skeleton.name
+	skeleton.ready.connect(_on_skeleton_3d_ready) # not being even used . 
+	animation_stuff = snake_node.find_child("AnimationPlayer")
+	var bone_attach :BoneAttachment3D = BoneAttachment3D.new()
+	var point_3d :Marker3D = Marker3D.new()
+	skeleton.add_child(bone_attach)
+	bone_attach.bone_name = "head"
+	bone_attach.add_child(point_3d)
+	head_position_marker = point_3d
 	# get all the partrol objects
 	# these 3 lines below are what keeps the snake oriented properly if you rotate and translate
 	# the parent node 
@@ -74,7 +85,6 @@ func _ready() -> void:
 	parent_rotation_deg = parent_node.rotation_degrees.y
 	
 	for child in get_node("../../idle_objects").get_children():
-		
 		patrol_objects.append(child)
 
 	
@@ -101,7 +111,7 @@ func _ready() -> void:
 	animation_transiton_point = curve_seet_transition.get_baked_points()
 	# end of transiton curve stuff
 	
-	bone_length = calc_length()
+	
 
 	bone_numbers = skeleton.get_bone_count()
 		# get # of bones 
@@ -136,15 +146,19 @@ func _ready() -> void:
 		area_array[i].add_child(Segment_colission_array[i])
 	# get first ensarement data loaded 
 	# rotate animations automatically also translations position because moving rotations on animations affects that too 
-	head_position_1 = head_position_marker.global_position
+	#head_position_1 = head_position_marker.global_position
 
 
 	# start up animations 
 	animation_stuff.advance(randf())
 	animation_stuff.speed_scale = randf_range(.5,1)
-	animation_stuff.play("typing_2_001")
+	animation_stuff.play("tree_idle")
 
 func _process(delta: float) -> void:
+	
+	# get the bone lenght 
+	if skeleton.ready: # this is not how you use this . 
+		bone_length = calc_length()
 	
 	# before you do anything , start up animation briefly and to a cartesian position move because the keys are modified
 
@@ -186,9 +200,9 @@ func _process(delta: float) -> void:
 			
 			# so there is allot that has to happen here , clear bones , play anim , offset the animation , 
 			skeleton.clear_bones_global_pose_override()
-			animation_stuff.play("typing_2_001")
+			animation_stuff.play("tree_idle")
 			idle_animation = true
-			var head_position = animation_transiton_point[animation_transiton_point.size() - 1]
+			var head_position :Vector3 = animation_transiton_point[animation_transiton_point.size() - 1]
 			var parent_node :Node3D = get_parent()
 			old_position_snake_for_idle = parent_node.global_position # we use this later to go back into slither 
 			parent_node.global_position = target.global_position - head_position
@@ -205,6 +219,7 @@ func _process(delta: float) -> void:
 		running_on_track =false
 		halt = false
 		
+
 
 
 	
@@ -318,7 +333,7 @@ func _physics_process(delta: float) -> void:
 		
 	else:
 
-		override_skeleton()
+		override_skeleton(skeleton)
 
 
 
@@ -353,7 +368,6 @@ func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_p
 	for i in ensnarement_data.size():
 		var parent_thing :Node3D= get_node("..")
 		var magic_numver :Vector3 = target.global_position - parent_thing.global_position
-		#magic_numver.y = target.global_position.y - 4
 
 		curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(parent_rotation_deg * -1)) + Vector3(0,-.7,0)) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
 
@@ -389,22 +403,22 @@ func move_segments_back_normal():
 		
 
 	 
-func override_skeleton(): # need to changet this for two cases , one for ensnarement , one for chasing , right now only looks right for chasing !!!!!!!!!!!
-	skeleton.rotation_degrees = Vector3(0,parent_rotation_deg * -1,0)  # i am not sure why i need to make this a -1 yet
+func override_skeleton(skeleton_L :Skeleton3D): # need to changet this for two cases , one for ensnarement , one for chasing , right now only looks right for chasing !!!!!!!!!!!
+	skeleton_L.rotation_degrees = Vector3(0,parent_rotation_deg * -1,0)  # i am not sure why i need to make this a -1 yet
 	if running_on_track:
 		for i in bone_numbers:
 			var transform = tri_array[-i+bone_numbers-1].get_global_transform()
 			transform.origin = transform.origin - parent_basis.origin
 			
-			skeleton.set_bone_global_pose_override(i, transform, 1, true)
-			skeleton.set_bone_pose_rotation(i, tri_array[-i+bone_numbers-1].global_transform.basis.get_rotation_quaternion())
+			skeleton_L.set_bone_global_pose_override(i, transform, 1, true)
+			skeleton_L.set_bone_pose_rotation(i, tri_array[-i+bone_numbers-1].global_transform.basis.get_rotation_quaternion())
 	else:
 		for i in bone_numbers:
 			var transform = tri_array[i].get_global_transform()
 			transform.origin = transform.origin - parent_basis.origin
 			
-			skeleton.set_bone_global_pose_override(i, transform, 1, true)
-			skeleton.set_bone_pose_rotation(i, tri_array[i].global_transform.basis.get_rotation_quaternion())
+			skeleton_L.set_bone_global_pose_override(i, transform, 1, true)
+			skeleton_L.set_bone_pose_rotation(i, tri_array[i].global_transform.basis.get_rotation_quaternion())
 
 func give_snake_speed():
 	SNAKE_SPEED = 3
@@ -421,3 +435,9 @@ func shift_rotate_points(points :PackedVector3Array, angle_deg :float, offset :V
 		new_points.append(points[i].rotated(Vector3(0,1,0),deg_to_rad(angle_deg)) - offset)
 	return new_points
 	
+
+
+
+
+func _on_skeleton_3d_ready() -> void:
+	print("skeleton ready ")
