@@ -748,6 +748,9 @@ rotation_edit_mode = 1
 [node name="Cube_002" parent="dynamic_snake5/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
 surface_material_override/0 = null
 
+[node name="BoneAttachment3D" parent="dynamic_snake5/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
+transform = Transform3D(0.142924, 0.0303402, -0.989268, 0.978933, 0.142924, 0.145814, 0.145814, -0.989268, -0.00927365, 0.522521, 1.56723, -2.74722)
+
 [node name="dynamic_snake6" parent="." instance=ExtResource("25_wfb3u")]
 transform = Transform3D(-0.289316, 0, 0.957234, 0, 1, 0, -0.957234, 0, -0.289316, 54.1533, -2.50584, -53.5428)
 rotation_edit_mode = 1
@@ -755,12 +758,18 @@ rotation_edit_mode = 1
 [node name="Cube_002" parent="dynamic_snake6/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
 surface_material_override/0 = null
 
+[node name="BoneAttachment3D" parent="dynamic_snake6/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
+transform = Transform3D(0.142924, 0.0303402, -0.989268, 0.978933, 0.142924, 0.145814, 0.145814, -0.989268, -0.00927365, 0.522521, 1.56723, -2.74722)
+
 [node name="dynamic_snake7" parent="." instance=ExtResource("25_wfb3u")]
 transform = Transform3D(-0.754607, 0, 0.656178, 0, 1, 0, -0.656178, 0, -0.754607, 58.2047, -3.99726, -60.248)
 rotation_edit_mode = 1
 
 [node name="Cube_002" parent="dynamic_snake7/snake_hefty_animated/Armature_001/Skeleton3D" index="0"]
 surface_material_override/0 = null
+
+[node name="BoneAttachment3D" parent="dynamic_snake7/snake_hefty_animated/Armature_001/Skeleton3D" index="1"]
+transform = Transform3D(0.142924, 0.0303402, -0.989268, 0.978933, 0.142924, 0.145814, 0.145814, -0.989268, -0.00927365, 0.522521, 1.56723, -2.74722)
 
 [node name="sounds" type="Node3D" parent="."]
 

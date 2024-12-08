@@ -32,7 +32,8 @@ movie_writer/fps=10
 [file_customization]
 
 folder_colors={
-"res://level_data/": "orange"
+"res://level_data/": "orange",
+"res://transition_curves/": "green"
 }
 
 [filesystem]

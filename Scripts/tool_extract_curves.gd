@@ -30,5 +30,5 @@ func _make_curve_from_animation(whole_lib :AnimationPlayer, snake_skeleton :Skel
 				var bone_position :Vector3 = snake_skeleton.get_bone_global_pose(g).origin
 				curve_new.add_point(bone_position)
 			curve_new.resource_name = anim_list[i]
-			var save_result = ResourceSaver.save(curve_new,"res://" + curve_new.resource_name + ".tres")
+			var save_result = ResourceSaver.save(curve_new,"res://transition_curves//" + curve_new.resource_name + ".tres")
 	

@@ -31,7 +31,7 @@ reflected_light_source = 2
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wa5mw"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_wa5mw"]
+[sub_resource type="PrismMesh" id="PrismMesh_p80ne"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_74opj"]
 
@@ -66,17 +66,13 @@ environment = SubResource("Environment_wpbe3")
 
 [node name="idle_objects" type="Node3D" parent="."]
 
-[node name="chair" type="MeshInstance3D" parent="idle_objects" groups=["chair"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3167, 2.02191, 0)
+[node name="chair" type="MeshInstance3D" parent="idle_objects" groups=["chair", "tree_idle"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13.3167, 2.02191, 0)
 mesh = SubResource("CylinderMesh_wa5mw")
 
-[node name="cube1" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.33173, 3.66732, -20.3332)
-mesh = SubResource("BoxMesh_wa5mw")
-
-[node name="cube2" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2448, 3.14155, -0.374751)
-mesh = SubResource("BoxMesh_wa5mw")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="idle_objects/chair"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.30125e-08, 0, 0.526464)
+mesh = SubResource("PrismMesh_p80ne")
 
 [node name="key1" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.1)
