@@ -40,7 +40,7 @@ var patrol_objects :Array[MeshInstance3D]
 
 var snake_state:String = "player_seeking"
 var pick_new_object :bool = false
-@export var idle_animation :bool = true # makes the snake idle at beginning with some aninmation
+@export var idle_animation :bool = false # makes the snake idle at beginning with some aninmation
 @export var magic_number :Vector3
 signal state_change
 
@@ -109,7 +109,7 @@ func _ready() -> void:
 	
 	all_transition_curves = _make_curve_from_animation(animation_stuff,skeleton,false)
 	# end of transiton curve stuff
-	
+	print("number of points ", all_transition_curves[0].get_baked_points().size())
 	
 
 	bone_numbers = skeleton.get_bone_count()
@@ -151,7 +151,7 @@ func _ready() -> void:
 	# start up animations 
 	animation_stuff.advance(randf())
 	animation_stuff.speed_scale = randf_range(.5,1)
-	animation_stuff.play("tree_idle")
+	animation_stuff.play("anim_tree_idle")
 
 func _process(delta: float) -> void:
 	
@@ -186,8 +186,16 @@ func _process(delta: float) -> void:
 			if snake_state == "going_to_idle":
 				
 				var target_classification :Array[StringName] = target.get_groups()
-				if target_classification.find("tree_idle"):
+		
+				var anim_int :int = target_classification.find("*anim*")
+				for i in target_classification.size():
+					if target_classification[i].contains("anim"):
+						anim_int = i 
+					
+				var animation_name :String = target_classification[anim_int] # finds the wrong one 
+				if target_classification.has(StringName(animation_name)):
 					animation_transiton_points = all_transition_curves[0].get_baked_points()
+					print("num of points ",all_transition_curves[0].get_baked_points().size())
 				var head_position = animation_transiton_points[0]
 				head_position.y = 0
 				make_ensnarement_curve(shift_rotate_points(animation_transiton_points,target.rotation_degrees.y,head_position),rotate_heper)
@@ -204,14 +212,20 @@ func _process(delta: float) -> void:
 			# so there is allot that has to happen here , clear bones , play anim , offset the animation , 
 			skeleton.clear_bones_global_pose_override()
 			
-			# find the right animation 
 			var target_classification :Array[StringName] = target.get_groups()
+			var anim_int :int = target_classification.find("anim*")
+			
+			# find the right animation 
+			for i in target_classification.size():
+				if target_classification[i].contains("anim"):
+					anim_int = i 
+			var animation_name :String = target_classification[anim_int]
 			# get index for correct animation 
 			var all_animations :PackedStringArray = animation_stuff.get_animation_list()
-			if target_classification.find("tree_idle"):
-				var anim_index = all_animations.find("tree_idle")
+			if target_classification.has(StringName(animation_name)):
+				var anim_index = all_animations.find(animation_name)
 				animation_transiton_points = all_transition_curves[anim_index].get_baked_points()
-				animation_stuff.play("tree_idle")
+				animation_stuff.play(animation_name)
 			
 			var head_position :Vector3 = animation_transiton_points[animation_transiton_points.size() - 1]
 			var parent_node :Node3D = get_parent()
@@ -265,7 +279,7 @@ func _physics_process(delta: float) -> void:
 				next_target = patrol_objects.pick_random()
 			target = next_target
 
-			if target.is_in_group("chair"):
+			if target.is_in_group("marker_action"):
 				print("found a chair")
 				snake_state = "going_to_idle"
 			pick_new_object = false
@@ -466,6 +480,7 @@ func _make_curve_from_animation(whole_lib :AnimationPlayer, snake_skeleton :Skel
 	if not debug:
 		for i in anim_list.size():
 			whole_lib.play(anim_list[i])
+			
 			whole_lib.advance(0)
 			#whole_lib.seek(0.0,true,false)
 			var curve_new :Curve3D = Curve3D.new()
@@ -474,4 +489,5 @@ func _make_curve_from_animation(whole_lib :AnimationPlayer, snake_skeleton :Skel
 				curve_new.add_point(bone_position)
 			curve_new.resource_name = anim_list[i]
 			transition_curves.append(curve_new)
+			
 	return transition_curves

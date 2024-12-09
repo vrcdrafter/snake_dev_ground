@@ -66,7 +66,7 @@ environment = SubResource("Environment_wpbe3")
 
 [node name="idle_objects" type="Node3D" parent="."]
 
-[node name="chair" type="MeshInstance3D" parent="idle_objects" groups=["chair", "tree_idle"]]
+[node name="chair" type="MeshInstance3D" parent="idle_objects" groups=["anim_typing", "marker_action"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13.3167, 2.02191, 0)
 mesh = SubResource("CylinderMesh_wa5mw")
 
