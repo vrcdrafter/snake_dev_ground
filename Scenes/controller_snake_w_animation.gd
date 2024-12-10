@@ -226,6 +226,7 @@ func _process(delta: float) -> void:
 				var anim_index = all_animations.find(animation_name)
 				animation_transiton_points = all_transition_curves[anim_index].get_baked_points()
 				animation_stuff.play(animation_name)
+			# add a group to the target so that its now occupied 
 			
 			var head_position :Vector3 = animation_transiton_points[animation_transiton_points.size() - 1]
 			var parent_node :Node3D = get_parent()
@@ -279,9 +280,10 @@ func _physics_process(delta: float) -> void:
 				next_target = patrol_objects.pick_random()
 			target = next_target
 
-			if target.is_in_group("marker_action"):
+			if target.is_in_group("marker_action") and not target.is_in_group("occupied"):
 				print("found a chair")
 				snake_state = "going_to_idle"
+				target.add_to_group("occupied")
 			pick_new_object = false
 			
 		

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://blaqrknuwgukj"]
+[gd_scene load_steps=8 format=3 uid="uid://blaqrknuwgukj"]
 
 [ext_resource type="Script" path="res://Scenes/controller_snake_w_animation.gd" id="3_d6xp5"]
 [ext_resource type="PackedScene" uid="uid://2w7rk0gefkn" path="res://level_data/snake_hefty_animated_2.glb" id="3_ml5qx"]
 [ext_resource type="Curve3D" uid="uid://dy3s7d0bh1khi" path="res://Resources/perfect_ensnarement_2.tres" id="4_apdxa"]
+[ext_resource type="Material" uid="uid://dfjj2ephomx7d" path="res://Materials/experimetal_snake_with_animation.tres" id="4_cny2c"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ipe6r"]
 
@@ -34,37 +35,8 @@ curve = ExtResource("4_apdxa")
 
 [node name="snake_hefty_animated_2" parent="." instance=ExtResource("3_ml5qx")]
 
-[node name="Skeleton3D" parent="snake_hefty_animated_2/Armature_001" index="0"]
-bones/0/position = Vector3(0.00576407, 1.43517, 1.0084)
-bones/0/rotation = Quaternion(-0.531594, -0.478443, 0.432924, 0.548705)
-bones/1/rotation = Quaternion(-0.272358, -0.00937901, -0.0045483, 0.96214)
-bones/2/rotation = Quaternion(0.0557711, -0.0994519, 0.129573, 0.984992)
-bones/3/rotation = Quaternion(0.530731, 0.0243673, 0.118004, 0.838931)
-bones/4/rotation = Quaternion(0.472604, 0.190301, 0.248486, 0.823824)
-bones/5/rotation = Quaternion(0.114045, -0.0823013, 0.329833, 0.933504)
-bones/6/rotation = Quaternion(0.0735129, -0.0985704, 0.143752, 0.981945)
-bones/7/rotation = Quaternion(0.25902, -0.0381004, 0.376412, 0.88869)
-bones/8/rotation = Quaternion(0.22158, 0.0829786, 0.274511, 0.932019)
-bones/9/rotation = Quaternion(0.348268, -0.124992, 0.273173, 0.887954)
-bones/10/rotation = Quaternion(0.229643, -0.140986, 0.410161, 0.871295)
-bones/11/rotation = Quaternion(-0.0302144, -0.0223673, 0.187243, 0.981594)
-bones/12/rotation = Quaternion(0.549799, -0.145707, 0.166137, 0.805537)
-bones/13/rotation = Quaternion(0.144096, 0.0384107, 0.0790151, 0.985656)
-bones/14/rotation = Quaternion(0.0395951, -0.00655449, 0.057963, 0.997512)
-bones/15/rotation = Quaternion(0.39544, -0.0518985, 0.278236, 0.873795)
-bones/16/rotation = Quaternion(0.163767, -0.0427741, 0.0402826, 0.984748)
-bones/17/rotation = Quaternion(0.262453, -0.0496812, 0.277252, 0.92292)
-bones/18/rotation = Quaternion(0.225833, 0.0126535, 0.159571, 0.960925)
-bones/19/rotation = Quaternion(0.181063, 0.0675154, 0.0233179, 0.980874)
-bones/20/rotation = Quaternion(0.268037, 0.00488879, 0.288021, 0.919335)
-bones/21/rotation = Quaternion(0.121249, -0.0148881, 0.171846, 0.97752)
-bones/22/rotation = Quaternion(0.124951, -0.0676351, 0.185653, 0.972289)
-bones/23/rotation = Quaternion(0.311851, -0.0794626, 0.417628, 0.849719)
-bones/24/rotation = Quaternion(0.322712, 0.0854863, 0.0483544, 0.941388)
-bones/25/rotation = Quaternion(0.308025, 0.0618577, 0.164372, 0.935027)
-bones/26/rotation = Quaternion(0.148781, 0.00527748, 0.11485, 0.982164)
-bones/27/rotation = Quaternion(0.113005, 0.0105803, 0.0803976, 0.99028)
-bones/28/rotation = Quaternion(0.122088, -0.00282671, 0.0795278, 0.989324)
-bones/29/rotation = Quaternion(0.122629, 0.0283526, 0.346666, 0.929506)
+[node name="Cube_002" parent="snake_hefty_animated_2/Armature_001/Skeleton3D" index="0"]
+material_override = ExtResource("4_cny2c")
+extra_cull_margin = 1000.0
 
 [editable path="snake_hefty_animated_2"]
