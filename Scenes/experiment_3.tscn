@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://e0olfir68i4m"]
+[gd_scene load_steps=20 format=3 uid="uid://e0olfir68i4m"]
 
 [ext_resource type="Script" path="res://Scripts/frame_rate_manager.gd" id="1_dbafg"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_dlol5"]
@@ -32,8 +32,6 @@ reflected_light_source = 2
 [sub_resource type="CylinderMesh" id="CylinderMesh_wa5mw"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_p80ne"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_p80ne"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_74opj"]
 
@@ -77,28 +75,12 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.301
 mesh = SubResource("PrismMesh_p80ne")
 
 [node name="chair2" type="MeshInstance3D" parent="idle_objects" groups=["anim_typing", "marker_action"]]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17.3534, 2.02191, 39.3258)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.749, 2.02191, 0)
 mesh = SubResource("CylinderMesh_wa5mw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="idle_objects/chair2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.30125e-08, 0, 0.526464)
 mesh = SubResource("PrismMesh_p80ne")
-
-[node name="cube1" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.921, 2.41092, -15.2296)
-mesh = SubResource("BoxMesh_p80ne")
-
-[node name="cube3" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.87489, 2.41092, -38.2134)
-mesh = SubResource("BoxMesh_p80ne")
-
-[node name="cube4" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.87489, 2.41092, 21.9069)
-mesh = SubResource("BoxMesh_p80ne")
-
-[node name="cube2" type="MeshInstance3D" parent="idle_objects" groups=["patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38591, 2.54587, 3.40267)
-mesh = SubResource("BoxMesh_p80ne")
 
 [node name="key1" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.1)
@@ -330,64 +312,7 @@ text = "RESTART"
 transform = Transform3D(1, 0, 0, 0, -0.0189532, 0.99982, 0, -0.99982, -0.0189532, 0, 11.9644, 0)
 
 [node name="dynamic_snake" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.61903, 1.5182, -8.62161)
-
-[node name="dynamic_snake2" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.61903, 1.5182, 12.6007)
-
-[node name="dynamic_snake3" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.09635, 1.5182, 11.7205)
-
-[node name="dynamic_snake4" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.6816, 1.5182, -5.79473)
-
-[node name="dynamic_snake5" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.6816, 1.5182, 26.7775)
-
-[node name="dynamic_snake6" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.26412, 1.5182, 26.7775)
-
-[node name="dynamic_snake7" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9939, 1.5182, 26.7775)
-
-[node name="dynamic_snake8" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9939, 1.5182, -38.405)
-
-[node name="dynamic_snake9" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20331, 1.5182, -38.405)
-
-[node name="dynamic_snake10" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.0316, 1.5182, -38.405)
-
-[node name="dynamic_snake11" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.61903, 1.5182, 0.817338)
-
-[node name="dynamic_snake12" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.61903, 1.5182, 22.0396)
-
-[node name="dynamic_snake13" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.09635, 1.5182, 21.1594)
-
-[node name="dynamic_snake14" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.6816, 1.5182, 3.64422)
-
-[node name="dynamic_snake15" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.6816, 1.5182, 36.2164)
-
-[node name="dynamic_snake16" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.26412, 1.5182, 36.2164)
-
-[node name="dynamic_snake17" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9939, 1.5182, 36.2164)
-
-[node name="dynamic_snake18" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9939, 1.5182, -28.9661)
-
-[node name="dynamic_snake19" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20331, 1.5182, -28.9661)
-
-[node name="dynamic_snake20" parent="." instance=ExtResource("9_p80ne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.0316, 1.5182, -28.9661)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.94225, 1.5182, 8.49283)
 
 [connection signal="timeout" from="Game_over_timer" to="Player" method="_on_game_over_timer_timeout"]
 [connection signal="body_entered" from="level_exit/Area3D" to="level_exit" method="_on_area_3d_body_entered"]

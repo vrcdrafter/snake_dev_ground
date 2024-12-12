@@ -14,6 +14,9 @@ albedo_color = Color(0.27177, 1, 0.241704, 1)
 
 [node name="dynamic_snake" type="Node3D"]
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
 [node name="head" type="CharacterBody3D" parent="." groups=["snake"]]
 visible = false
 collision_layer = 0
@@ -38,5 +41,7 @@ curve = ExtResource("4_apdxa")
 [node name="Cube_002" parent="snake_hefty_animated_2/Armature_001/Skeleton3D" index="0"]
 material_override = ExtResource("4_cny2c")
 extra_cull_margin = 1000.0
+
+[connection signal="timeout" from="Timer" to="head" method="_on_timer_timeout"]
 
 [editable path="snake_hefty_animated_2"]

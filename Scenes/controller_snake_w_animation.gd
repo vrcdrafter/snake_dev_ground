@@ -11,6 +11,7 @@ var bone_numbers :int = 0
 @onready var body_piece_one :MeshInstance3D = get_node("../body1")
 @onready var body_piece_two :MeshInstance3D = get_node("../body2")
 @onready var nav : NavigationAgent3D = $NavigationAgent3D
+@onready var timer_anim : Timer = get_node("../Timer")
 signal ensnared 
 @export var target : Node3D
 
@@ -231,6 +232,9 @@ func _process(delta: float) -> void:
 			var head_position :Vector3 = animation_transiton_points[animation_transiton_points.size() - 1]
 			var parent_node :Node3D = get_parent()
 			idle_animation = true
+			
+			timer_anim.start()
+			
 			old_position_snake_for_idle = parent_node.global_position # we use this later to go back into slither 
 			old_rotation_snake_for_idle = parent_node.rotation_degrees
 			parent_node.global_position = target.global_position - head_position
@@ -242,6 +246,8 @@ func _process(delta: float) -> void:
 			parent_rotation_deg = parent_node.rotation_degrees.y
 			# move the curve as well 
 			path.curve.clear_points()
+			
+			
 			
 	if (target.global_position - global_position).length() >3 and running_on_track : # this will be continue chase , relace with other condition 
 		move_segments_back_normal()
@@ -303,6 +309,15 @@ func _physics_process(delta: float) -> void:
 			emit_signal("state_change")
 			pick_new_object = true
 			
+			if snake_state == "idle_anim": # need a real condition for this , when its going into patrol 
+				var parent_node :Node3D = get_parent()
+				parent_node.global_position = old_position_snake_for_idle
+				parent_node.rotation = old_rotation_snake_for_idle
+				global_position = target.global_position 
+				# remember these are the two lines that keep the snake all oriented during these movements . 
+				parent_basis = parent_node.global_transform
+				parent_rotation_deg = parent_node.rotation_degrees.y
+			
 		if (snake_to_player < 5) and not (snake_state == "player_seeking"):
 			if snake_state == "idle_anim":
 				var parent_node :Node3D = get_parent()
@@ -312,7 +327,7 @@ func _physics_process(delta: float) -> void:
 				# remember these are the two lines that keep the snake all oriented during these movements . 
 				parent_basis = parent_node.global_transform
 				parent_rotation_deg = parent_node.rotation_degrees.y
-			
+		
 			animation_stuff.stop()
 			snake_state = "player_seeking"
 			emit_signal("state_change")
@@ -353,6 +368,10 @@ func _physics_process(delta: float) -> void:
 		pass # meaning your not ensnared yet and your not chasing or in patrol 
 	elif snake_state == "player_seeking":
 		pass # meaning your not ensnared yet and your not chasing or in patrol 
+	elif snake_state == "patrol":
+		pass
+	elif snake_state == "going_to_idle":
+		pass
 	else:
 		_ensnared = true
 		
@@ -493,3 +512,9 @@ func _make_curve_from_animation(whole_lib :AnimationPlayer, snake_skeleton :Skel
 			transition_curves.append(curve_new)
 			
 	return transition_curves
+
+
+func _on_timer_timeout() -> void:
+	idle_animation = false
+	target.remove_from_group("occupied")
+	
