@@ -309,10 +309,11 @@ func _physics_process(delta: float) -> void:
 			emit_signal("state_change")
 			pick_new_object = true
 			
-			if snake_state == "idle_anim": # need a real condition for this , when its going into patrol 
+			if target.is_in_group("marker_action"): # need a real condition for this , when its going into patrol 
 				var parent_node :Node3D = get_parent()
 				parent_node.global_position = old_position_snake_for_idle
 				parent_node.rotation = old_rotation_snake_for_idle
+				
 				global_position = target.global_position 
 				# remember these are the two lines that keep the snake all oriented during these movements . 
 				parent_basis = parent_node.global_transform
@@ -323,6 +324,7 @@ func _physics_process(delta: float) -> void:
 				var parent_node :Node3D = get_parent()
 				parent_node.global_position = old_position_snake_for_idle
 				parent_node.rotation = old_rotation_snake_for_idle
+				
 				global_position = target.global_position 
 				# remember these are the two lines that keep the snake all oriented during these movements . 
 				parent_basis = parent_node.global_transform
