@@ -182,29 +182,31 @@ func _process(delta: float) -> void:
 		tris_ready = true
 
 
-	
-	if (target.global_position - global_position).length() < 2 and not running_on_track and not snake_state == "idle_anim":
-			if snake_state == "going_to_idle":
-				
-				var target_classification :Array[StringName] = target.get_groups()
-		
-				var anim_int :int = target_classification.find("*anim*")
-				for i in target_classification.size():
-					if target_classification[i].contains("anim"):
-						anim_int = i 
+	if target == null:
+		pass
+	else:
+		if (target.global_position - global_position).length() < 2 and not running_on_track and not snake_state == "idle_anim":
+				if snake_state == "going_to_idle":
 					
-				var animation_name :String = target_classification[anim_int] # finds the wrong one 
-				if target_classification.has(StringName(animation_name)):
-					animation_transiton_points = all_transition_curves[0].get_baked_points()
-					print("num of points ",all_transition_curves[0].get_baked_points().size())
-				var head_position = animation_transiton_points[0]
-				head_position.y = 0
-				make_ensnarement_curve(shift_rotate_points(animation_transiton_points,target.rotation_degrees.y,head_position),rotate_heper)
-			else:
-				make_ensnarement_curve(ensnarement_points,rotate_heper) # jsut make track one 
-				emit_signal("ensnared")
-			move_segments_to_path()
-			running_on_track = true
+					var target_classification :Array[StringName] = target.get_groups()
+			
+					var anim_int :int = target_classification.find("*anim*")
+					for i in target_classification.size():
+						if target_classification[i].contains("anim"):
+							anim_int = i 
+						
+					var animation_name :String = target_classification[anim_int] # finds the wrong one 
+					if target_classification.has(StringName(animation_name)):
+						animation_transiton_points = all_transition_curves[0].get_baked_points()
+						print("num of points ",all_transition_curves[0].get_baked_points().size())
+					var head_position = animation_transiton_points[0]
+					head_position.y = 0
+					make_ensnarement_curve(shift_rotate_points(animation_transiton_points,target.rotation_degrees.y,head_position),rotate_heper)
+				else:
+					make_ensnarement_curve(ensnarement_points,rotate_heper) # jsut make track one 
+					emit_signal("ensnared")
+				move_segments_to_path()
+				running_on_track = true
 			
 	if running_on_track and follow_path_array[bone_numbers-1].progress_ratio > .99:
 		halt = true
@@ -248,12 +250,14 @@ func _process(delta: float) -> void:
 			path.curve.clear_points()
 			
 			
+	if target == null:
+		pass
+	else:
+		if (target.global_position - global_position).length() >3 and running_on_track : # this will be continue chase , relace with other condition 
+			move_segments_back_normal()
+			running_on_track =false
+			halt = false
 			
-	if (target.global_position - global_position).length() >3 and running_on_track : # this will be continue chase , relace with other condition 
-		move_segments_back_normal()
-		running_on_track =false
-		halt = false
-		
 
 
 

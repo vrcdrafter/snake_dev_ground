@@ -7,7 +7,7 @@ signal restor_speed
 signal remove_mouse
 
 var snake_new = preload("res://Scenes/Snake.tscn")
-
+var new_snake_animated = preload("res://Scenes/experimetal_snake_with_animation_v2.tscn")
 signal reconnect_snakes
 
 var toggle :bool = true # for the pause stuff
@@ -29,6 +29,19 @@ func _process(delta: float) -> void:
 	var frames = Engine.get_frames_per_second()
 	
 	Frame_label.text = str(frames)
+	
+	var snakes :int = 0 
+	
+	var all_nodes :Array = get_children() 
+	
+	for i in all_nodes.size():
+		
+		if all_nodes[i].is_in_group("snake"):
+			snakes += 1
+	print("num of snakes", snakes,GlobalVars.next_level )
+	if GlobalVars.next_level == "res://Scenes/experiment_3.tscn":
+		
+		$snake_number.text = str(snakes)
 	
 
 
@@ -67,8 +80,13 @@ func _input(event: InputEvent) -> void:
 			toggle = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			$menu.visible = false
-
-
+	if Input.is_action_just_pressed("add_snake"):
+		
+		var new_snake :Node3D = new_snake_animated.instantiate()
+		new_snake.global_position = Vector3(0,1,0)
+		new_snake.add_to_group("snake")
+		add_child(new_snake,true)
+		print("new snake", new_snake.get_groups())
 func _on_button_button_down() -> void:
 	Engine.time_scale = 1
 	GlobalVars.next_level = "res://Scenes/title.tscn"

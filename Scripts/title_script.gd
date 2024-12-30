@@ -95,3 +95,9 @@ func setup_level():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	GlobalVars.game_started = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func _on_level_5_button_down() -> void:
+	GlobalVars.next_level = "res://Scenes/experiment_3.tscn"
+	get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+	setup_level()

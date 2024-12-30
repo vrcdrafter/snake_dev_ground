@@ -12,7 +12,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea0iy"]
 albedo_color = Color(0.27177, 1, 0.241704, 1)
 
-[node name="dynamic_snake" type="Node3D"]
+[node name="dynamic_snake" type="Node3D" groups=["snake"]]
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
