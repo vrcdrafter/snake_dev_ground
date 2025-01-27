@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 		
 		if all_nodes[i].is_in_group("snake"):
 			snakes += 1
-	print("num of snakes", snakes,GlobalVars.next_level )
+	
 	if GlobalVars.next_level == "res://Scenes/experiment_3.tscn":
 		
 		$snake_number.text = str(snakes)

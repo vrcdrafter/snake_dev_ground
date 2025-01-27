@@ -353,11 +353,11 @@ func _physics_process(delta: float) -> void:
 		if new_velocity.length() != 0:
 			var perpendicular :Vector3 = Vector3(new_velocity.z/new_velocity.length(),new_velocity.y,-new_velocity.x/new_velocity.length())
 			var waving_perpendicular :Vector3 = perpendicular.normalized() * wave_thing
-			
+		
 			velocity = new_velocity + waving_perpendicular
 		else:
 			velocity = new_velocity
-
+		
 		move_and_slide()
 	
 	if not running_on_track and not halt and not(snake_state == "idle_anim") :
