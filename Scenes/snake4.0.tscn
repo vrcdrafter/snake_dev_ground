@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5tfiulrt4487"]
+
+[ext_resource type="Script" path="res://Scenes/snake_controller_4v0.gd" id="1_pwjfk"]
+[ext_resource type="PackedScene" uid="uid://2w7rk0gefkn" path="res://level_data/snake_hefty_animated_2.glb" id="2_df6gu"]
+
+[node name="dynamic_snake" type="Node3D"]
+script = ExtResource("1_pwjfk")
+
+[node name="snake_hefty_animated_2" parent="." instance=ExtResource("2_df6gu")]
+
+[editable path="snake_hefty_animated_2"]

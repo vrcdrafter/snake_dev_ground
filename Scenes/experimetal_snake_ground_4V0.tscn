@@ -1,0 +1,146 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxhqkru7kmp2a"]
+
+[ext_resource type="PackedScene" uid="uid://b5tfiulrt4487" path="res://Scenes/snake4.0.tscn" id="1_ubood"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_2lqy7"]
+vertices = PackedVector3Array(-44.8579, 1.5182, -62.6739, -44.8579, 1.5182, 62.6261, 44.8421, 1.5182, 62.6261, 44.8421, 1.5182, -62.6739)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_size = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_tylgm"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_7nt77"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="dynamic_snake" parent="." instance=ExtResource("1_ubood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.42999, 0)
+
+[node name="Cube_002" parent="dynamic_snake/snake_hefty_animated_2/Armature_001/Skeleton3D" index="0"]
+visible = false
+
+[node name="NavRegion" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_2lqy7")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="NavRegion"]
+transform = Transform3D(90.7158, 0, 0, 0, 2.5, 0, 0, 0, 126.348, 0, -0.231797, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_tylgm")
+
+[node name="lights" type="Node3D" parent="."]
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 33.2426, 24.5076, 14.0552)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 37.5927
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -2.19176, 24.6392, -57.201)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -9.36492, 18.4428, -27.8667)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -28.4017, 20.9349, -11.7136)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, -20.1571, 15.715, 8.72342)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 3.42398, 23.7957, -9.38663)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 21.9447, 14.9389, 7.87686)
+light_energy = 11.633
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.0158294, 0.999875, 0, -0.999875, -0.0158294, 37.1059, 20.8251, -11.3036)
+light_energy = 11.633
+light_indirect_energy = 1.099
+light_bake_mode = 1
+shadow_bias = 1.347
+shadow_normal_bias = 0.401
+shadow_transmittance_bias = -0.142
+shadow_opacity = 0.86
+shadow_blur = 0.042
+spot_range = 44.426
+spot_attenuation = 0.170755
+spot_angle = 42.2129
+
+[node name="test_camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.852357, 0.52296, 0, -0.52296, 0.852357, 0, 8.68988, 7.09641)
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7994, 1.91779, 0)
+mesh = SubResource("PrismMesh_7nt77")
+
+[editable path="dynamic_snake"]
+[editable path="dynamic_snake/snake_hefty_animated_2"]
