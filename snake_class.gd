@@ -1,9 +1,10 @@
+@icon("res://snake_icon.svg")
 extends Node3D
 class_name Snake
 
 
+var ensarement_path :Path3D
 
-var path :Path3D 
 var curve :Curve3D
 var ensnarement_points :PackedVector3Array
 var animation_transiton_points :PackedVector3Array
@@ -67,9 +68,9 @@ func calc_length(skeleton :Skeleton3D):
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
 	return bone_length
 	
-func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_pimitived :Array[Node3D]):
+func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_pimitived :Array[MeshInstance3D],target):
 	# first make curve for all points where snake is at that moment 
- 
+ 	
 	var parent_node :Node3D = get_parent()
 	var parent_basis :Transform3D = parent_node.global_transform
 	var parent_rotation_deg :float = parent_node.rotation_degrees.y
@@ -87,7 +88,8 @@ func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_p
 		var parent_thing :Node3D= get_node("..")
 		var magic_numver :Vector3 = target.global_position - parent_thing.global_position
 
-		curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(parent_rotation_deg * -1)) + Vector3(0,-.7,0)) # so there is a issue right here where the ensarement points are in the boonies rigth when you rotate
+		curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(parent_rotation_deg * -1)) + Vector3(0,-.7,0)) 
+	ensarement_path.curve = curve
 
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
@@ -229,3 +231,16 @@ func nav_startup_physics_process(delta,head_object :MeshInstance3D):
 	
 func set_movement_target(movement_target: Vector3):
 	navigation_agent.set_target_position(movement_target)
+	
+	
+func initialize_ensnarment_curve():
+	curve = Curve3D.new() # this is the one that will get remade again and again with each ensnarement
+	var curve_resource :Curve3D = load("res://Resources/perfect_ensnarement_2.tres")
+	var curve :Curve3D = Curve3D.new() #may not use this
+	ensnarement_points = curve_resource.get_baked_points()
+	
+	# make a path too 
+	ensarement_path = Path3D.new()
+	add_child(ensarement_path)
+	
+	

@@ -8,6 +8,8 @@ func _ready() -> void:
 	# make triangles for each bone in snake , move position to each bone 
 	#make_tris() ( head tris is green ) 
 	make_tris()
+	# initialize the ensnarment points , basically the points where the snake wraps around . 
+	initialize_ensnarment_curve()
 	
 	nav_startup_ready() # starts up the navigation
 	print("ran this")
@@ -25,14 +27,16 @@ func _physics_process(delta: float) -> void:
 			#start tris following eachother
 			follower(delta,tri_array,bone_length)
 			if (test_mesh.global_position - tri_array[0].global_position).length() < 1:
-				print("your close , start to ensnare")
+				
 				snake_state = "ensnare"
 		"ensnare":
-			pass
+			
 			# run through ensnare routine 
 			# move segments to 
-			#make_ensnarement_curve()
+
+			make_ensnarement_curve(ensnarement_points,tri_array,test_mesh)
 			#move_segments_to_path()
+			snake_state = "chase"
 			
 		"chase":
 			#slither toward target fast (target is player)

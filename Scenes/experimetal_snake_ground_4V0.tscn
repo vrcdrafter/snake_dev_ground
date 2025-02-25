@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxhqkru7kmp2a"]
+[gd_scene load_steps=6 format=3 uid="uid://cxhqkru7kmp2a"]
 
 [ext_resource type="PackedScene" uid="uid://b5tfiulrt4487" path="res://Scenes/snake4.0.tscn" id="1_ubood"]
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="2_ubood"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_2lqy7"]
 vertices = PackedVector3Array(-44.8579, 1.5182, -62.6739, -44.8579, 1.5182, 62.6261, 44.8421, 1.5182, 62.6261, 44.8421, 1.5182, -62.6739)
@@ -135,8 +136,9 @@ spot_attenuation = 0.170755
 spot_angle = 42.2129
 
 [node name="test_camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.852357, 0.52296, 0, -0.52296, 0.852357, 0, 8.68988, 7.09641)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 17.5612, 3.3051e-07)
 current = true
+script = ExtResource("2_ubood")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7994, 1.91779, 0)
