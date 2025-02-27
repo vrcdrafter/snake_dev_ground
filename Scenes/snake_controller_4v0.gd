@@ -1,5 +1,5 @@
 extends Snake
-
+var ensnare_state :String = "path"
 var snake_state :String = "patrol"
 @onready var test_mesh :MeshInstance3D = get_node("../MeshInstance3D")
 
@@ -30,13 +30,22 @@ func _physics_process(delta: float) -> void:
 				
 				snake_state = "ensnare"
 		"ensnare":
-			
-			# run through ensnare routine 
-			# move segments to 
-
-			make_ensnarement_curve(ensnarement_points,tri_array,test_mesh)
-			#move_segments_to_path()
-			snake_state = "chase"
+			var ennarement_done :bool = false
+			match ensnare_state:
+				
+				"path":
+					make_ensnarement_curve(ensnarement_points,tri_array,test_mesh)
+					move_segments_to_path()
+					ensnare_state = "run"
+				"run":
+					ennarement_done = move_segments_along_path(delta)
+					if ennarement_done:
+						ensnare_state = "finished"
+				"finished":
+					# possibly run squeese animation 
+					pass
+				"abort":
+					pass
 			
 		"chase":
 			#slither toward target fast (target is player)

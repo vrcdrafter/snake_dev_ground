@@ -71,14 +71,15 @@ func calc_length(skeleton :Skeleton3D):
 func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_pimitived :Array[MeshInstance3D],target):
 	# first make curve for all points where snake is at that moment 
  	
-	var parent_node :Node3D = get_parent()
-	var parent_basis :Transform3D = parent_node.global_transform
-	var parent_rotation_deg :float = parent_node.rotation_degrees.y
-
+	var node :Node3D = self
+	var transform_global :Transform3D = self.global_transform
+	var rotation_global_y :float = self.rotation_degrees.y
+	var position_global :Vector3 = self.global_position
+	var rotation_global :Vector3 = self.rotation
 	var points :Array[Vector3] 
 	for i in range(body_segment_pimitived.size()):
 
-		points.append((body_segment_pimitived[i].global_position - parent_node.global_position).rotated(Vector3(0,1,0),deg_to_rad(parent_rotation_deg * -1)))
+		points.append((body_segment_pimitived[i].global_position - position_global).rotated(Vector3(0,1,0),deg_to_rad(rotation_global_y * -1)))
 	curve.clear_points()
 	points.pop_front() # have no idea why I have to do this 
 	for i in points.size():
@@ -86,9 +87,9 @@ func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_p
 	# add points to current curve , no rotation yet
 	for i in ensnarement_data.size():
 		var parent_thing :Node3D= get_node("..")
-		var magic_numver :Vector3 = target.global_position - parent_thing.global_position
+		var magic_numver :Vector3 = target.global_position - position_global
 
-		curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(parent_rotation_deg * -1)) + Vector3(0,-.7,0)) 
+		curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(rotation_global_y * -1)) + Vector3(0,0,0)) 
 	ensarement_path.curve = curve
 
 func move_segments_to_path():
@@ -97,15 +98,18 @@ func move_segments_to_path():
 	for i in bone_numbers:
 		follow_path_array.append(PathFollow3D.new())
 		follow_path_array[i].name = "path" + str(i)
-		get_node("../Path3D").add_child(follow_path_array[i])
-	
+		ensarement_path.add_child(follow_path_array[i])
+
 	# move each segment into array 
 	for i in bone_numbers:
-		get_node("..").remove_child(rotate_heper[i])
-		rotate_heper[i].global_position = Vector3(0,0,0)
-		get_node("../Path3D/"+ "path" + str(i) ).add_child(rotate_heper[i])
-		get_node("../Path3D/"+ "path" + str(i)).set_progress(i*bone_length*1.1)
 
+		remove_child(tri_array[i])
+		follow_path_array[i].add_child(tri_array[i])
+		tri_array[i].transform.origin = Vector3(0, 0, 0)
+		tri_array[i].rotation_degrees = Vector3(0, 0, 0)
+		
+		#follow_path_array[i].set_progress(i*bone_length*1.1) # may need this backwards, MICROSOFT AI < PLEASE HELP HERE > 
+		follow_path_array[i].set_progress((bone_numbers - 1 - i) * bone_length * 1.1)
 func move_segments_back_normal():
 	var tri_pos :Array[Vector3] 
 	for i in bone_numbers:
@@ -243,4 +247,10 @@ func initialize_ensnarment_curve():
 	ensarement_path = Path3D.new()
 	add_child(ensarement_path)
 	
-	
+func move_segments_along_path(delta) -> bool:
+	for i in bone_numbers:
+		follow_path_array[i].progress += 8 *delta
+	if follow_path_array[0].progress_ratio > .99:
+		return true
+	else:
+		return false
