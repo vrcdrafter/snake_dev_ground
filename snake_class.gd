@@ -111,19 +111,16 @@ func move_segments_to_path():
 		#follow_path_array[i].set_progress(i*bone_length*1.1) # may need this backwards, MICROSOFT AI < PLEASE HELP HERE > 
 		follow_path_array[i].set_progress((bone_numbers - 1 - i) * bone_length * 1.1)
 func move_segments_back_normal():
-	var tri_pos :Array[Vector3] 
+	var tri_pos :Array[Transform3D] 
 	for i in bone_numbers:
-		tri_pos.append(rotate_heper[i].get_parent().position)
-		get_node("../Path3D/"+ "path" + str(i) ).remove_child(rotate_heper[i])
-		get_node("../Path3D").remove_child(follow_path_array[i])
+		tri_pos.append(tri_array[i].global_transform)
+		follow_path_array[i].remove_child(tri_array[i])
+		ensarement_path.remove_child(follow_path_array[i])
 
 	for i in bone_numbers:
-		var reverse_num :int = -i + rotate_heper.size() -1
-		# check is there is a parent 
-		if rotate_heper[reverse_num].get_parent():
-			rotate_heper[reverse_num].get_parent().remove_child(rotate_heper[reverse_num])
-		rotate_heper[reverse_num].global_position = tri_pos[i]
-		get_node("..").add_child(rotate_heper[reverse_num]) # problem is here . 
+		add_child(tri_array[i])
+		tri_array[i].global_transform = tri_pos[i]
+		
 		
 
 	 
@@ -201,7 +198,7 @@ func make_tris():
 		var new_mat :StandardMaterial3D = StandardMaterial3D.new()
 		new_mat.albedo_color = Color(0,1,0,0)
 		tri_array[0].set_surface_override_material(0,new_mat)
-
+		
 
 		tri_array[i].transform = skeleton.get_bone_global_pose(i)
 		add_child.call_deferred(tri_array[i])
@@ -209,7 +206,7 @@ func make_tris():
 # navigation stuff 
 func velocity_computed(safe_velocity: Vector3) -> void:
 	tri_array[0].global_position = tri_array[0].global_position.move_toward(tri_array[0].global_position + safe_velocity, movement_delta)
-	
+	tri_array[0].look_at(tri_array[0].global_position + safe_velocity)
 func nav_startup_ready():
 	
 	navigation_agent = NavigationAgent3D.new()

@@ -1,10 +1,13 @@
 extends Snake
 var ensnare_state :String = "path"
 var snake_state :String = "patrol"
+@onready var player :CharacterBody3D = get_node("../Player")
 @onready var test_mesh :MeshInstance3D = get_node("../MeshInstance3D")
+var snake_target = null
+
 
 func _ready() -> void:
-
+	snake_target = player
 	# make triangles for each bone in snake , move position to each bone 
 	#make_tris() ( head tris is green ) 
 	make_tris()
@@ -22,11 +25,11 @@ func _physics_process(delta: float) -> void:
 	match snake_state:
 		
 		"patrol":
-			set_movement_target(test_mesh.global_position) # assigns target
+			set_movement_target(snake_target.global_position) # assigns target
 			nav_startup_physics_process(delta,tri_array[0]) #starts up the navigation server 
 			#start tris following eachother
 			follower(delta,tri_array,bone_length)
-			if (test_mesh.global_position - tri_array[0].global_position).length() < 1:
+			if (snake_target.global_position - tri_array[0].global_position).length() < 1:
 				
 				snake_state = "ensnare"
 		"ensnare":
@@ -34,18 +37,27 @@ func _physics_process(delta: float) -> void:
 			match ensnare_state:
 				
 				"path":
-					make_ensnarement_curve(ensnarement_points,tri_array,test_mesh)
+					make_ensnarement_curve(ensnarement_points,tri_array,snake_target)
 					move_segments_to_path()
 					ensnare_state = "run"
 				"run":
 					ennarement_done = move_segments_along_path(delta)
-					if ennarement_done:
+					if ennarement_done and not ((snake_target.global_position - tri_array[0].global_position).length() < 2):
 						ensnare_state = "finished"
+					elif (snake_target.global_position - tri_array[0].global_position).length() < 2:
+						ensnare_state == "abort"
+						
+					else :
+						pass
 				"finished":
-					# possibly run squeese animation 
-					pass
+					
+					if (snake_target.global_position - tri_array[0].global_position).length() > 2.0:
+						ensnare_state = "abort"
+						
 				"abort":
-					pass
+					print("should be aboring ")
+					move_segments_back_normal()
+					snake_state = "patrol"
 			
 		"chase":
 			#slither toward target fast (target is player)

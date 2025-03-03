@@ -35,7 +35,7 @@ func _ready():
 	
 	setup_level()
 	
-	remake_connections()
+	#remake_connections()   
 	#DOES NOT WORK AND NEEDS TO BE MOVED#
 	if GlobalVars.game_started == true:
 		emit_signal("remove_mouse")
