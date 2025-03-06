@@ -2,7 +2,19 @@
 extends Node3D
 class_name Snake
 
+@export var anglex :float = 0
+@export var angley :float = 0
+@export var anglez :float = 0
 
+@onready var sliderx :VSlider = get_node("../X_axis")
+@onready var slidery :VSlider = get_node("../y_axis")
+@onready var sliderz :VSlider = get_node("../z_axis")
+
+@onready var disp_x :TextEdit = get_node("../x_display")
+@onready var disp_y :TextEdit = get_node("../y_display")
+@onready var disp_z :TextEdit = get_node("../z_display")
+
+@export var hide_triangles :bool = false
 var ensarement_path :Path3D
 
 var curve :Curve3D
@@ -30,6 +42,11 @@ var debug = false
 var navigation_agent :NavigationAgent3D 
 var movement_speed: float = 4.0
 var movement_delta: float
+
+# snake wave stuff
+var time :float = 0
+var snake_wavyness :float = .1
+var wave_thing :float = 0
 
 
 func _init() -> void:
@@ -98,6 +115,7 @@ func move_segments_to_path():
 	for i in bone_numbers:
 		follow_path_array.append(PathFollow3D.new())
 		follow_path_array[i].name = "path" + str(i)
+		follow_path_array[i].tilt_enabled = false
 		ensarement_path.add_child(follow_path_array[i])
 
 	# move each segment into array 
@@ -125,22 +143,22 @@ func move_segments_back_normal():
 
 	 
 func override_skeleton(skeleton_L :Skeleton3D): # need to changet this for two cases , one for ensnarement , one for chasing , right now only looks right for chasing !!!!!!!!!!!
-	skeleton_L.rotation_degrees = Vector3(0,parent_rotation_deg * -1,0)  # i am not sure why i need to make this a -1 yet
-	if running_on_track:
-		for i in bone_numbers:
-			var transform = tri_array[-i+bone_numbers-1].get_global_transform()
-			transform.origin = transform.origin - parent_basis.origin
-			
-			skeleton_L.set_bone_global_pose_override(i, transform, 1, true)
-			skeleton_L.set_bone_pose_rotation(i, tri_array[-i+bone_numbers-1].global_transform.basis.get_rotation_quaternion())
-	else:
-		for i in bone_numbers:
-			var transform = tri_array[i].get_global_transform()
-			transform.origin = transform.origin - parent_basis.origin
-			
-			skeleton_L.set_bone_global_pose_override(i, transform, 1, true)
-			skeleton_L.set_bone_pose_rotation(i, tri_array[i].global_transform.basis.get_rotation_quaternion())
 
+	var trans_new :Transform3D = Transform3D.IDENTITY
+	var trans_prime :Transform3D
+	trans_prime = trans_new.rotated(Vector3(1,0,0),deg_to_rad(90))
+	trans_prime = trans_new.rotated(Vector3(0,1,0),deg_to_rad(0)) * trans_prime
+	trans_prime = trans_new.rotated(Vector3(0,0,1),deg_to_rad(90)) * trans_prime
+
+	
+	disp_x.text = str(sliderx.value)
+	disp_y.text = str(slidery.value)
+	disp_z.text = str(sliderz.value)
+	
+	for i in bone_numbers:
+		
+		skeleton_L.set_bone_global_pose_override(i, self.transform.inverse() * tri_array[i].global_transform * trans_prime, 1, true)
+		#so the self.transform.inverse()  is what makes the snake note mobile and cane be moved anywhere around the scene 
 
 	
 func move_triangles_to_bones(tris :Array[Node3D]):
@@ -202,11 +220,26 @@ func make_tris():
 
 		tri_array[i].transform = skeleton.get_bone_global_pose(i)
 		add_child.call_deferred(tri_array[i])
+		
+		if hide_triangles:
+			tri_array[i].hide()
 
 # navigation stuff 
 func velocity_computed(safe_velocity: Vector3) -> void:
-	tri_array[0].global_position = tri_array[0].global_position.move_toward(tri_array[0].global_position + safe_velocity, movement_delta)
+	
+	var new_velocity = tri_array[0].global_position.move_toward(tri_array[0].global_position + safe_velocity, movement_delta)
+	# need to include the wavyness of snake
+			# run new velocty through wave algorithme 
+	if new_velocity.length() != 0:
+		var perpendicular :Vector3 = Vector3(new_velocity.z/new_velocity.length(),0.0,-new_velocity.x/new_velocity.length())
+		var waving_perpendicular :Vector3 = perpendicular.normalized() * wave_thing
+		tri_array[0].global_position = new_velocity + waving_perpendicular
+	
+	else:
+		tri_array[0].global_position = tri_array[0].global_position.move_toward(tri_array[0].global_position + safe_velocity, movement_delta)
+	
 	tri_array[0].look_at(tri_array[0].global_position + safe_velocity)
+	
 func nav_startup_ready():
 	
 	navigation_agent = NavigationAgent3D.new()
@@ -238,16 +271,39 @@ func initialize_ensnarment_curve():
 	curve = Curve3D.new() # this is the one that will get remade again and again with each ensnarement
 	var curve_resource :Curve3D = load("res://Resources/perfect_ensnarement_2.tres")
 	var curve :Curve3D = Curve3D.new() #may not use this
+
 	ensnarement_points = curve_resource.get_baked_points()
 	
 	# make a path too 
 	ensarement_path = Path3D.new()
+	
 	add_child(ensarement_path)
 	
 func move_segments_along_path(delta) -> bool:
 	for i in bone_numbers:
 		follow_path_array[i].progress += 8 *delta
+	
 	if follow_path_array[0].progress_ratio > .99:
+		print("ensarement done")
 		return true
+		
 	else:
 		return false
+
+
+func initialize_timing_sway(): # function to randomize the snakes wavyness 
+	time = randf() * 10
+	
+func snake_wave_pysics_process(delta):
+		#wavy stuff
+	time += delta
+	wave_thing = (sin(time * 2)*snake_wavyness)
+	
+	
+func find_skeleton() -> Skeleton3D:
+	var snake_skeletong :Skeleton3D = find_child("Skel*",true)
+	
+	return snake_skeletong
+	
+	
+	

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cxhqkru7kmp2a"]
 
 [ext_resource type="PackedScene" uid="uid://b5tfiulrt4487" path="res://Scenes/snake4.0.tscn" id="1_ubood"]
-[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="2_ubood"]
+[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_w2vjh"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_2lqy7"]
 vertices = PackedVector3Array(-44.8579, 1.5182, -62.6739, -44.8579, 1.5182, 62.6261, 44.8421, 1.5182, 62.6261, 44.8421, 1.5182, -62.6739)
@@ -15,10 +15,8 @@ cell_size = 0.1
 [node name="Node3D" type="Node3D"]
 
 [node name="dynamic_snake" parent="." instance=ExtResource("1_ubood")]
-transform = Transform3D(0.84151, 0, -0.54024, 0, 1, 0, 0.54024, 0, 0.84151, 0, 1, 0)
-
-[node name="Cube_002" parent="dynamic_snake/snake_hefty_animated_2/Armature_001/Skeleton3D" index="0"]
-visible = false
+transform = Transform3D(0.36616, 0, 0.930551, 0, 1, 0, -0.930551, 0, 0.36616, -6.57626, 2.59561, -17.5555)
+hide_triangles = true
 
 [node name="NavRegion" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_2lqy7")
@@ -139,8 +137,50 @@ spot_angle = 42.2129
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5583, 1.91779, -11.8973)
 mesh = SubResource("PrismMesh_7nt77")
 
-[node name="Player" parent="." instance=ExtResource("2_ubood")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6674, 13.2752, 0)
+[node name="X_axis" type="VSlider" parent="."]
+offset_left = 35.0
+offset_top = 17.0
+offset_right = 51.0
+offset_bottom = 262.0
+max_value = 360.0
+
+[node name="y_axis" type="VSlider" parent="."]
+offset_left = 74.0
+offset_top = 11.0
+offset_right = 90.0
+offset_bottom = 269.0
+max_value = 360.0
+
+[node name="z_axis" type="VSlider" parent="."]
+offset_left = 115.0
+offset_top = -3.0
+offset_right = 131.0
+offset_bottom = 268.0
+max_value = 360.0
+
+[node name="x_display" type="TextEdit" parent="."]
+offset_left = 14.0
+offset_top = 265.0
+offset_right = 65.0
+offset_bottom = 307.0
+text = "test"
+
+[node name="y_display" type="TextEdit" parent="."]
+offset_left = 61.0
+offset_top = 281.0
+offset_right = 112.0
+offset_bottom = 323.0
+text = "test"
+
+[node name="z_display" type="TextEdit" parent="."]
+offset_left = 104.0
+offset_top = 307.0
+offset_right = 155.0
+offset_bottom = 349.0
+text = "test"
+
+[node name="Player" parent="." instance=ExtResource("3_w2vjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.90565, 4.36125, 0)
 
 [editable path="dynamic_snake"]
 [editable path="dynamic_snake/snake_hefty_animated_2"]
