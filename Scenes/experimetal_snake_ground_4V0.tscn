@@ -133,8 +133,16 @@ spot_range = 44.426
 spot_attenuation = 0.170755
 spot_angle = 42.2129
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["patrol_object"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5583, 1.91779, -11.8973)
+mesh = SubResource("PrismMesh_7nt77")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8043, 1.91779, 16.6949)
+mesh = SubResource("PrismMesh_7nt77")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." groups=["patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8043, 1.91779, -18.1784)
 mesh = SubResource("PrismMesh_7nt77")
 
 [node name="X_axis" type="VSlider" parent="."]

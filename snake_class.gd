@@ -36,6 +36,8 @@ var skeleton :Skeleton3D
 var SPEED :float = 10
 var target :Node3D
 
+var patrol_objects :Array[MeshInstance3D]
+
 var debug = false
 
 # navigation agent stuff , stuff to move the green triangle
@@ -48,6 +50,11 @@ var time :float = 0
 var snake_wavyness :float = .1
 var wave_thing :float = 0
 
+
+# for snapping snake to triangles 
+
+var trans_new :Transform3D = Transform3D.IDENTITY
+var trans_prime :Transform3D
 
 func _init() -> void:
 
@@ -106,7 +113,7 @@ func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_p
 		var parent_thing :Node3D= get_node("..")
 		var magic_numver :Vector3 = target.global_position - position_global
 
-		curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(rotation_global_y * -1)) + Vector3(0,0,0)) 
+		curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(rotation_global_y * -1)) + Vector3(0,-.7,0)) 
 	ensarement_path.curve = curve
 
 func move_segments_to_path():
@@ -143,20 +150,7 @@ func move_segments_back_normal():
 
 	 
 func override_skeleton(skeleton_L :Skeleton3D): # need to changet this for two cases , one for ensnarement , one for chasing , right now only looks right for chasing !!!!!!!!!!!
-
-	var trans_new :Transform3D = Transform3D.IDENTITY
-	var trans_prime :Transform3D
-	trans_prime = trans_new.rotated(Vector3(1,0,0),deg_to_rad(90))
-	trans_prime = trans_new.rotated(Vector3(0,1,0),deg_to_rad(0)) * trans_prime
-	trans_prime = trans_new.rotated(Vector3(0,0,1),deg_to_rad(90)) * trans_prime
-
-	
-	disp_x.text = str(sliderx.value)
-	disp_y.text = str(slidery.value)
-	disp_z.text = str(sliderz.value)
-	
 	for i in bone_numbers:
-		
 		skeleton_L.set_bone_global_pose_override(i, self.transform.inverse() * tri_array[i].global_transform * trans_prime, 1, true)
 		#so the self.transform.inverse()  is what makes the snake note mobile and cane be moved anywhere around the scene 
 
@@ -223,6 +217,11 @@ func make_tris():
 		
 		if hide_triangles:
 			tri_array[i].hide()
+			
+	# does not belong here but initialize a re-orient transform used by override_skeleton
+	trans_prime = trans_new.rotated(Vector3(1,0,0),deg_to_rad(90))
+	trans_prime = trans_new.rotated(Vector3(0,1,0),deg_to_rad(0)) * trans_prime
+	trans_prime = trans_new.rotated(Vector3(0,0,1),deg_to_rad(90)) * trans_prime
 
 # navigation stuff 
 func velocity_computed(safe_velocity: Vector3) -> void:
@@ -230,8 +229,9 @@ func velocity_computed(safe_velocity: Vector3) -> void:
 	var new_velocity = tri_array[0].global_position.move_toward(tri_array[0].global_position + safe_velocity, movement_delta)
 	# need to include the wavyness of snake
 			# run new velocty through wave algorithme 
+	
 	if new_velocity.length() != 0:
-		var perpendicular :Vector3 = Vector3(new_velocity.z/new_velocity.length(),0.0,-new_velocity.x/new_velocity.length())
+		var perpendicular :Vector3 = Vector3(-new_velocity.x/new_velocity.length(),0.0,new_velocity.z/new_velocity.length())
 		var waving_perpendicular :Vector3 = perpendicular.normalized() * wave_thing
 		tri_array[0].global_position = new_velocity + waving_perpendicular
 	
@@ -305,5 +305,14 @@ func find_skeleton() -> Skeleton3D:
 	
 	return snake_skeletong
 	
+func fetch_random_patrol_object() ->MeshInstance3D:
+	var next_target :MeshInstance3D = patrol_objects.pick_random()
+	return next_target
 	
+func initialize_patrol_objects():
+	for child in get_parent().get_children():
+		if child.is_in_group("patrol_object"):
+			patrol_objects.append(child)
+			
+			
 	

@@ -24,6 +24,9 @@ func _ready() -> void:
 	
 	skel = find_skeleton()
 	
+	initialize_patrol_objects()
+	
+	snake_target = fetch_random_patrol_object() # just pick a first target . 
 	
 func _physics_process(delta: float) -> void:
 	
@@ -33,14 +36,22 @@ func _physics_process(delta: float) -> void:
 	match snake_state:
 		
 		"patrol":
+			
+			#find something to patrol to 
+			
+			
 			set_movement_target(snake_target.global_position) # assigns target
 			nav_startup_physics_process(delta,tri_array[0]) #starts up the navigation server 
 			#start tris following eachother
 			follower(delta,tri_array,bone_length)
 			
 			if tri_array[0].global_position.distance_to(snake_target.global_position) < 1:
+				# pick new object
+				var next_target :MeshInstance3D = fetch_random_patrol_object()
+				while next_target == target:
+					next_target = patrol_objects.pick_random()
+				snake_target = next_target
 				
-				snake_state = "ensnare"
 		"ensnare":
 			var ennarement_done :bool = false
 			match ensnare_state:
