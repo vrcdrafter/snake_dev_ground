@@ -92,28 +92,44 @@ func calc_length(skeleton :Skeleton3D):
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
 	return bone_length
 	
-func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_pimitived :Array[MeshInstance3D],target):
+func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_pimitived :Array[MeshInstance3D],target,anim_curve :Curve3D = null):
+	# first check if the last argument is empty 
+
 	# first make curve for all points where snake is at that moment 
- 	
+	
 	var node :Node3D = self
 	var transform_global :Transform3D = self.global_transform
 	var rotation_global_y :float = self.rotation_degrees.y
 	var position_global :Vector3 = self.global_position
 	var rotation_global :Vector3 = self.rotation
 	var points :Array[Vector3] 
+	# fetches the triangle positions of wherever the snake is at the time 
 	for i in range(body_segment_pimitived.size()):
-
 		points.append((body_segment_pimitived[i].global_position - position_global).rotated(Vector3(0,1,0),deg_to_rad(rotation_global_y * -1)))
 	curve.clear_points()
 	points.pop_front() # have no idea why I have to do this 
+	# 
+
 	for i in points.size():
 		curve.add_point(points[(points.size()-1)-i]) # add the points in revers
 	# add points to current curve , no rotation yet
-	for i in ensnarement_data.size():
-		var parent_thing :Node3D= get_node("..")
-		var magic_numver :Vector3 = target.global_position - position_global
+	# check if there is unique animation argument added , if so add those points to the curve 
+	if not anim_curve == null:
+		print(" I have some curves to process first ")
+		# clear curve as is
+		curve.clear_points()
+		var points_anim :PackedVector3Array  = anim_curve.get_baked_points()
+		for i in points_anim.size():
 
-		curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(rotation_global_y * -1)) + Vector3(0,-.7,0)) 
+			curve.add_point(target.global_transform * points_anim[i]) # no offset
+		# need to keep working here . 
+		
+	# of no unique animation add points to regular ensarment
+	else:
+		for i in ensnarement_data.size():
+			var parent_thing :Node3D= get_node("..")
+			var magic_numver :Vector3 = target.global_position - position_global
+			curve.add_point((ensnarement_data[i]) + (magic_numver).rotated(Vector3(0,1,0),deg_to_rad(rotation_global_y * -1)) + Vector3(0,-.7,0)) 
 	ensarement_path.curve = curve
 
 func move_segments_to_path():
@@ -169,7 +185,10 @@ func shift_rotate_points(points :PackedVector3Array, angle_deg :float, offset :V
 	
 
 	
-func _make_curve_from_animation(whole_lib :AnimationPlayer, snake_skeleton :Skeleton3D, debug :bool) -> Array[Curve3D]:
+func _make_curve_from_animation(snake_skeleton :Skeleton3D, debug :bool) -> Array[Curve3D]:
+	
+	var whole_lib :AnimationPlayer = self.find_child("Anim*")
+	
 	var anim_library :AnimationLibrary = whole_lib.get_animation_library("")
 	var anim_list :Array[StringName] = anim_library.get_animation_list()
 	var transition_curves :Array[Curve3D]
