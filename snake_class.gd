@@ -56,6 +56,9 @@ var wave_thing :float = 0
 var trans_new :Transform3D = Transform3D.IDENTITY
 var trans_prime :Transform3D
 
+# grip on animation player 
+var snake_animations :AnimationPlayer
+
 func _init() -> void:
 
 
@@ -92,7 +95,7 @@ func calc_length(skeleton :Skeleton3D):
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
 	return bone_length
 	
-func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_pimitived :Array[MeshInstance3D],target,anim_curve :Curve3D = null):
+func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_pimitived :Array[MeshInstance3D],target :Node3D ,anim_curve :Curve3D = null):
 	# first check if the last argument is empty 
 
 	# first make curve for all points where snake is at that moment 
@@ -117,11 +120,12 @@ func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_p
 	if not anim_curve == null:
 		print(" I have some curves to process first ")
 		# clear curve as is
-		curve.clear_points()
+		
 		var points_anim :PackedVector3Array  = anim_curve.get_baked_points()
 		for i in points_anim.size():
-
-			curve.add_point(target.global_transform * points_anim[i]) # no offset
+			# really wierd transform order ., I have no idea why 
+			curve.add_point(target.global_transform * points_anim[i] * self.global_transform) 
+			curve.set_point_tilt(i,deg_to_rad(45)) # why am I setting this manually 
 		# need to keep working here . 
 		
 	# of no unique animation add points to regular ensarment
@@ -138,9 +142,9 @@ func move_segments_to_path():
 	for i in bone_numbers:
 		follow_path_array.append(PathFollow3D.new())
 		follow_path_array[i].name = "path" + str(i)
-		follow_path_array[i].tilt_enabled = false
+		follow_path_array[i].tilt_enabled = true
 		ensarement_path.add_child(follow_path_array[i])
-
+		
 	# move each segment into array 
 	for i in bone_numbers:
 
@@ -201,7 +205,8 @@ func _make_curve_from_animation(snake_skeleton :Skeleton3D, debug :bool) -> Arra
 			#whole_lib.seek(0.0,true,false)
 			var curve_new :Curve3D = Curve3D.new()
 			for g in snake_skeleton.get_bone_count():
-				var bone_position :Vector3 = snake_skeleton.get_bone_global_pose(g).origin
+				# try backwards
+				var bone_position :Vector3 = snake_skeleton.get_bone_global_pose((snake_skeleton.get_bone_count()-1)-g).origin
 				curve_new.add_point(bone_position)
 			curve_new.resource_name = anim_list[i]
 			transition_curves.append(curve_new)
@@ -241,6 +246,10 @@ func make_tris():
 	trans_prime = trans_new.rotated(Vector3(1,0,0),deg_to_rad(90))
 	trans_prime = trans_new.rotated(Vector3(0,1,0),deg_to_rad(0)) * trans_prime
 	trans_prime = trans_new.rotated(Vector3(0,0,1),deg_to_rad(90)) * trans_prime
+	
+	# does not belong here but find that animion player 
+	snake_animations = find_child("Anim*")
+	
 
 # navigation stuff 
 func velocity_computed(safe_velocity: Vector3) -> void:
@@ -334,4 +343,16 @@ func initialize_patrol_objects():
 			patrol_objects.append(child)
 			
 			
+func find_target_animation(target_local :Node3D ) ->String:
+	var anim_name_local_array :Array[StringName] = target_local.get_groups()
+
+	var animation_to_return :String
+	for i in anim_name_local_array.size():
+		var test :StringName = anim_name_local_array[i]
+		if test.contains("anim"):
+			
+			animation_to_return = anim_name_local_array[i]
+	return animation_to_return
+	
+
 	
