@@ -59,6 +59,11 @@ var trans_prime :Transform3D
 # grip on animation player 
 var snake_animations :AnimationPlayer
 
+
+# timer for utility use 
+var timer_move_on :Timer
+var timer_up :bool = false
+
 func _init() -> void:
 
 
@@ -355,4 +360,18 @@ func find_target_animation(target_local :Node3D ) ->String:
 	return animation_to_return
 	
 
+func make_anim_timer() -> Timer: # at startup makes a timer in the tree
+	timer_move_on = Timer.new()
+	timer_move_on.name = "move_on"
+	timer_move_on.wait_time = 5
+	add_child(timer_move_on)
 	
+	# make connection to timer right away 
+	timer_move_on.connect("timeout",Callable(self, "_on_timer_timeout"))
+	
+	
+	return timer_move_on
+
+func _on_timer_timeout():    # Code to execute when the timer times out
+	print("time is up move on ")
+	timer_up = true

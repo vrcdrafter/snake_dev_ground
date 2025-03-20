@@ -10,6 +10,8 @@ var all_animation_curves :Array[Curve3D]
 
 var bone_overriding :bool = true
 
+# animation one start , so the animation timer plays once 
+var onestart :bool = true
 
 
 func _ready() -> void:
@@ -33,6 +35,7 @@ func _ready() -> void:
 	
 	all_animation_curves = _make_curve_from_animation(skel,false) # register animations if ther is any on the model
 
+	var make_timer :Timer = make_anim_timer()
 	
 func _physics_process(delta: float) -> void:
 	
@@ -76,18 +79,18 @@ func _physics_process(delta: float) -> void:
 					
 					if ennarement_done and not ((snake_target.global_position - tri_array[0].global_position).length() > 2):
 						ensnare_state = "finished"
-						print("ensare finished")
+						
 						
 					elif (snake_target.global_position - tri_array[0].global_position).length() > 2:
 						ensnare_state = "abort"
-						print("prey escaped")
+						
 					else :
 						pass
 				"finished":
 					
 					if (snake_target.global_position - tri_array[0].global_position).length() > 2.0:
 						ensnare_state = "abort"
-						print("prey has escaped")
+						
 						
 				"abort":
 					
@@ -100,10 +103,15 @@ func _physics_process(delta: float) -> void:
 			pass 
 			
 		"ensnare_anim": # meaning animated ensnarement
+			# need to find right curve to use 
+			var target_animation :String = find_target_animation(snake_target)
+			var animation_curve :Curve3D # for now just play the first curve found
+			for i in all_animation_curves.size():
+				if all_animation_curves[i].resource_name == target_animation:
+					animation_curve = all_animation_curves[i]
 			
-			var animation_curve = all_animation_curves[1] # for now just play the first curve found
 			
-			print("animation to play ",animation_curve)
+			
 			var ennarement_done :bool = false
 			match ensnare_state:
 				
@@ -125,11 +133,24 @@ func _physics_process(delta: float) -> void:
 				"run_animation":
 					bone_overriding = false
 					skel.clear_bones_global_pose_override()
+					var transform_save :Transform3D = self.global_transform
 					# move the snake to the position 
 					self.global_transform = snake_target.global_transform
-					var target_animation = find_target_animation(snake_target)
-					print("should be playing ", target_animation)
+					
+					
 					snake_animations.play(target_animation)
+					if onestart:
+						timer_move_on.start() # start the timer for how long to be there .
+						onestart = false
+					
+					if timer_up:
+						snake_state = "patrol"
+						onestart = true
+						snake_animations.stop()
+						bone_overriding = true
+						#transform the object back too 
+						self.global_transform = transform_save # remember to restore the transform 
+						
 					
 				"abort":
 					
