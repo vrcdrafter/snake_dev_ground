@@ -179,10 +179,6 @@ mesh = SubResource("PrismMesh_7nt77")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.6747, 1.91779, 0.926405)
 mesh = SubResource("PrismMesh_7nt77")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="." groups=["A", "anim_typing", "patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.3148, 1.91779, -18.1784)
-mesh = SubResource("PrismMesh_7nt77")
-
 [node name="X_axis" type="VSlider" parent="."]
 offset_left = 35.0
 offset_top = 17.0

@@ -12,6 +12,8 @@ var bone_overriding :bool = true
 
 # animation one start , so the animation timer plays once 
 var onestart :bool = true
+var transform_onestart :bool = true
+var transform_save :Transform3D 
 
 
 func _ready() -> void:
@@ -54,12 +56,14 @@ func _physics_process(delta: float) -> void:
 			#start tris following eachother
 			follower(delta,tri_array,bone_length)
 			
+			# if condition if its just a relay point
 			if tri_array[0].global_position.distance_to(snake_target.global_position) < 1 and not snake_target.is_in_group("A"):
 				# pick new object
 				var next_target :MeshInstance3D = fetch_random_patrol_object()
 				while next_target == target:
 					next_target = patrol_objects.pick_random()
 				snake_target = next_target
+			# if condition if its a animated object 
 			if tri_array[0].global_position.distance_to(snake_target.global_position) < 1 and snake_target.is_in_group("A"):
 				# its a animated spot run an animated ensnar 
 				snake_state = "ensnare_anim"
@@ -133,8 +137,11 @@ func _physics_process(delta: float) -> void:
 				"run_animation":
 					bone_overriding = false
 					skel.clear_bones_global_pose_override()
-					var transform_save :Transform3D = self.global_transform
+					if transform_onestart:
+						transform_save = self.global_transform # note this line needs to run once too 
+						transform_onestart = false
 					# move the snake to the position 
+
 					self.global_transform = snake_target.global_transform
 					
 					
@@ -144,12 +151,20 @@ func _physics_process(delta: float) -> void:
 						onestart = false
 					
 					if timer_up:
+						transform_onestart = true # reset this so it can grab the next transform when the time comes . 
 						snake_state = "patrol"
+						# reset the ensnare state too 
+						ensnare_state = "path"
 						onestart = true
 						snake_animations.stop()
 						bone_overriding = true
 						#transform the object back too 
-						self.global_transform = transform_save # remember to restore the transform 
+						self.global_transform = transform_save# remember to restore the transform 
+						
+						# also pick new target ( made a function ) 
+						snake_target = pick_new_target(snake_target)
+						timer_up = false
+						
 						
 					
 				"abort":

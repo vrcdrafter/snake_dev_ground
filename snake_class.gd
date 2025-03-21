@@ -375,3 +375,11 @@ func make_anim_timer() -> Timer: # at startup makes a timer in the tree
 func _on_timer_timeout():    # Code to execute when the timer times out
 	print("time is up move on ")
 	timer_up = true
+	
+	
+func pick_new_target(snake_target :Node3D) -> Node3D:
+	var next_target :MeshInstance3D = fetch_random_patrol_object()
+	while next_target == snake_target:
+		next_target = patrol_objects.pick_random()
+
+	return next_target
