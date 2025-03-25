@@ -2,6 +2,8 @@
 extends Node3D
 class_name Snake
 
+@export var aggressivness :float = 1.0
+
 @export var anglex :float = 0
 @export var angley :float = 0
 @export var anglez :float = 0
@@ -47,7 +49,7 @@ var movement_delta: float
 
 # snake wave stuff
 var time :float = 0
-var snake_wavyness :float = .1
+var snake_wavyness :float = .01
 var wave_thing :float = 0
 
 
@@ -93,7 +95,7 @@ func follower(delta :float, body_segment_pimitived :Array[MeshInstance3D], bone_
 		else:
 			body_segment_pimitived[i].look_at(body_segment_pimitived[i-1].global_position)
 			if ((body_segment_pimitived[i-1].global_position - body_segment_pimitived[i].global_position).length() > bone_length):
-				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(body_segment_pimitived[i-1].global_position,delta * SPEED)
+				body_segment_pimitived[i].global_position = body_segment_pimitived[i].global_position.lerp(body_segment_pimitived[i-1].global_position,delta * movement_speed)
 
 func calc_length(skeleton :Skeleton3D):
 	var bone_length
@@ -312,9 +314,9 @@ func initialize_ensnarment_curve():
 	
 	add_child(ensarement_path)
 	
-func move_segments_along_path(delta) -> bool:
+func move_segments_along_path(delta,speed_new :float) -> bool:
 	for i in bone_numbers:
-		follow_path_array[i].progress += 8 *delta
+		follow_path_array[i].progress += speed_new *delta
 	
 	if follow_path_array[0].progress_ratio > .99:
 		print("ensarement done")
@@ -329,8 +331,9 @@ func initialize_timing_sway(): # function to randomize the snakes wavyness
 	
 func snake_wave_pysics_process(delta):
 		#wavy stuff
+	
 	time += delta
-	wave_thing = (sin(time * 2)*snake_wavyness)
+	wave_thing = (sin(time * 2)*snake_wavyness * aggressivness)
 	
 	
 func find_skeleton() -> Skeleton3D:
@@ -363,9 +366,9 @@ func find_target_animation(target_local :Node3D ) ->String:
 func make_anim_timer() -> Timer: # at startup makes a timer in the tree
 	timer_move_on = Timer.new()
 	timer_move_on.name = "move_on"
-	timer_move_on.wait_time = 5
+	timer_move_on.wait_time = 200
 	add_child(timer_move_on)
-	
+	timer_move_on.one_shot = true
 	# make connection to timer right away 
 	timer_move_on.connect("timeout",Callable(self, "_on_timer_timeout"))
 	

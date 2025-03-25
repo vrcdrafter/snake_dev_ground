@@ -222,7 +222,7 @@ offset_bottom = 349.0
 text = "test"
 
 [node name="Player" parent="." instance=ExtResource("3_w2vjh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.90565, 4.36125, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1528, 4.36125, 0)
 
 [node name="snake_home_position" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42216, 1.97527, -16.9004)

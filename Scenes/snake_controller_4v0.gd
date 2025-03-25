@@ -48,26 +48,35 @@ func _physics_process(delta: float) -> void:
 		
 		"patrol":
 			
+			# just be casual agressivness 
+			aggressivness = 1
+			movement_speed = 1
 			#find something to patrol to 
-			
-			
+		
 			set_movement_target(snake_target.global_position) # assigns target
 			nav_startup_physics_process(delta,tri_array[0]) #starts up the navigation server 
 			#start tris following eachother
 			follower(delta,tri_array,bone_length)
 			
+			var non_player_target_distance :float = tri_array[0].global_position.distance_to(snake_target.global_position)
 			# if condition if its just a relay point
-			if tri_array[0].global_position.distance_to(snake_target.global_position) < 1 and not snake_target.is_in_group("A"):
-				# pick new object
-				var next_target :MeshInstance3D = fetch_random_patrol_object()
-				while next_target == target:
-					next_target = patrol_objects.pick_random()
-				snake_target = next_target
-			# if condition if its a animated object 
-			if tri_array[0].global_position.distance_to(snake_target.global_position) < 1 and snake_target.is_in_group("A"):
-				# its a animated spot run an animated ensnar 
-				snake_state = "ensnare_anim"
-				print("run a animation ensnare")
+			var player_distance :float = tri_array[0].global_position.distance_to(player.global_position)
+			if player_distance < 5:
+				# chase player
+				snake_target = player
+				snake_state = "chase"
+			else:
+				if non_player_target_distance < 1 and not snake_target.is_in_group("A"):
+					# pick new object
+					var next_target :MeshInstance3D = fetch_random_patrol_object()
+					while next_target == target:
+						next_target = patrol_objects.pick_random()
+					snake_target = next_target
+				# if condition if its a animated object 
+				if non_player_target_distance < 1 and snake_target.is_in_group("A"):
+					# its a animated spot run an animated ensnar 
+					snake_state = "ensnare_anim"
+					print("run a animation ensnare")
 				
 		"ensnare":
 			var ennarement_done :bool = false
@@ -79,7 +88,7 @@ func _physics_process(delta: float) -> void:
 					ensnare_state = "run"
 				"run":
 					
-					ennarement_done = move_segments_along_path(delta)
+					ennarement_done = move_segments_along_path(delta,8)
 					
 					if ennarement_done and not ((snake_target.global_position - tri_array[0].global_position).length() > 2):
 						ensnare_state = "finished"
@@ -103,8 +112,25 @@ func _physics_process(delta: float) -> void:
 					ensnare_state = "path"
 			
 		"chase":
-			#slither toward target fast (target is player)
-			pass 
+			#find something to patrol to 
+			aggressivness = 10
+			movement_speed = 6
+			# 
+
+			set_movement_target(snake_target.global_position) # assigns target
+			nav_startup_physics_process(delta,tri_array[0]) #starts up the navigation server 
+			#start tris following eachother
+			follower(delta,tri_array,bone_length)
+			
+			var player_distance :float = tri_array[0].global_position.distance_to(player.global_position)
+			
+			if player_distance < 1:
+				snake_state = "ensnare"
+				
+				
+			if player_distance > 8: # give up chase 
+				snake_state = "patrol"
+				snake_target = pick_new_target(snake_target) # get a new target too
 			
 		"ensnare_anim": # meaning animated ensnarement
 			# need to find right curve to use 
@@ -114,7 +140,8 @@ func _physics_process(delta: float) -> void:
 				if all_animation_curves[i].resource_name == target_animation:
 					animation_curve = all_animation_curves[i]
 			
-			
+			# if at some point the player gets too close resume chase 
+
 			
 			var ennarement_done :bool = false
 			match ensnare_state:
@@ -125,7 +152,7 @@ func _physics_process(delta: float) -> void:
 					ensnare_state = "run"
 				"run":
 					
-					ennarement_done = move_segments_along_path(delta)
+					ennarement_done = move_segments_along_path(delta,2)
 					
 					if ennarement_done and not ((snake_target.global_position - tri_array[0].global_position).length() > 2):
 						ensnare_state = "run_animation"
@@ -141,9 +168,16 @@ func _physics_process(delta: float) -> void:
 						transform_save = self.global_transform # note this line needs to run once too 
 						transform_onestart = false
 					# move the snake to the position 
-
 					self.global_transform = snake_target.global_transform
 					
+					# check to see if player gets close 
+					var player_distance :float = self.global_position.distance_to(player.global_position) # the reason why its self .global is because of the animation transform 
+					if player_distance < 5:
+						# chase player
+						# force timer to conclude 
+						timer_up = true
+						snake_target = player
+
 					
 					snake_animations.play(target_animation)
 					if onestart:
