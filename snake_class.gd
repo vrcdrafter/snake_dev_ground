@@ -261,13 +261,15 @@ func make_tris():
 # navigation stuff 
 func velocity_computed(safe_velocity: Vector3) -> void:
 	
+	
+	
 	var new_velocity = tri_array[0].global_position.move_toward(tri_array[0].global_position + safe_velocity, movement_delta)
 	# need to include the wavyness of snake
-			# run new velocty through wave algorithme 
 	
 	if new_velocity.length() != 0:
-		var perpendicular :Vector3 = Vector3(-new_velocity.x/new_velocity.length(),0.0,new_velocity.z/new_velocity.length())
+		var perpendicular :Vector3 = Vector3(-safe_velocity.x/safe_velocity.length(),0.0,safe_velocity.z/safe_velocity.length())
 		var waving_perpendicular :Vector3 = perpendicular.normalized() * wave_thing
+		
 		tri_array[0].global_position = new_velocity + waving_perpendicular
 	
 	else:
