@@ -46,3 +46,75 @@ def unregister():
 
 if __name__ == "__main__":
     register()
+    
+    
+class rem_constraint(bpy.types.Operator):
+    bl_idname = "wm.remove_constraint"
+    bl_label = "Minimal Operator"
+
+    def execute(self, context):
+        # Report "Hello World" to the Console
+        
+        bones = bpy.context.object.pose.bones
+        i = 0 
+        for bone in bones:
+            
+            bpy.context.object.data.bones.active = bone.bone
+            bone.bone.select = True
+            
+            bpy.ops.constraint.delete(constraint="Copy Transforms", owner='BONE')
+            i += 1
+        self.report({'INFO'}, "Hello World")
+        return {'FINISHED'}
+
+
+bpy.utils.register_class(rem_constraint)
+
+
+class WM_OT_HelloWorld(bpy.types.Operator):
+    bl_idname = "wm.constrain_bones_spline" # this is the class name
+    bl_label = "Minimal Operator"
+
+    def execute(self, context):
+        # Report "Hello World" to the Console
+        
+        bones = bpy.context.object.pose.bones
+        i = 0 
+        for bone in bones:
+            
+            bpy.context.object.data.bones.active = bone.bone
+            bone.bone.select = True
+            bpy.ops.pose.constraint_add(type='COPY_TRANSFORMS')
+            print(bones[i].name)
+            bpy.context.object.pose.bones[bones[i].name].constraints["Copy Transforms"].target = bpy.data.objects["Armature"]
+            bpy.context.object.pose.bones[bones[i].name].constraints["Copy Transforms"].subtarget = bones[i].name
+            i += 1
+        self.report({'INFO'}, "Hello World")
+        return {'FINISHED'}
+
+
+
+bpy.utils.register_class(WM_OT_HelloWorld)
+
+
+class app_constraint(bpy.types.Operator):
+    bl_idname = "wm.apply_constraint"
+    bl_label = "Minimal Operator"
+
+    def execute(self, context):
+        # Report "Hello World" to the Console
+        
+        bones = bpy.context.object.pose.bones
+        i = 0 
+        for bone in bones:
+            
+            bpy.context.object.data.bones.active = bone.bone
+            bone.bone.select = True
+            bpy.ops.constraint.apply(constraint="Copy Transforms", owner='BONE')
+            i += 1
+            
+        self.report({'INFO'}, "Hello World")
+        return {'FINISHED'}
+
+
+bpy.utils.register_class(app_constraint)
