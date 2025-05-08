@@ -18,5 +18,4 @@ dest_files=["res://.godot/imported/tv.obj-d2d482d895db5969ca634b2db0420cc8.mesh"
 generate_tangents=true
 scale_mesh=Vector3(1, 1, 1)
 offset_mesh=Vector3(0, 0, 0)
-optimize_mesh=true
 force_disable_mesh_compression=false

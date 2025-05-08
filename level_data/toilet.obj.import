@@ -18,5 +18,4 @@ dest_files=["res://.godot/imported/toilet.obj-1bb71fe004e54bcc7ccecfe9e2a7707e.m
 generate_tangents=true
 scale_mesh=Vector3(1, 1, 1)
 offset_mesh=Vector3(0, 0, 0)
-optimize_mesh=true
 force_disable_mesh_compression=false

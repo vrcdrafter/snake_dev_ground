@@ -18,5 +18,4 @@ dest_files=["res://.godot/imported/tree_palm.obj-0a9e9e05a8db30363e47b83ffbb3e42
 generate_tangents=true
 scale_mesh=Vector3(1, 1, 1)
 offset_mesh=Vector3(0, 0, 0)
-optimize_mesh=true
 force_disable_mesh_compression=false

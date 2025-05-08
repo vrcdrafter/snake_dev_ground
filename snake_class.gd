@@ -66,6 +66,9 @@ var snake_animations :AnimationPlayer
 var timer_move_on :Timer
 var timer_up :bool = false
 
+# global variable for snake's vertebra, were using this now for moving all the bones 
+var snake_vertibrea :PackedInt32Array
+
 func _init() -> void:
 
 
@@ -76,7 +79,7 @@ func _init() -> void:
 		var name = snake_node.name
 		
 		skeleton = snake_node.find_child("Skeleton3D",true,true)
-		bone_numbers = skeleton.get_bone_count()
+		bone_numbers = skeleton.get_bone_count() #EXCLUDE THE TWO EYES AND JAW
 		bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
 		
 		var parent_node :Node3D = get_parent()
@@ -146,14 +149,14 @@ func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_p
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
 	
-	for i in bone_numbers:
+	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
 		follow_path_array.append(PathFollow3D.new())
 		follow_path_array[i].name = "path" + str(i)
 		follow_path_array[i].tilt_enabled = true
 		ensarement_path.add_child(follow_path_array[i])
 		
 	# move each segment into array 
-	for i in bone_numbers:
+	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
 
 		remove_child(tri_array[i])
 		follow_path_array[i].add_child(tri_array[i])
@@ -164,26 +167,26 @@ func move_segments_to_path():
 		follow_path_array[i].set_progress((bone_numbers - 1 - i) * bone_length * 1.1)
 func move_segments_back_normal():
 	var tri_pos :Array[Transform3D] 
-	for i in bone_numbers:
+	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
 		tri_pos.append(tri_array[i].global_transform)
 		follow_path_array[i].remove_child(tri_array[i])
 		ensarement_path.remove_child(follow_path_array[i])
 
-	for i in bone_numbers:
+	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
 		add_child(tri_array[i])
 		tri_array[i].global_transform = tri_pos[i]
 		
 		
 
-	 
+# this functon needs a edit 
 func override_skeleton(skeleton_L :Skeleton3D): # need to changet this for two cases , one for ensnarement , one for chasing , right now only looks right for chasing !!!!!!!!!!!
-	for i in bone_numbers:
-		skeleton_L.set_bone_global_pose_override(i, self.transform.inverse() * tri_array[i].global_transform * trans_prime, 1, true)
+	for i in snake_vertibrea.size(): #EXCLUDE THE TWO EYES AND JAW
+		skeleton_L.set_bone_global_pose_override(snake_vertibrea[i], self.transform.inverse() * tri_array[i].global_transform * trans_prime, 1, true)
 		#so the self.transform.inverse()  is what makes the snake note mobile and cane be moved anywhere around the scene 
 
 	
 func move_triangles_to_bones(tris :Array[Node3D]):
-	for i in bone_numbers:
+	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
 		
 		tris[i].global_transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
 		tris[i].global_position = tris[i].global_position  # may need to comment this out 
@@ -195,7 +198,7 @@ func shift_rotate_points(points :PackedVector3Array, angle_deg :float, offset :V
 	return new_points
 	
 
-	
+# this functon needs a edit 
 func _make_curve_from_animation(snake_skeleton :Skeleton3D, debug :bool) -> Array[Curve3D]:
 	
 	var whole_lib :AnimationPlayer = self.find_child("Anim*")
@@ -203,7 +206,7 @@ func _make_curve_from_animation(snake_skeleton :Skeleton3D, debug :bool) -> Arra
 	var anim_library :AnimationLibrary = whole_lib.get_animation_library("")
 	var anim_list :Array[StringName] = anim_library.get_animation_list()
 	var transition_curves :Array[Curve3D]
-	print(anim_list)
+	
 	if not debug:
 		for i in anim_list.size():
 			whole_lib.play(anim_list[i])
@@ -211,7 +214,7 @@ func _make_curve_from_animation(snake_skeleton :Skeleton3D, debug :bool) -> Arra
 			whole_lib.advance(0)
 			#whole_lib.seek(0.0,true,false)
 			var curve_new :Curve3D = Curve3D.new()
-			for g in snake_skeleton.get_bone_count():
+			for g in snake_skeleton.get_bone_count(): # needs to excllude eyes and jaw bone 
 				# try backwards
 				var bone_position :Vector3 = snake_skeleton.get_bone_global_pose((snake_skeleton.get_bone_count()-1)-g).origin
 				curve_new.add_point(bone_position)
@@ -220,19 +223,19 @@ func _make_curve_from_animation(snake_skeleton :Skeleton3D, debug :bool) -> Arra
 			
 	return transition_curves
 
-
+# this function need a edit 
 func make_tris():
 	
 	var snake_node :Node3D = find_child("sn*")
 	var name = snake_node.name
 	
 	skeleton = snake_node.find_child("Skeleton3D",true,true)
-	bone_numbers = skeleton.get_bone_count()
+	
 	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
 	
 
 	
-	for i in bone_numbers:
+	for i in snake_vertibrea.size(): #EXCLUDE THE TWO EYES AND JAW
 		# add triangles
 		tri_array.append(MeshInstance3D.new())
 		tri_array[i].mesh = PrismMesh.new()
@@ -242,9 +245,9 @@ func make_tris():
 		new_mat.albedo_color = Color(0,1,0,0)
 		tri_array[0].set_surface_override_material(0,new_mat)
 		
-
-		tri_array[i].transform = skeleton.get_bone_global_pose(i)
-		add_child.call_deferred(tri_array[i])
+		
+		tri_array[i].transform = skeleton.get_bone_global_pose(snake_vertibrea[i]) #EXCLUDE THE TWO EYES AND JAW
+		add_child.call_deferred(tri_array[i]) #EXCLUDE THE TWO EYES AND JAW
 		
 		if hide_triangles:
 			tri_array[i].hide()
@@ -388,3 +391,21 @@ func pick_new_target(snake_target :Node3D) -> Node3D:
 		next_target = patrol_objects.pick_random()
 
 	return next_target
+
+
+func spine_bones() -> PackedInt32Array:
+	var all_spine_bones :PackedInt32Array
+	var snake_node :Node3D = find_child("sn*")
+	skeleton = snake_node.find_child("Skeleton3D",true,true)
+	for i in skeleton.get_bone_count():
+		if skeleton.get_bone_name(i).contains("Neck"):
+			all_spine_bones.append(i)
+		else:
+			print("skipped one ")
+	return all_spine_bones
+
+
+func initilaize_spine_bones():
+	snake_vertibrea = spine_bones()
+	# this is the global . 
+	
