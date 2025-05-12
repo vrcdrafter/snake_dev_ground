@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1716s0ci3nkt"]
+
+[ext_resource type="PackedScene" uid="uid://dontdy6exyrji" path="res://level_data/snake_hefty_animated_4.glb" id="1_7ebwr"]
+[ext_resource type="Script" path="res://Scenes/snake_controller_4v1.gd" id="1_lyc1r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lyc1r"]
+albedo_color = Color(0.783769, 0.282449, 0.235724, 1)
+
+[node name="Snake" type="Node3D"]
+script = ExtResource("1_lyc1r")
+
+[node name="snake_hefty_animated_4" parent="." instance=ExtResource("1_7ebwr")]
+
+[node name="Skeleton3D" parent="snake_hefty_animated_4/snake_export" index="0"]
+bones/0/rotation = Quaternion(-0.714575, 4.72526e-15, -1.60362e-14, 0.699558)
+bones/1/rotation = Quaternion(0.714522, 0.00854982, 0.00873336, 0.699506)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/rotation = Quaternion(0.7145, -0.0101631, -0.0103813, 0.699485)
+bones/3/rotation = Quaternion(0.997821, -1.03745e-07, 1.06563e-06, -0.0659763)
+bones/3/scale = Vector3(1, 1, 1.00001)
+bones/4/rotation = Quaternion(0.0287985, -1.45395e-14, 8.49801e-15, 0.999585)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(-0.0181826, -6.7838e-18, -2.34194e-16, 0.999835)
+
+[node name="Sphere_001" parent="snake_hefty_animated_4/snake_export/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_lyc1r")
+
+[editable path="snake_hefty_animated_4"]

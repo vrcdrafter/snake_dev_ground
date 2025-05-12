@@ -44,7 +44,7 @@ var debug = false
 
 # navigation agent stuff , stuff to move the green triangle
 var navigation_agent :NavigationAgent3D 
-var movement_speed: float = 4.0
+@export var movement_speed: float = 4.0
 var movement_delta: float
 
 # snake wave stuff
@@ -65,6 +65,10 @@ var snake_animations :AnimationPlayer
 # timer for utility use 
 var timer_move_on :Timer
 var timer_up :bool = false
+
+# timer2 for utility use 
+var timer_move_on2 :Timer
+var timer_up2 :bool = false
 
 # global variable for snake's vertebra, were using this now for moving all the bones 
 var snake_vertibrea :PackedInt32Array
@@ -149,14 +153,14 @@ func make_ensnarement_curve(ensnarement_data :PackedVector3Array, body_segment_p
 func move_segments_to_path():
 	# need to make follow paths and put the meshes in each one 
 	
-	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
+	for i in snake_vertibrea.size(): #EXCLUDE THE TWO EYES AND JAW
 		follow_path_array.append(PathFollow3D.new())
 		follow_path_array[i].name = "path" + str(i)
 		follow_path_array[i].tilt_enabled = true
 		ensarement_path.add_child(follow_path_array[i])
 		
 	# move each segment into array 
-	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
+	for i in snake_vertibrea.size(): #EXCLUDE THE TWO EYES AND JAW
 
 		remove_child(tri_array[i])
 		follow_path_array[i].add_child(tri_array[i])
@@ -164,15 +168,15 @@ func move_segments_to_path():
 		tri_array[i].rotation_degrees = Vector3(0, 0, 0)
 		
 		#follow_path_array[i].set_progress(i*bone_length*1.1) # may need this backwards, MICROSOFT AI < PLEASE HELP HERE > 
-		follow_path_array[i].set_progress((bone_numbers - 1 - i) * bone_length * 1.1)
+		follow_path_array[i].set_progress((snake_vertibrea.size() - 1 - i) * bone_length * 1.1)
 func move_segments_back_normal():
 	var tri_pos :Array[Transform3D] 
-	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
+	for i in snake_vertibrea.size(): #EXCLUDE THE TWO EYES AND JAW
 		tri_pos.append(tri_array[i].global_transform)
 		follow_path_array[i].remove_child(tri_array[i])
 		ensarement_path.remove_child(follow_path_array[i])
 
-	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
+	for i in snake_vertibrea.size(): #EXCLUDE THE TWO EYES AND JAW
 		add_child(tri_array[i])
 		tri_array[i].global_transform = tri_pos[i]
 		
@@ -186,9 +190,9 @@ func override_skeleton(skeleton_L :Skeleton3D): # need to changet this for two c
 
 	
 func move_triangles_to_bones(tris :Array[Node3D]):
-	for i in bone_numbers: #EXCLUDE THE TWO EYES AND JAW
+	for i in snake_vertibrea.size(): #EXCLUDE THE TWO EYES AND JAW
 		
-		tris[i].global_transform = skeleton.get_bone_global_pose((skeleton.get_bone_count()-1)-i) # go reverse
+		tris[i].global_transform = skeleton.get_bone_global_pose((snake_vertibrea.size()-1)-i) # go reverse
 		tris[i].global_position = tris[i].global_position  # may need to comment this out 
 	
 func shift_rotate_points(points :PackedVector3Array, angle_deg :float, offset :Vector3):
@@ -231,7 +235,7 @@ func make_tris():
 	
 	skeleton = snake_node.find_child("Skeleton3D",true,true)
 	
-	bone_length = (skeleton.get_bone_global_rest(0).origin - skeleton.get_bone_global_rest(1).origin).length()
+	bone_length = (skeleton.get_bone_global_rest(4).origin - skeleton.get_bone_global_rest(5).origin).length()
 	
 
 	
@@ -255,7 +259,7 @@ func make_tris():
 	# does not belong here but initialize a re-orient transform used by override_skeleton
 	trans_prime = trans_new.rotated(Vector3(1,0,0),deg_to_rad(90))
 	trans_prime = trans_new.rotated(Vector3(0,1,0),deg_to_rad(0)) * trans_prime
-	trans_prime = trans_new.rotated(Vector3(0,0,1),deg_to_rad(90)) * trans_prime
+	trans_prime = trans_new.rotated(Vector3(0,0,1),deg_to_rad(180)) * trans_prime
 	
 	# does not belong here but find that animion player 
 	snake_animations = find_child("Anim*")
@@ -320,11 +324,11 @@ func initialize_ensnarment_curve():
 	add_child(ensarement_path)
 	
 func move_segments_along_path(delta,speed_new :float) -> bool:
-	for i in bone_numbers:
+	for i in snake_vertibrea.size():
 		follow_path_array[i].progress += speed_new *delta
 	
 	if follow_path_array[0].progress_ratio > .99:
-		print("ensarement done")
+		
 		return true
 		
 	else:
@@ -381,7 +385,7 @@ func make_anim_timer() -> Timer: # at startup makes a timer in the tree
 	return timer_move_on
 
 func _on_timer_timeout():    # Code to execute when the timer times out
-	print("time is up move on ")
+	
 	timer_up = true
 	
 	
@@ -409,3 +413,20 @@ func initilaize_spine_bones():
 	snake_vertibrea = spine_bones()
 	# this is the global . 
 	
+func make_reaction_timer() -> Timer: # this is a timer so the snake does not change its decision too fast when it start to ensnarre 
+	timer_move_on2 = Timer.new()
+	timer_move_on2.name = "reaction_timer"
+	timer_move_on2.wait_time = 1.0
+	add_child(timer_move_on2)
+	timer_move_on2.one_shot = true
+	# make connection to timer right away 
+	timer_move_on2.connect("timeout",Callable(self, "_on_timer_timeout2"))
+	
+	
+	return timer_move_on2
+	
+	
+func _on_timer_timeout2():    # Code to execute when the timer times out
+	
+	timer_up2 = true
+	timer_move_on2.queue_free() # remove timer 

@@ -194,3 +194,4 @@ surface_material_override/0 = SubResource("StandardMaterial3D_w2vjh")
 
 [node name="Snake" parent="." instance=ExtResource("3_2lqy7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.52916, 4.31555, 0)
+hide_triangles = true
