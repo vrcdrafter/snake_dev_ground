@@ -156,7 +156,7 @@ func move_segments_to_path():
 	for i in snake_vertibrea.size(): #EXCLUDE THE TWO EYES AND JAW
 		follow_path_array.append(PathFollow3D.new())
 		follow_path_array[i].name = "path" + str(i)
-		follow_path_array[i].tilt_enabled = true
+		follow_path_array[i].tilt_enabled = false
 		ensarement_path.add_child(follow_path_array[i])
 		
 	# move each segment into array 
@@ -164,11 +164,12 @@ func move_segments_to_path():
 
 		remove_child(tri_array[i])
 		follow_path_array[i].add_child(tri_array[i])
-		tri_array[i].transform.origin = Vector3(0, 0, 0)
-		tri_array[i].rotation_degrees = Vector3(0, 0, 0)
+		tri_array[i].transform.origin = Vector3(0,0,0)
+		tri_array[i].rotation_degrees = Vector3(0,0,0)
 		
 		#follow_path_array[i].set_progress(i*bone_length*1.1) # may need this backwards, MICROSOFT AI < PLEASE HELP HERE > 
 		follow_path_array[i].set_progress((snake_vertibrea.size() - 1 - i) * bone_length * 1.1)
+		follow_path_array[i].global_rotation.z = deg_to_rad(0)
 func move_segments_back_normal():
 	var tri_pos :Array[Transform3D] 
 	for i in snake_vertibrea.size(): #EXCLUDE THE TWO EYES AND JAW
@@ -430,3 +431,8 @@ func _on_timer_timeout2():    # Code to execute when the timer times out
 	
 	timer_up2 = true
 	timer_move_on2.queue_free() # remove timer 
+
+
+func twist_triangles(value :float):
+	for tri in follow_path_array:
+		tri.global_rotation.z = deg_to_rad(value)

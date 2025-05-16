@@ -18,6 +18,8 @@ var transform_save :Transform3D
 # list of oneshots 
 var snake_ensnare_oneshot :bool = true
 
+# slider bar
+@onready var slidex :VSlider = get_node("../X_axis")
 
 func _ready() -> void:
 	snake_target = player
@@ -101,7 +103,7 @@ func _physics_process(delta: float) -> void:
 						timer_reaction.start()
 						snake_ensnare_oneshot = false
 					ennarement_done = move_segments_along_path(delta,8)
-					
+					twist_triangles(0)
 					if ennarement_done and not ((snake_target.global_position - tri_array[0].global_position).length() > 2):
 						ensnare_state = "finished"
 						print("ensnare finished ")
