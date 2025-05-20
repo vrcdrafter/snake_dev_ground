@@ -140,7 +140,7 @@ func _physics_process(delta: float) -> void:
 			var player_distance :float = tri_array[0].global_position.distance_to(player.global_position)
 			
 			if player_distance < 1:
-				snake_state = "ensnare"
+				snake_state = "ensnare_anim"
 				
 				
 			if player_distance > 8: # give up chase 
@@ -154,13 +154,9 @@ func _physics_process(delta: float) -> void:
 			for i in all_animation_curves.size():
 				if all_animation_curves[i].resource_name == target_animation:
 					animation_curve = all_animation_curves[i]
-			
 			# if at some point the player gets too close resume chase 
-
-			
 			var ennarement_done :bool = false
 			match ensnare_state:
-				
 				"path":
 					make_ensnarement_curve(ensnarement_points,tri_array,snake_target,animation_curve)
 					move_segments_to_path()
@@ -168,11 +164,12 @@ func _physics_process(delta: float) -> void:
 				"run":
 					
 					ennarement_done = move_segments_along_path(delta,2)
-					
-					if ennarement_done and not ((snake_target.global_position - tri_array[0].global_position).length() > 2):
+					var local_target_distance :float = (snake_target.global_position - tri_array[0].global_position).length()
+					if ennarement_done and not (local_target_distance > 2.3):
 						ensnare_state = "run_animation"
 						
-					elif (snake_target.global_position - tri_array[0].global_position).length() > 2:
+					elif local_target_distance > 2.3:
+						print(snake_target.name)
 						ensnare_state = "abort"
 					else :
 						pass
@@ -187,7 +184,7 @@ func _physics_process(delta: float) -> void:
 					
 					# check to see if player gets close 
 					var player_distance :float = self.global_position.distance_to(player.global_position) # the reason why its self .global is because of the animation transform 
-					if player_distance < 5:
+					if player_distance < 5 and not snake_target == player: # but what if your after the player , ( problem here ) 
 						# chase player
 						# force timer to conclude 
 						timer_up = true

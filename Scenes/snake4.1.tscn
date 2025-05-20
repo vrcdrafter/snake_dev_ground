@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1716s0ci3nkt"]
+[gd_scene load_steps=3 format=3 uid="uid://c1716s0ci3nkt"]
 
 [ext_resource type="PackedScene" uid="uid://dontdy6exyrji" path="res://level_data/snake_hefty_animated_4.glb" id="1_7ebwr"]
 [ext_resource type="Script" path="res://Scenes/snake_controller_4v1.gd" id="1_lyc1r"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lyc1r"]
-albedo_color = Color(0.783769, 0.282449, 0.235724, 1)
 
 [node name="Snake" type="Node3D"]
 script = ExtResource("1_lyc1r")
@@ -12,17 +9,46 @@ script = ExtResource("1_lyc1r")
 [node name="snake_hefty_animated_4" parent="." instance=ExtResource("1_7ebwr")]
 
 [node name="Skeleton3D" parent="snake_hefty_animated_4/snake_export" index="0"]
-bones/0/rotation = Quaternion(-0.714575, 4.72526e-15, -1.60362e-14, 0.699558)
+bones/0/position = Vector3(0.505492, 0.902881, -0.703562)
+bones/0/rotation = Quaternion(-0.601063, -0.0905387, -0.0886359, 0.789095)
 bones/1/rotation = Quaternion(0.714522, 0.00854982, 0.00873336, 0.699506)
 bones/1/scale = Vector3(1, 1, 1)
-bones/2/rotation = Quaternion(0.7145, -0.0101631, -0.0103813, 0.699485)
-bones/3/rotation = Quaternion(0.997821, -1.03745e-07, 1.06563e-06, -0.0659763)
+bones/3/rotation = Quaternion(0.997821, -9.26268e-08, 1.05982e-06, -0.0659763)
 bones/3/scale = Vector3(1, 1, 1.00001)
-bones/4/rotation = Quaternion(0.0287985, -1.45395e-14, 8.49801e-15, 0.999585)
+bones/4/position = Vector3(-5.91258e-08, 0.457736, -2.32831e-09)
+bones/4/rotation = Quaternion(0.11714, -0.00423949, 0.147152, 0.982144)
 bones/4/scale = Vector3(1, 1, 1)
-bones/5/rotation = Quaternion(-0.0181826, -6.7838e-18, -2.34194e-16, 0.999835)
-
-[node name="Sphere_001" parent="snake_hefty_animated_4/snake_export/Skeleton3D" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_lyc1r")
+bones/5/rotation = Quaternion(0.107356, 0.0118104, 0.649438, 0.752705)
+bones/6/rotation = Quaternion(0.00938715, -1.59161e-08, 0.101924, 0.994748)
+bones/7/rotation = Quaternion(0.0892121, 2.78949e-08, 0.343698, 0.934833)
+bones/8/rotation = Quaternion(0.0552243, 7.00488e-09, 0.36166, 0.930673)
+bones/9/rotation = Quaternion(-0.06572, -2.42742e-08, 0.0244923, 0.997537)
+bones/10/rotation = Quaternion(0.119235, -1.15054e-08, -0.0502081, 0.991596)
+bones/11/rotation = Quaternion(0.0311639, -1.24686e-08, 0.356772, 0.933672)
+bones/12/rotation = Quaternion(-0.11908, 8.01673e-09, 0.103592, 0.987466)
+bones/13/rotation = Quaternion(0.151938, -2.58545e-08, 0.479084, 0.864519)
+bones/14/rotation = Quaternion(-0.00132906, 1.60954e-08, 0.386741, 0.922188)
+bones/15/rotation = Quaternion(-0.343064, -4.06839e-09, 0.209428, 0.915668)
+bones/16/rotation = Quaternion(-0.141922, -3.38131e-08, 0.450576, 0.881385)
+bones/17/rotation = Quaternion(-0.0618448, -3.02437e-09, 0.377803, 0.923818)
+bones/18/rotation = Quaternion(-0.300839, -2.90939e-08, 0.32578, 0.896305)
+bones/19/rotation = Quaternion(-0.288872, -5.28358e-08, 0.276431, 0.916591)
+bones/20/rotation = Quaternion(-0.156087, 4.28165e-08, 0.132489, 0.978817)
+bones/21/rotation = Quaternion(-0.355858, -8.57188e-09, 0.343331, 0.869189)
+bones/22/rotation = Quaternion(-0.255403, -4.10101e-08, 0.331074, 0.908383)
+bones/23/rotation = Quaternion(-0.260864, 0, 0.154619, 0.952913)
+bones/24/rotation = Quaternion(-0.381, -3.27684e-08, 0.166364, 0.909485)
+bones/25/rotation = Quaternion(-0.40104, -9.47669e-08, 0.147358, 0.904131)
+bones/26/rotation = Quaternion(-0.285981, -6.92081e-08, 0.175756, 0.941979)
+bones/27/rotation = Quaternion(-0.395697, -1.04629e-07, 0.226069, 0.890122)
+bones/28/rotation = Quaternion(-0.428892, -1.87642e-08, -0.133785, 0.893394)
+bones/29/rotation = Quaternion(-0.443477, -5.83813e-08, 0.0726709, 0.893335)
+bones/30/rotation = Quaternion(-0.347632, -3.52618e-08, -0.00562968, 0.937614)
+bones/31/rotation = Quaternion(-0.548985, -9.02476e-08, -0.130569, 0.825571)
+bones/32/rotation = Quaternion(-0.255376, -2.3167e-08, -0.0626773, 0.964808)
+bones/33/rotation = Quaternion(-0.472045, -1.02801e-07, -0.14413, 0.869713)
+bones/34/rotation = Quaternion(-0.460569, -4.71019e-08, -0.176045, 0.869991)
+bones/35/rotation = Quaternion(-0.284883, -8.26922e-08, -0.154366, 0.946051)
+bones/36/rotation = Quaternion(-0.408705, -6.71823e-08, -0.214063, 0.887208)
 
 [editable path="snake_hefty_animated_4"]

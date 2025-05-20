@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cxhqkru7kmp2a"]
+[gd_scene load_steps=10 format=3 uid="uid://cxhqkru7kmp2a"]
 
 [ext_resource type="PackedScene" uid="uid://c1716s0ci3nkt" path="res://Scenes/snake4.1.tscn" id="3_2lqy7"]
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://Scenes/Player.tscn" id="3_w2vjh"]
@@ -11,6 +11,12 @@ cell_size = 0.1
 [sub_resource type="BoxMesh" id="BoxMesh_tylgm"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_7nt77"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ubood"]
+albedo_color = Color(0.112471, 0.561741, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2lqy7"]
+albedo_color = Color(0.92468, 0.312884, 0.115777, 1)
 
 [sub_resource type="TorusMesh" id="TorusMesh_ubood"]
 
@@ -134,13 +140,15 @@ spot_range = 44.426
 spot_attenuation = 0.170755
 spot_angle = 42.2129
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["A", "anim_typing", "patrol_object"]]
+[node name="green" type="MeshInstance3D" parent="." groups=["A", "anim_ensnare_1_001", "patrol_object"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.613, 1.91779, -11.8973)
 mesh = SubResource("PrismMesh_7nt77")
+surface_material_override/0 = SubResource("StandardMaterial3D_ubood")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." groups=["A", "anim_typing", "patrol_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.6747, 1.91779, 0.926405)
+[node name="yellpw" type="MeshInstance3D" parent="." groups=["A", "anim_ensnare_1_001", "patrol_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.54219, 1.91779, 0.926405)
 mesh = SubResource("PrismMesh_7nt77")
+surface_material_override/0 = SubResource("StandardMaterial3D_2lqy7")
 
 [node name="X_axis" type="VSlider" parent="."]
 offset_left = 35.0
@@ -184,8 +192,8 @@ offset_right = 155.0
 offset_bottom = 349.0
 text = "test"
 
-[node name="Player" parent="." instance=ExtResource("3_w2vjh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.19459, 4.36125, -1.24877)
+[node name="Player" parent="." groups=["A", "anim_ensnare_1_001"] instance=ExtResource("3_w2vjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2316, 4.36125, -1.24877)
 
 [node name="snake_home_position" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42216, 1.97527, -16.9004)
@@ -195,3 +203,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_w2vjh")
 [node name="Snake" parent="." instance=ExtResource("3_2lqy7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.52916, 4.31555, 0)
 hide_triangles = true
+
+[editable path="Snake"]
+[editable path="Snake/snake_hefty_animated_4"]

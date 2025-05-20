@@ -282,7 +282,7 @@ func velocity_computed(safe_velocity: Vector3) -> void:
 	
 	else:
 		tri_array[0].global_position = tri_array[0].global_position.move_toward(tri_array[0].global_position + safe_velocity, movement_delta)
-	
+
 	tri_array[0].look_at(tri_array[0].global_position + safe_velocity)
 	
 func nav_startup_ready():
@@ -327,7 +327,7 @@ func initialize_ensnarment_curve():
 func move_segments_along_path(delta,speed_new :float) -> bool:
 	for i in snake_vertibrea.size():
 		follow_path_array[i].progress += speed_new *delta
-	
+	print(follow_path_array[0].progress_ratio)
 	if follow_path_array[0].progress_ratio > .99:
 		
 		return true
@@ -376,7 +376,7 @@ func find_target_animation(target_local :Node3D ) ->String:
 func make_anim_timer() -> Timer: # at startup makes a timer in the tree
 	timer_move_on = Timer.new()
 	timer_move_on.name = "move_on"
-	timer_move_on.wait_time = 200
+	timer_move_on.wait_time = 15
 	add_child(timer_move_on)
 	timer_move_on.one_shot = true
 	# make connection to timer right away 
