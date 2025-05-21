@@ -73,6 +73,8 @@ var timer_up2 :bool = false
 # global variable for snake's vertebra, were using this now for moving all the bones 
 var snake_vertibrea :PackedInt32Array
 
+signal ensnared
+
 func _init() -> void:
 
 
@@ -327,7 +329,7 @@ func initialize_ensnarment_curve():
 func move_segments_along_path(delta,speed_new :float) -> bool:
 	for i in snake_vertibrea.size():
 		follow_path_array[i].progress += speed_new *delta
-	print(follow_path_array[0].progress_ratio)
+	
 	if follow_path_array[0].progress_ratio > .99:
 		
 		return true

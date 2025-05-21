@@ -200,9 +200,56 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42216, 1.97527, -16.9004)
 mesh = SubResource("TorusMesh_ubood")
 surface_material_override/0 = SubResource("StandardMaterial3D_w2vjh")
 
-[node name="Snake" parent="." instance=ExtResource("3_2lqy7")]
+[node name="Snake" parent="." groups=["snake"] instance=ExtResource("3_2lqy7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.52916, 4.31555, 0)
 hide_triangles = true
+
+[node name="Game_over_timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="menu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="menu"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 96.0
+offset_right = 812.0
+offset_bottom = 221.0
+text = "MAIN_MENU
+"
+
+[node name="Button2" type="Button" parent="menu"]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 247.0
+offset_right = 807.0
+offset_bottom = 362.0
+text = "RESTART"
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 493.0
+offset_top = 238.0
+offset_right = 533.0
+offset_bottom = 278.0
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.85
+anchor_top = 0.1125
+anchor_right = 2.85
+anchor_bottom = 0.8875
+grow_horizontal = 2
+grow_vertical = 2
+text = "game over play again ? "
 
 [editable path="Snake"]
 [editable path="Snake/snake_hefty_animated_4"]

@@ -106,11 +106,11 @@ func _physics_process(delta: float) -> void:
 					twist_triangles(0)
 					if ennarement_done and not ((snake_target.global_position - tri_array[0].global_position).length() > 2):
 						ensnare_state = "finished"
-						print("ensnare finished ")
+						
 						
 					elif ((snake_target.global_position - tri_array[0].global_position).length() > 2) and timer_up2:
 						ensnare_state = "abort"
-						print("Aborting running off path ")
+						
 						snake_ensnare_oneshot = true
 					else :
 						pass
@@ -140,7 +140,7 @@ func _physics_process(delta: float) -> void:
 			var player_distance :float = tri_array[0].global_position.distance_to(player.global_position)
 			
 			if player_distance < 1:
-				snake_state = "ensnare_anim"
+				snake_state = "ensnare_anim"  
 				
 				
 			if player_distance > 8: # give up chase 
@@ -161,7 +161,11 @@ func _physics_process(delta: float) -> void:
 					make_ensnarement_curve(ensnarement_points,tri_array,snake_target,animation_curve)
 					move_segments_to_path()
 					ensnare_state = "run"
+					if snake_target == player:
+						emit_signal("ensnared") # good to put this signal here because path is only written once 
 				"run":
+					
+
 					
 					ennarement_done = move_segments_along_path(delta,2)
 					var local_target_distance :float = (snake_target.global_position - tri_array[0].global_position).length()
@@ -169,7 +173,7 @@ func _physics_process(delta: float) -> void:
 						ensnare_state = "run_animation"
 						
 					elif local_target_distance > 2.3:
-						print(snake_target.name)
+						
 						ensnare_state = "abort"
 					else :
 						pass
@@ -180,7 +184,7 @@ func _physics_process(delta: float) -> void:
 						transform_save = self.global_transform # note this line needs to run once too 
 						transform_onestart = false
 					# move the snake to the position 
-					self.global_transform = snake_target.global_transform
+						self.global_transform = snake_target.global_transform
 					
 					# check to see if player gets close 
 					var player_distance :float = self.global_position.distance_to(player.global_position) # the reason why its self .global is because of the animation transform 
@@ -189,6 +193,9 @@ func _physics_process(delta: float) -> void:
 						# force timer to conclude 
 						timer_up = true
 						snake_target = player
+					if player_distance > 3 and  snake_target == player:
+						timer_up = true
+						
 
 					
 					snake_animations.play(target_animation)
